@@ -418,6 +418,11 @@ class LocalPipelineService {
           }
 
           _telemetryStreamController.add(telemetry);
+          _emitStatus(PipelineStatus(
+            type: PipelineStatusType.fileLoaded,
+            message: 'Loaded: ${telemetry.fileName} | Alcohol: ${telemetry.alcohol.toStringAsFixed(1)}% | ${telemetry.predictionLabel.toUpperCase()}',
+            fileName: telemetry.fileName,
+          ));
           print('LocalPipelineService: Locally loaded persisted telemetry for $factoryCode.');
         } catch (e) {
           print('LocalPipelineService: Failed to locally load telemetry for $factoryCode: $e');
