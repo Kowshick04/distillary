@@ -1,0 +1,36 @@
+name: empty_app
+description: "Pure Frontend MQTT Telemetry Dashboard Application."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.5.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+
+  google_fonts: ^6.3.1
+  fl_chart: ^1.0.0
+  syncfusion_flutter_gauges: ^30.2.7
+  flutter_animate: ^4.5.2
+  intl: ^0.20.2
+  http: ^1.2.2
+  mqtt_client: ^10.2.0
+  video_player: ^2.14.0
+  video_player_win: ^3.2.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/logo/
+    - assets/flutter_intro_fixed.mp4

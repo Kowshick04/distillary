@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Parry's Distillery Batch Quality Monitoring & AI Prediction Console">
+    <title>Parry's Distillery - Live AI Prediction Console</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-gradient: radial-gradient(circle at top right, #111b36 0%, #060814 100%);
+            --panel-bg: rgba(15, 19, 36, 0.7);
+            --border-color: rgba(17, 207, 201, 0.18);
+            --glow-color: rgba(17, 207, 201, 0.4);
+            
+            --color-teal: #11CFC9;
+            --color-blue: #47B3E2;
+            --color-gold: #FFB300;
+            --color-orange: #F68420;
+            --color-red: #EF4444;
+            --color-text: #F6F6F7;
+            --color-text-muted: #8C929C;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            color: var(--color-text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        /* Header Styling */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 40px;
+            background: rgba(6, 8, 20, 0.6);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-section h1 {
+            font-size: 20px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            background: linear-gradient(90deg, #11CFC9, #47B3E2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .status-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(17, 207, 201, 0.1);
+            border: 1px solid rgba(17, 207, 201, 0.3);
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--color-teal);
+            box-shadow: 0 0 10px rgba(17, 207, 201, 0.1);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--color-teal);
+            border-radius: 50%;
+            animation: pulse 1.8s infinite;
+        }
+
+        /* Factory Tabs Navigation */
+        .tabs-container {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            padding: 24px 40px 0 40px;
+        }
+
+        .tab-btn {
+            background: rgba(15, 19, 36, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--color-text-muted);
+            padding: 12px 24px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .tab-btn:hover {
+            color: var(--color-text);
+            background: rgba(15, 19, 36, 0.7);
+            border-color: rgba(17, 207, 201, 0.2);
+        }
+
+        .tab-btn.active {
+            color: #060814;
+            background: linear-gradient(135deg, var(--color-teal), var(--color-blue));
+            border-color: transparent;
+            box-shadow: 0 0 20px rgba(17, 207, 201, 0.35);
+        }
+
+        /* Main Section Grid */
+        main {
+            flex: 1;
+            padding: 24px 40px;
+            display: grid;
+            grid-template-columns: 3fr 1.2fr;
+            gap: 24px;
+            max-width: 1600px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .glass-card {
+            background: var(--panel-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 24px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            transition: border-color 0.4s ease;
+        }
+
+        .glass-card:hover {
+            border-color: rgba(17, 207, 201, 0.35);
+        }
+
+        /* Dials Panel Layout */
+        .dials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .dial-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .dial-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-text-muted);
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+        }
+
+        .gauge-svg {
+            width: 200px;
+            height: 200px;
+            transform: rotate(-90deg);
+        }
+
+        .gauge-track {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.05);
+            stroke-width: 12px;
+        }
+
+        .gauge-fill {
+            fill: none;
+            stroke: var(--color-teal);
+            stroke-width: 12px;
+            stroke-linecap: round;
+            stroke-dasharray: 565.48; /* 2 * PI * r (90) */
+            stroke-dashoffset: 565.48;
+            transition: stroke-dashoffset 1.5s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.8s ease;
+        }
+
+        .gauge-value {
+            position: absolute;
+            top: 52%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--color-text);
+        }
+
+        .gauge-unit {
+            font-size: 13px;
+            color: var(--color-text-muted);
+            font-weight: 400;
+            margin-top: 4px;
+        }
+
+        /* Overview Parameters Panel */
+        .params-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .param-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .param-label {
+            font-size: 12px;
+            color: var(--color-text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        .param-val {
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        /* AI Operator Advisor Card */
+        .side-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .ai-advisor-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .ai-title-badge {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 179, 0, 0.1);
+            border: 1px solid rgba(255, 179, 0, 0.3);
+            border-radius: 6px;
+            padding: 4px 8px;
+            color: var(--color-gold);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .ai-prediction-banner {
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            transition: all 0.5s ease;
+        }
+
+        .prediction-text {
+            font-size: 24px;
+            font-weight: 800;
+            margin-top: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.5s ease;
+        }
+
+        .ai-guidance-box {
+            background: rgba(255, 255, 255, 0.02);
+            border-left: 4px solid var(--color-teal);
+            padding: 16px;
+            border-radius: 0 12px 12px 0;
+            font-size: 14px;
+            line-height: 1.5;
+            color: #D1D5DB;
+        }
+
+        /* Sync Logs Feed Panel */
+        .logs-container {
+            flex: 1;
+            overflow-y: auto;
+            max-height: 380px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding-right: 8px;
+        }
+
+        .log-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 10px;
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 13px;
+            animation: slideIn 0.4s ease;
+        }
+
+        .log-title {
+            font-weight: 600;
+        }
+
+        .log-timestamp {
+            color: var(--color-text-muted);
+            font-size: 11px;
+        }
+
+        .log-status {
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .status-risk {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--color-red);
+        }
+
+        .status-normal {
+            background: rgba(71, 179, 226, 0.15);
+            color: var(--color-blue);
+        }
+
+        .status-golden {
+            background: rgba(17, 207, 201, 0.15);
+            color: var(--color-teal);
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0% {
+                transform: scale(0.9);
+                box-shadow: 0 0 0 0 rgba(17, 207, 201, 0.7);
+            }
+            70% {
+                transform: scale(1.1);
+                box-shadow: 0 0 0 10px rgba(17, 207, 201, 0);
+            }
+            100% {
+                transform: scale(0.9);
+                box-shadow: 0 0 0 0 rgba(17, 207, 201, 0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsiveness */
+        @media (max-width: 1024px) {
+            main {
+                grid-template-columns: 1fr;
+            }
+            header {
+                padding: 18px 24px;
+            }
+            .tabs-container {
+                padding: 20px 24px 0 24px;
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Block -->
+    <header>
+        <div class="logo-section">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19 10V20C19 20.5523 18.5523 21 18 21H6C5.44772 21 5 20.5523 5 20V10M19 10L12 3L5 10M19 10H5" stroke="#11CFC9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 12C10.8954 12 10 12.8954 10 14C10 15.1046 10.8954 16 12 16C13.1046 16 14 15.1046 14 14C14 12.8954 13.1046 12 12 12Z" fill="#47B3E2"/>
+            </svg>
+            <h1 id="main-title">DISTILLERY AI CONSOLE</h1>
+        </div>
+        <div class="status-badge" id="sync-status">
+            <div class="status-dot"></div>
+            <span>LIVE FEED ACTIVE</span>
+        </div>
+    </header>
+
+    <!-- Factory Navigation Tabs -->
+    <div class="tabs-container" id="factory-tabs">
+        <button class="tab-btn active" onclick="switchFactory('F01', 0)">Haliyal</button>
+        <button class="tab-btn" onclick="switchFactory('F02', 1)">Sankili</button>
+        <button class="tab-btn" onclick="switchFactory('F03', 2)">Nellikuppam</button>
+        <button class="tab-btn" onclick="switchFactory('F04', 3)">Sivagangai</button>
+        <button class="tab-btn" onclick="switchFactory('F05', 4)">Bagalkot</button>
+    </div>
+
+    <!-- Main Content Layout -->
+    <main>
+        <!-- Telemetry Details Panel -->
+        <section class="glass-card" id="telemetry-panel">
+            <h2 id="factory-header-title" style="margin-bottom: 24px; font-weight: 800; font-size: 24px; letter-spacing: 0.5px;">HALIYAL OPERATIONS</h2>
+            
+            <!-- Live Gauges Grid -->
+            <div class="dials-grid">
+                <!-- Gauge 1: Ethanol -->
+                <div class="dial-container">
+                    <span class="dial-title">Wash Alcohol</span>
+                    <svg class="gauge-svg">
+                        <circle class="gauge-track" cx="100" cy="100" r="90" />
+                        <circle id="gauge-alc" class="gauge-fill" cx="100" cy="100" r="90" />
+                    </svg>
+                    <div class="gauge-value" id="val-alc">--<span class="gauge-unit">%</span></div>
+                </div>
+
+                <!-- Gauge 2: Efficiency -->
+                <div class="dial-container">
+                    <span class="dial-title">Fermentation Efficiency</span>
+                    <svg class="gauge-svg">
+                        <circle class="gauge-track" cx="100" cy="100" r="90" />
+                        <circle id="gauge-eff" class="gauge-fill" cx="100" cy="100" r="90" style="stroke: var(--color-blue);" />
+                    </svg>
+                    <div class="gauge-value" id="val-eff">--<span class="gauge-unit">%</span></div>
+                </div>
+
+                <!-- Gauge 3: Yield -->
+                <div class="dial-container">
+                    <span class="dial-title">Actual Production</span>
+                    <svg class="gauge-svg">
+                        <circle class="gauge-track" cx="100" cy="100" r="90" />
+                        <circle id="gauge-yield" class="gauge-fill" cx="100" cy="100" r="90" style="stroke: var(--color-gold);" />
+                    </svg>
+                    <div class="gauge-value" id="val-yield">--<span class="gauge-unit"> KL</span></div>
+                </div>
+            </div>
+
+            <!-- Parameters Grid Section -->
+            <div class="params-grid">
+                <div class="param-card">
+                    <span class="param-label">Active Fermenter</span>
+                    <span class="param-val" id="val-fermenter">-</span>
+                </div>
+                <div class="param-card">
+                    <span class="param-label">Feed Control (PF)</span>
+                    <span class="param-val" id="val-pf">-</span>
+                </div>
+                <div class="param-card">
+                    <span class="param-label">Last Synchronized</span>
+                    <span class="param-val" id="val-sync">Waiting for upload</span>
+                </div>
+                <div class="param-card">
+                    <span class="param-label">Evaluation Date</span>
+                    <span class="param-val" id="val-date">-</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sidebar Panel -->
+        <section class="side-panel">
+            <!-- AI Advisor Panel -->
+            <div class="glass-card">
+                <div class="ai-advisor-header">
+                    <h3 style="font-weight: 800; font-size: 18px;">AI OPERATOR ADVISOR</h3>
+                    <div class="ai-title-badge">RANDOM FOREST</div>
+                </div>
+                
+                <div class="ai-prediction-banner" id="prediction-banner">
+                    <span class="param-label" style="font-weight: 800;">BATCH QUALITY CLASSIFICATION</span>
+                    <div class="prediction-text" id="prediction-label">WAITING...</div>
+                </div>
+
+                <div class="ai-guidance-box" id="ai-guidance">
+                    Initializing connection. Awaiting telemetry reports from the Google Drive sync service...
+                </div>
+            </div>
+
+            <!-- Real-time Ingestion Logs Feed -->
+            <div class="glass-card" style="display: flex; flex-direction: column; flex: 1;">
+                <h3 style="font-weight: 800; font-size: 18px; margin-bottom: 16px;">DRIVE INGESTION LOGS</h3>
+                <div class="logs-container" id="logs-feed">
+                    <div class="log-item" style="justify-content: center; color: var(--color-text-muted);">
+                        No entries recorded.
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // State management variables
+        let currentFactoryCode = 'F01';
+        const factoryNames = {
+            'F01': 'Haliyal',
+            'F02': 'Sankili',
+            'F03': 'Nellikuppam',
+            'F04': 'Sivagangai',
+            'F05': 'Bagalkot'
+        };
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchInitialState(currentFactoryCode);
+            initializeSseStream();
+        });
+
+        // Tab selection method
+        function switchFactory(factoryCode, tabIndex) {
+            currentFactoryCode = factoryCode;
+            
+            // Toggle active tabs class
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            tabButtons[tabIndex].classList.add('active');
+
+            // Update title header
+            document.getElementById('factory-header-title').innerText = `${factoryNames[factoryCode].toUpperCase()} OPERATIONS`;
+
+            // Reset and fetch data for selected factory
+            fetchInitialState(factoryCode);
+        }
+
+        // Helper to configure visual SVG values
+        function setGaugeValue(gaugeId, percent) {
+            const gauge = document.getElementById(gaugeId);
+            const radius = gauge.r.baseVal.value;
+            const circumference = 2 * Math.PI * radius;
+            
+            // Calculate stroke-dashoffset based on percent (clamped between 0 and 100)
+            const clampedPercent = Math.max(0, Math.min(100, percent));
+            const offset = circumference - (clampedPercent / 100) * circumference;
+            gauge.style.strokeDashoffset = offset;
+        }
+
+        // Fetch last two snapshots on load to prime page
+        async function fetchInitialState(factoryCode) {
+            try {
+                const response = await fetch(`/api/v1/distillery/snapshots?factory_code=${factoryCode}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data && data.length > 0) {
+                        updateDashboardUI(data[0]); // Update with latest
+                        updateLogsFeed(data);      // Update logs feed
+                    } else {
+                        resetDashboardUI();
+                    }
+                }
+            } catch (err) {
+                console.error("Error fetching initial snapshots:", err);
+            }
+        }
+
+        // Reset UI if no data is found for a factory
+        function resetDashboardUI() {
+            setGaugeValue('gauge-alc', 0);
+            setGaugeValue('gauge-eff', 0);
+            setGaugeValue('gauge-yield', 0);
+
+            document.getElementById('val-alc').innerHTML = `--<span class="gauge-unit">%</span>`;
+            document.getElementById('val-eff').innerHTML = `--<span class="gauge-unit">%</span>`;
+            document.getElementById('val-yield').innerHTML = `--<span class="gauge-unit"> KL</span>`;
+
+            document.getElementById('val-fermenter').innerText = '-';
+            document.getElementById('val-pf').innerText = '-';
+            document.getElementById('val-sync').innerText = 'No uploads detected';
+            document.getElementById('val-date').innerText = '-';
+
+            const banner = document.getElementById('prediction-banner');
+            banner.style.boxShadow = 'none';
+            banner.style.borderColor = 'rgba(255, 255, 255, 0.04)';
+            banner.style.background = 'rgba(255, 255, 255, 0.02)';
+            
+            document.getElementById('prediction-label').innerText = 'UNKNOWN';
+            document.getElementById('prediction-label').style.color = 'var(--color-text-muted)';
+            document.getElementById('ai-guidance').innerText = 'No operations recorded for this factory. Awaiting uploads.';
+            
+            document.getElementById('logs-feed').innerHTML = `
+                <div class="log-item" style="justify-content: center; color: var(--color-text-muted);">
+                    No entries recorded.
+                </div>
+            `;
+        }
+
+        // Map telemetry data directly to HTML fields
+        function updateDashboardUI(log) {
+            // Map values to display
+            const alc = parseFloat(log.ethanolPct || 0);
+            const eff = parseFloat(log.feEfficiency || 0);
+            const yieldVal = parseFloat(log.actualProduction || 0);
+            const alertLabel = log.predictionLabel || 'NORMAL';
+
+            // 1. Dials
+            // Map relative bounds to 0-100 values to fill SVG circle
+            const alcPercent = (alc / 15.0) * 100; // alcohol percentage bounded to 15% Max
+            setGaugeValue('gauge-alc', alcPercent);
+            setGaugeValue('gauge-eff', eff);
+            setGaugeValue('gauge-yield', (yieldVal / 250.0) * 100); // production capped to 250 KL
+
+            document.getElementById('val-alc').innerHTML = `${alc.toFixed(1)}<span class="gauge-unit">%</span>`;
+            document.getElementById('val-eff').innerHTML = `${eff.toFixed(1)}<span class="gauge-unit">%</span>`;
+            document.getElementById('val-yield').innerHTML = `${yieldVal.toFixed(1)}<span class="gauge-unit"> KL</span>`;
+
+            // 2. Metrics card
+            document.getElementById('val-fermenter').innerText = `Fermenter ${log.fermenter || 1}`;
+            document.getElementById('val-pf').innerText = log.pf || 'PF-1';
+            
+            // Format Timestamp
+            let timeStr = 'Completed Ingest';
+            if (log.createdAt) {
+                try {
+                    const d = new Date(log.createdAt);
+                    timeStr = d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                } catch(_) {}
+            }
+            document.getElementById('val-sync').innerText = timeStr;
+            document.getElementById('val-date').innerText = log.date || '-';
+
+            // 3. AI Prediction Banner
+            const banner = document.getElementById('prediction-banner');
+            const labelEl = document.getElementById('prediction-label');
+            const guidanceEl = document.getElementById('ai-guidance');
+
+            labelEl.innerText = alertLabel;
+            
+            if (alertLabel.toUpperCase() === 'GOLDEN BATCH' || alertLabel.toUpperCase() === 'GOLDEN') {
+                labelEl.innerText = "GOLDEN BATCH";
+                labelEl.style.color = 'var(--color-teal)';
+                banner.style.borderColor = 'rgba(17, 207, 201, 0.4)';
+                banner.style.boxShadow = '0 0 20px rgba(17, 207, 201, 0.2)';
+                banner.style.background = 'rgba(17, 207, 201, 0.03)';
+                guidanceEl.style.borderLeftColor = 'var(--color-teal)';
+                guidanceEl.innerText = "Batch parameters are in alignment with the golden target profile. Maintain current settings and temperatures.";
+            } else if (alertLabel.toUpperCase() === 'RISK' || alertLabel.toUpperCase() === 'LOW ALCOHOL') {
+                labelEl.style.color = 'var(--color-red)';
+                banner.style.borderColor = 'rgba(239, 68, 68, 0.4)';
+                banner.style.boxShadow = '0 0 20px rgba(239, 68, 68, 0.2)';
+                banner.style.background = 'rgba(239, 68, 68, 0.03)';
+                guidanceEl.style.borderLeftColor = 'var(--color-red)';
+                guidanceEl.innerText = "CRITICAL ACTION LOGGED: Volatile acidity levels show elevated risk of bacterial contamination. Check yeast viability and adjust pH immediately.";
+            } else {
+                labelEl.innerText = "NORMAL BATCH";
+                labelEl.style.color = 'var(--color-blue)';
+                banner.style.borderColor = 'rgba(71, 179, 226, 0.4)';
+                banner.style.boxShadow = '0 0 20px rgba(71, 179, 226, 0.2)';
+                banner.style.background = 'rgba(71, 179, 226, 0.03)';
+                guidanceEl.style.borderLeftColor = 'var(--color-blue)';
+                guidanceEl.innerText = "Batch is performing stably. Fermentation rates and ethanol concentration profiles are behaving normally.";
+            }
+        }
+
+        // Render snapshots feed list
+        function updateLogsFeed(snapshots) {
+            const feed = document.getElementById('logs-feed');
+            feed.innerHTML = '';
+            
+            snapshots.forEach(log => {
+                const alert = log.predictionLabel || 'NORMAL';
+                let statusClass = 'status-normal';
+                
+                if (alert.toUpperCase() === 'GOLDEN BATCH' || alert.toUpperCase() === 'GOLDEN') {
+                    statusClass = 'status-golden';
+                } else if (alert.toUpperCase() === 'RISK' || alert.toUpperCase() === 'LOW ALCOHOL') {
+                    statusClass = 'status-risk';
+                }
+
+                let timeStr = log.date;
+                try {
+                    const d = new Date(log.createdAt);
+                    timeStr = d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) + ' - ' + d.toLocaleDateString([], { day: '2-digit', month: 'short' });
+                } catch(_) {}
+
+                const item = document.createElement('div');
+                item.className = 'log-item';
+                item.innerHTML = `
+                    <div>
+                        <span class="log-title">Fermenter ${log.fermenter || 1} Log</span>
+                        <div class="log-timestamp">${timeStr}</div>
+                    </div>
+                    <span class="log-status ${statusClass}">${alert.toUpperCase()}</span>
+                `;
+                feed.appendChild(item);
+            });
+        }
+
+        // Listen for live Server-Sent Events (SSE)
+        function initializeSseStream() {
+            const eventSource = new EventSource('/api/v1/fermentation/stream');
+            
+            eventSource.onmessage = (event) => {
+                try {
+                    const rawData = JSON.parse(event.data);
+                    
+                    // Route to proper tabs
+                    if (rawData.event === 'new_distillery_batch') {
+                        const batch = rawData.data;
+                        
+                        // Map structure to UI format
+                        const mappedLog = {
+                            factoryCode: batch.factoryCode,
+                            date: batch.date,
+                            fermenter: batch.fermenter,
+                            pf: batch.pf,
+                            ethanolPct: batch.ethanolPct,
+                            feEfficiency: batch.feEfficiency,
+                            actualProduction: batch.actualProduction,
+                            createdAt: new Date().toISOString(),
+                            predictionLabel: batch.alert,
+                            confidence: batch.confidence
+                        };
+
+                        // If the incoming event is for our CURRENT active tab factory:
+                        if (batch.factoryCode === currentFactoryCode) {
+                            updateDashboardUI(mappedLog);
+                            
+                            // Re-fetch snapshots to refresh feed in order
+                            fetchInitialState(currentFactoryCode);
+                        } else {
+                            // Flash connection status dot as a global sync confirmation
+                            const statusDot = document.querySelector('.status-dot');
+                            statusDot.style.backgroundColor = 'var(--color-blue)';
+                            setTimeout(() => {
+                                statusDot.style.backgroundColor = 'var(--color-teal)';
+                            }, 1000);
+                        }
+                    }
+                } catch (e) {
+                    console.error("Error parsing SSE telemetry:", e);
+                }
+            };
+
+            eventSource.onerror = (e) => {
+                console.warn("SSE connection interrupted. Reconnecting...");
+                const statusSpan = document.querySelector('#sync-status span');
+                const statusDot = document.querySelector('.status-dot');
+                statusSpan.innerText = "STREAM DISCONNECTED";
+                statusSpan.style.color = 'var(--color-red)';
+                statusDot.style.backgroundColor = 'var(--color-red)';
+            };
+
+            eventSource.onopen = () => {
+                const statusSpan = document.querySelector('#sync-status span');
+                const statusDot = document.querySelector('.status-dot');
+                statusSpan.innerText = "LIVE FEED ACTIVE";
+                statusSpan.style.color = 'var(--color-teal)';
+                statusDot.style.backgroundColor = 'var(--color-teal)';
+            };
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!-- Allow cleartext (plain TCP) traffic to the HiveMQ public MQTT broker on port 1883 -->
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">broker.hivemq.com</domain>
+        <domain includeSubdomains="true">mqtt.eclipseprojects.io</domain>
+    </domain-config>
+    <!-- Allow cleartext on local network for development/LAN testing -->
+    <base-config cleartextTrafficPermitted="true" />
+</network-security-config>

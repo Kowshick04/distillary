@@ -1,0 +1,60 @@
+name: distillary
+description: "Spirit extraction Flutter application."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.5.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+  permission_handler: ^11.3.1
+
+  google_fonts: ^6.3.1
+  fl_chart: ^1.0.0
+  syncfusion_flutter_gauges: ^30.2.7
+  flutter_animate: ^4.5.2
+  intl: ^0.20.2
+  file_picker: ^8.0.0
+  spreadsheet_decoder: ^2.1.0
+  http: ^1.2.2
+  drift: ^2.24.0
+  drift_flutter: ^0.2.0
+  path_provider: ^2.1.6
+  sqlite3: ^2.4.0
+  sqlite3_flutter_libs: ^0.5.24
+  path: ^1.9.1
+  google_sign_in: ^6.2.2
+  googleapis: ^13.2.0
+  extension_google_sign_in_as_googleapis_auth: ^2.0.12
+  workmanager: ^0.10.8
+  archive: ^3.6.1
+  mqtt_client: ^10.2.0
+  xml: ^6.0.0
+  video_player: ^2.14.0
+  video_player_win: ^3.2.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^4.0.0
+  drift_dev: any
+  build_runner: any
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/logo/
+    - assets/model/
+    - assets/flutter_intro_fixed.mp4
+
+dependency_overrides:
+  path_provider_foundation: 2.4.0
+
+

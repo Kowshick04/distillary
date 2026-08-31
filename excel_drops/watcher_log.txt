@@ -1,0 +1,1048 @@
+[2026-08-26 16:03:40] Loading RandomForest AI model from: C:\Users\Admin B\StudioProjects\Distillary\server\batch_quality_classifier.joblib ...
+[2026-08-26 16:03:41] Model loaded successfully.
+[2026-08-26 16:03:41] Connecting to MQTT Broker [broker.hivemq.com:1883]...
+[2026-08-26 16:03:51] Excel Directory Watcher active! Drop files in: C:\Users\Admin B\StudioProjects\Distillary\excel_drops
+
+[2026-08-26 16:03:51] Detected file: Bagalkot_60KLPD_Synthetic_Data.xlsx -> Factory: F05
+[2026-08-26 16:03:51] Successfully processed and published telemetry to: distillery/factory/F05/telemetry
+[2026-08-26 16:03:51]   - Efficiency: 0.89% | Yield: 39.45 KL | Alert: GOLDEN BATCH (Conf: 90.3%)
+[2026-08-26 16:03:51] Moved Bagalkot_60KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-26 16:11:06] Detected file: Bagalkot_60KLPD_Synthetic_Data.xlsx -> Factory: F05
+[2026-08-26 16:11:06] Successfully processed and published telemetry to: distillery/factory/F05/telemetry
+[2026-08-26 16:11:06]   - Efficiency: 0.89% | Yield: 39.45 KL | Alert: GOLDEN BATCH (Conf: 90.3%)
+[2026-08-26 16:11:06] Moved Bagalkot_60KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-26 16:11:06] Detected file: Haliyal_170KLPD_Synthetic_Data.xlsx -> Factory: F01
+[2026-08-26 16:11:06] Successfully processed and published telemetry to: distillery/factory/F01/telemetry
+[2026-08-26 16:11:06]   - Efficiency: 0.92% | Yield: 114.61 KL | Alert: GOLDEN BATCH (Conf: 84.9%)
+[2026-08-26 16:11:06] Moved Haliyal_170KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-26 16:11:06] Detected file: Nellikuppam_120KLPD_Synthetic_Data.xlsx -> Factory: F03
+[2026-08-26 16:11:06] Successfully processed and published telemetry to: distillery/factory/F03/telemetry
+[2026-08-26 16:11:06]   - Efficiency: 0.89% | Yield: 80.4 KL | Alert: GOLDEN BATCH (Conf: 88.5%)
+[2026-08-26 16:11:06] Moved Nellikuppam_120KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-26 16:11:20] Detected file: Bagalkot_60KLPD_Synthetic_Data.xlsx -> Factory: F05
+[2026-08-26 16:11:20] Successfully processed and published telemetry to: distillery/factory/F05/telemetry
+[2026-08-26 16:11:20]   - Efficiency: 0.89% | Yield: 39.45 KL | Alert: GOLDEN BATCH (Conf: 90.3%)
+[2026-08-26 16:11:20] Moved Bagalkot_60KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-26 16:11:20] Detected file: Haliyal_170KLPD_Synthetic_Data.xlsx -> Factory: F01
+[2026-08-26 16:11:21] Successfully processed and published telemetry to: distillery/factory/F01/telemetry
+[2026-08-26 16:11:21]   - Efficiency: 0.92% | Yield: 114.61 KL | Alert: GOLDEN BATCH (Conf: 84.9%)
+[2026-08-26 16:11:21] Moved Haliyal_170KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-26 16:11:21] Detected file: Nellikuppam_120KLPD_Synthetic_Data.xlsx -> Factory: F03
+[2026-08-26 16:11:21] Successfully processed and published telemetry to: distillery/factory/F03/telemetry
+[2026-08-26 16:11:21]   - Efficiency: 0.89% | Yield: 80.4 KL | Alert: GOLDEN BATCH (Conf: 88.5%)
+[2026-08-26 16:11:21] Moved Nellikuppam_120KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-26 16:11:21] Detected file: Sankili_168KLPD_Synthetic_Data.xlsx -> Factory: F02
+[2026-08-26 16:11:21] Successfully processed and published telemetry to: distillery/factory/F02/telemetry
+[2026-08-26 16:11:21]   - Efficiency: 0.859% | Yield: 109.82 KL | Alert: GOLDEN BATCH (Conf: 76.5%)
+[2026-08-26 16:11:21] Moved Sankili_168KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-26 16:11:21] Detected file: Sivagangai_64KLPD_Synthetic_Data.xlsx -> Factory: F04
+[2026-08-26 16:11:21] Successfully processed and published telemetry to: distillery/factory/F04/telemetry
+[2026-08-26 16:11:21]   - Efficiency: 0.937% | Yield: 45.43 KL | Alert: GOLDEN BATCH (Conf: 85.4%)
+[2026-08-26 16:11:21] Moved Sivagangai_64KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-26 16:11:57] Detected file: Sivagangai_64KLPD_Synthetic_Data.xlsx -> Factory: F04
+[2026-08-26 16:11:57] Successfully processed and published telemetry to: distillery/factory/F04/telemetry
+[2026-08-26 16:11:57]   - Efficiency: 0.937% | Yield: 45.43 KL | Alert: GOLDEN BATCH (Conf: 85.4%)
+[2026-08-26 16:11:57] Moved Sivagangai_64KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-26 16:12:09] Detected file: Sankili_168KLPD_Synthetic_Data.xlsx -> Factory: F02
+[2026-08-26 16:12:10] Successfully processed and published telemetry to: distillery/factory/F02/telemetry
+[2026-08-26 16:12:10]   - Efficiency: 0.859% | Yield: 109.82 KL | Alert: GOLDEN BATCH (Conf: 76.5%)
+[2026-08-26 16:12:10] Error processing file Sankili_168KLPD_Synthetic_Data.xlsx: [WinError 2] The system cannot find the file specified
+
+[2026-08-26 16:16:12] Loading RandomForest AI model from: C:\Users\Admin B\StudioProjects\Distillary\server\batch_quality_classifier.joblib ...
+[2026-08-26 16:16:14] Model loaded successfully.
+[2026-08-26 16:16:14] Connecting to MQTT Broker [broker.hivemq.com:1883]...
+[2026-08-26 16:16:23] Excel Directory Watcher active! Drop files in: C:\Users\Admin B\StudioProjects\Distillary\excel_drops
+
+[2026-08-26 16:17:07] Detected file: Bagalkot_60KLPD_Synthetic_Data.xlsx -> Factory: F05
+[2026-08-26 16:17:07] Successfully processed and published telemetry to: distillery/factory/F05/telemetry
+[2026-08-26 16:17:07]   - Efficiency: 0.89% | Yield: 39.45 KL | Alert: GOLDEN BATCH (Conf: 90.3%)
+[2026-08-26 16:17:07] Moved Bagalkot_60KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-26 16:17:07] Detected file: Haliyal_170KLPD_Synthetic_Data.xlsx -> Factory: F01
+[2026-08-26 16:17:07] Successfully processed and published telemetry to: distillery/factory/F01/telemetry
+[2026-08-26 16:17:07]   - Efficiency: 0.92% | Yield: 114.61 KL | Alert: GOLDEN BATCH (Conf: 84.9%)
+[2026-08-26 16:17:07] Moved Haliyal_170KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-26 16:17:07] Detected file: Nellikuppam_120KLPD_Synthetic_Data.xlsx -> Factory: F03
+[2026-08-26 16:17:08] Successfully processed and published telemetry to: distillery/factory/F03/telemetry
+[2026-08-26 16:17:08]   - Efficiency: 0.89% | Yield: 80.4 KL | Alert: GOLDEN BATCH (Conf: 88.5%)
+[2026-08-26 16:17:08] Moved Nellikuppam_120KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-26 16:17:08] Detected file: Sankili_168KLPD_Synthetic_Data.xlsx -> Factory: F02
+[2026-08-26 16:17:08] Successfully processed and published telemetry to: distillery/factory/F02/telemetry
+[2026-08-26 16:17:08]   - Efficiency: 0.859% | Yield: 109.82 KL | Alert: GOLDEN BATCH (Conf: 76.5%)
+[2026-08-26 16:17:08] Moved Sankili_168KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-26 16:17:08] Detected file: Sivagangai_64KLPD_Synthetic_Data.xlsx -> Factory: F04
+[2026-08-26 16:17:08] Successfully processed and published telemetry to: distillery/factory/F04/telemetry
+[2026-08-26 16:17:08]   - Efficiency: 0.937% | Yield: 45.43 KL | Alert: GOLDEN BATCH (Conf: 85.4%)
+[2026-08-26 16:17:08] Moved Sivagangai_64KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-26 16:19:26] Detected file: Haliyal_170KLPD_Synthetic_Data.xlsx -> Factory: F01
+[2026-08-26 16:19:26] Successfully processed and published telemetry to: distillery/factory/F01/telemetry
+[2026-08-26 16:19:26]   - Efficiency: 0.92% | Yield: 114.61 KL | Alert: GOLDEN BATCH (Conf: 84.9%)
+[2026-08-26 16:19:26] Moved Haliyal_170KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-26 16:23:18] Detected file: Bagalkot_60KLPD_Synthetic_Data.xlsx -> Factory: F05
+[2026-08-26 16:23:19] Successfully processed and published telemetry to: distillery/factory/F05/telemetry
+[2026-08-26 16:23:19]   - Efficiency: 0.89% | Yield: 39.45 KL | Alert: GOLDEN BATCH (Conf: 90.3%)
+[2026-08-26 16:23:19] Moved Bagalkot_60KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-26 16:26:47] Loading RandomForest AI model from: C:\Users\Admin B\StudioProjects\Distillary\server\batch_quality_classifier.joblib ...
+[2026-08-26 16:26:49] Model loaded successfully.
+[2026-08-26 16:26:49] Connecting to MQTT Broker [broker.hivemq.com:1883]...
+[2026-08-26 16:26:58] Excel Directory Watcher active! Drop files in: C:\Users\Admin B\StudioProjects\Distillary\excel_drops
+
+[2026-08-26 16:28:38] Detected file: Haliyal_170KLPD_Synthetic_Data.xlsx -> Factory: F01
+[2026-08-26 16:28:39] Successfully processed and published telemetry to: distillery/factory/F01/telemetry
+[2026-08-26 16:28:39]   - Efficiency: 0.92% | Yield: 114.61 KL | Alert: GOLDEN BATCH (Conf: 84.9%)
+[2026-08-26 16:28:39] Moved Haliyal_170KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-26 16:35:19] Loading RandomForest AI model from: C:\Users\Admin B\StudioProjects\Distillary\server\batch_quality_classifier.joblib ...
+[2026-08-26 16:35:21] Model loaded successfully.
+[2026-08-26 16:35:21] Connecting to MQTT Broker [broker.hivemq.com:1883]...
+[2026-08-26 16:35:30] Excel Directory Watcher active! Drop files in: C:\Users\Admin B\StudioProjects\Distillary\excel_drops
+
+[2026-08-26 16:35:30] Detected file: Bagalkot_60KLPD_Synthetic_Data.xlsx -> Factory: F05
+[2026-08-26 16:35:31] Successfully processed and published telemetry to: distillery/factory/F05/telemetry
+[2026-08-26 16:35:31]   - Efficiency: 0.89% | Yield: 39.45 KL | Alert: GOLDEN BATCH (Conf: 90.3%)
+[2026-08-26 16:35:31] Moved Bagalkot_60KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-26 16:36:13] Detected file: Sivagangai_64KLPD_Synthetic_Data.xlsx -> Factory: F04
+[2026-08-26 16:36:13] Successfully processed and published telemetry to: distillery/factory/F04/telemetry
+[2026-08-26 16:36:13]   - Efficiency: 0.937% | Yield: 45.43 KL | Alert: GOLDEN BATCH (Conf: 85.4%)
+[2026-08-26 16:36:13] Moved Sivagangai_64KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-26 16:42:53] Detected file: Bagalkot_60KLPD_Synthetic_Data.xlsx -> Factory: F05
+[2026-08-26 16:42:53] Successfully processed and published telemetry to: distillery/factory/F05/telemetry
+[2026-08-26 16:42:53]   - Efficiency: 0.89% | Yield: 39.45 KL | Alert: GOLDEN BATCH (Conf: 90.3%)
+[2026-08-26 16:42:53] Moved Bagalkot_60KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-26 16:48:11] Detected file: Nellikuppam_120KLPD_Synthetic_Data.xlsx -> Factory: F03
+[2026-08-26 16:48:11] Successfully processed and published telemetry to: distillery/factory/F03/telemetry
+[2026-08-26 16:48:11]   - Efficiency: 0.89% | Yield: 80.4 KL | Alert: GOLDEN BATCH (Conf: 88.5%)
+[2026-08-26 16:48:11] Moved Nellikuppam_120KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-26 17:03:20] Detected file: Haliyal_170KLPD_Synthetic_Data.xlsx -> Factory: F01
+[2026-08-26 17:03:20] Successfully processed and published telemetry to: distillery/factory/F01/telemetry
+[2026-08-26 17:03:20]   - Efficiency: 0.92% | Yield: 114.61 KL | Alert: GOLDEN BATCH (Conf: 84.9%)
+[2026-08-26 17:03:20] Moved Haliyal_170KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-26 18:28:54] Detected file: Bagalkot_60KLPD_Synthetic_Data.xlsx -> Factory: F05
+[2026-08-26 18:28:54] Successfully processed and published telemetry to: distillery/factory/F05/telemetry
+[2026-08-26 18:28:54]   - Efficiency: 0.89% | Yield: 39.45 KL | Alert: GOLDEN BATCH (Conf: 90.3%)
+[2026-08-26 18:28:54] Moved Bagalkot_60KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 11:45:00] Loading RandomForest AI model from: C:\Users\Admin B\StudioProjects\Distillary\server\batch_quality_classifier.joblib ...
+[2026-08-27 11:45:04] Model loaded successfully.
+[2026-08-27 11:45:04] Connecting to MQTT Broker [broker.emqx.io:1883]...
+[2026-08-27 11:45:04] Excel Directory Watcher active! Drop files in: C:\Users\Admin B\StudioProjects\Distillary\excel_drops
+
+[2026-08-27 11:45:28] Detected file: Sivagangai_64KLPD_Synthetic_Data.xlsx -> Factory: F04
+[2026-08-27 11:45:29] Successfully processed and published telemetry to: distillery/factory/F04/telemetry
+[2026-08-27 11:45:29]   - Efficiency: 0.937% | Yield: 45.43 KL | Alert: GOLDEN BATCH (Conf: 85.4%)
+[2026-08-27 11:45:29] Moved Sivagangai_64KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 11:55:07] Loading RandomForest AI model from: C:\Users\Admin B\StudioProjects\Distillary\server\batch_quality_classifier.joblib ...
+[2026-08-27 11:55:08] Model loaded successfully.
+[2026-08-27 11:55:08] Connecting to MQTT Broker [broker.emqx.io:1883]...
+[2026-08-27 11:55:09] Excel Directory Watcher active! Drop files in: C:\Users\Admin B\StudioProjects\Distillary\excel_drops
+
+[2026-08-27 11:55:09] Detected file: Bagalkot_60KLPD_Synthetic_Data - Copy.xlsx -> Factory: F05
+[2026-08-27 11:55:09] Successfully processed and published telemetry to: distillery/factory/F05/telemetry
+[2026-08-27 11:55:09]   - Efficiency: 0.89% | Yield: 39.45 KL | Alert: GOLDEN BATCH (Conf: 90.3%)
+[2026-08-27 11:55:09] Moved Bagalkot_60KLPD_Synthetic_Data - Copy.xlsx to processed subfolder.
+
+[2026-08-27 11:55:09] Detected file: Bagalkot_60KLPD_Synthetic_Data.xlsx -> Factory: F05
+[2026-08-27 11:55:09] Successfully processed and published telemetry to: distillery/factory/F05/telemetry
+[2026-08-27 11:55:09]   - Efficiency: 0.89% | Yield: 39.45 KL | Alert: GOLDEN BATCH (Conf: 90.3%)
+[2026-08-27 11:55:09] Moved Bagalkot_60KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 11:55:09] Detected file: Haliyal_170KLPD_Synthetic_Data.xlsx -> Factory: F01
+[2026-08-27 11:55:09] Successfully processed and published telemetry to: distillery/factory/F01/telemetry
+[2026-08-27 11:55:09]   - Efficiency: 0.92% | Yield: 114.61 KL | Alert: GOLDEN BATCH (Conf: 84.9%)
+[2026-08-27 11:55:09] Moved Haliyal_170KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 11:55:09] Detected file: Nellikuppam_120KLPD_Synthetic_Data.xlsx -> Factory: F03
+[2026-08-27 11:55:09] Successfully processed and published telemetry to: distillery/factory/F03/telemetry
+[2026-08-27 11:55:09]   - Efficiency: 0.89% | Yield: 80.4 KL | Alert: GOLDEN BATCH (Conf: 88.5%)
+[2026-08-27 11:55:09] Moved Nellikuppam_120KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 11:55:09] Detected file: Sankili_168KLPD_Synthetic_Data.xlsx -> Factory: F02
+[2026-08-27 11:55:10] Successfully processed and published telemetry to: distillery/factory/F02/telemetry
+[2026-08-27 11:55:10]   - Efficiency: 0.859% | Yield: 109.82 KL | Alert: GOLDEN BATCH (Conf: 76.5%)
+[2026-08-27 11:55:10] Moved Sankili_168KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 11:55:10] Detected file: Sivagangai_64KLPD_Synthetic_Data.xlsx -> Factory: F04
+[2026-08-27 11:55:10] Successfully processed and published telemetry to: distillery/factory/F04/telemetry
+[2026-08-27 11:55:10]   - Efficiency: 0.937% | Yield: 45.43 KL | Alert: GOLDEN BATCH (Conf: 85.4%)
+[2026-08-27 11:55:10] Moved Sivagangai_64KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 11:58:24] Detected file: Bagalkot_60KLPD_Synthetic_Data - Copy.xlsx -> Factory: F05
+[2026-08-27 11:58:24] Successfully processed and published telemetry to: distillery/factory/F05/telemetry
+[2026-08-27 11:58:24]   - Efficiency: 0.89% | Yield: 39.45 KL | Alert: GOLDEN BATCH (Conf: 90.3%)
+[2026-08-27 11:58:24] Moved Bagalkot_60KLPD_Synthetic_Data - Copy.xlsx to processed subfolder.
+
+[2026-08-27 11:58:24] Detected file: Haliyal_170KLPD_Synthetic_Data.xlsx -> Factory: F01
+[2026-08-27 11:58:24] Successfully processed and published telemetry to: distillery/factory/F01/telemetry
+[2026-08-27 11:58:24]   - Efficiency: 0.92% | Yield: 114.61 KL | Alert: GOLDEN BATCH (Conf: 84.9%)
+[2026-08-27 11:58:24] Moved Haliyal_170KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 11:58:24] Detected file: Nellikuppam_120KLPD_Synthetic_Data.xlsx -> Factory: F03
+[2026-08-27 11:58:24] Successfully processed and published telemetry to: distillery/factory/F03/telemetry
+[2026-08-27 11:58:24]   - Efficiency: 0.89% | Yield: 80.4 KL | Alert: GOLDEN BATCH (Conf: 88.5%)
+[2026-08-27 11:58:24] Moved Nellikuppam_120KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 11:58:24] Detected file: Sankili_168KLPD_Synthetic_Data.xlsx -> Factory: F02
+[2026-08-27 11:58:24] Successfully processed and published telemetry to: distillery/factory/F02/telemetry
+[2026-08-27 11:58:24]   - Efficiency: 0.859% | Yield: 109.82 KL | Alert: GOLDEN BATCH (Conf: 76.5%)
+[2026-08-27 11:58:24] Moved Sankili_168KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 11:58:24] Detected file: Sivagangai_64KLPD_Synthetic_Data.xlsx -> Factory: F04
+[2026-08-27 11:58:24] Successfully processed and published telemetry to: distillery/factory/F04/telemetry
+[2026-08-27 11:58:24]   - Efficiency: 0.937% | Yield: 45.43 KL | Alert: GOLDEN BATCH (Conf: 85.4%)
+[2026-08-27 11:58:24] Moved Sivagangai_64KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 12:13:09] Detected file: Bagalkot_60KLPD_Synthetic_Data - Copy.xlsx -> Factory: F05
+[2026-08-27 12:13:09] Successfully processed and published telemetry to: distillery/factory/F05/telemetry
+[2026-08-27 12:13:09]   - Efficiency: 0.89% | Yield: 39.45 KL | Alert: GOLDEN BATCH (Conf: 90.3%)
+[2026-08-27 12:13:09] Moved Bagalkot_60KLPD_Synthetic_Data - Copy.xlsx to processed subfolder.
+
+[2026-08-27 12:13:09] Detected file: Haliyal_170KLPD_Synthetic_Data.xlsx -> Factory: F01
+[2026-08-27 12:13:09] Successfully processed and published telemetry to: distillery/factory/F01/telemetry
+[2026-08-27 12:13:09]   - Efficiency: 0.92% | Yield: 114.61 KL | Alert: GOLDEN BATCH (Conf: 84.9%)
+[2026-08-27 12:13:09] Moved Haliyal_170KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 12:13:09] Detected file: Nellikuppam_120KLPD_Synthetic_Data.xlsx -> Factory: F03
+[2026-08-27 12:13:09] Successfully processed and published telemetry to: distillery/factory/F03/telemetry
+[2026-08-27 12:13:09]   - Efficiency: 0.89% | Yield: 80.4 KL | Alert: GOLDEN BATCH (Conf: 88.5%)
+[2026-08-27 12:13:09] Moved Nellikuppam_120KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 12:13:09] Detected file: Sankili_168KLPD_Synthetic_Data.xlsx -> Factory: F02
+[2026-08-27 12:13:09] Successfully processed and published telemetry to: distillery/factory/F02/telemetry
+[2026-08-27 12:13:09]   - Efficiency: 0.859% | Yield: 109.82 KL | Alert: GOLDEN BATCH (Conf: 76.5%)
+[2026-08-27 12:13:09] Moved Sankili_168KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 12:13:09] Detected file: Sivagangai_64KLPD_Synthetic_Data.xlsx -> Factory: F04
+[2026-08-27 12:13:10] Successfully processed and published telemetry to: distillery/factory/F04/telemetry
+[2026-08-27 12:13:10]   - Efficiency: 0.937% | Yield: 45.43 KL | Alert: GOLDEN BATCH (Conf: 85.4%)
+[2026-08-27 12:13:10] Moved Sivagangai_64KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 12:13:48] Detected file: Bagalkot_60KLPD_Synthetic_Data - Copy.xlsx -> Factory: F05
+[2026-08-27 12:13:48] Successfully processed and published telemetry to: distillery/factory/F05/telemetry
+[2026-08-27 12:13:48]   - Efficiency: 0.89% | Yield: 39.45 KL | Alert: GOLDEN BATCH (Conf: 90.3%)
+[2026-08-27 12:13:48] Moved Bagalkot_60KLPD_Synthetic_Data - Copy.xlsx to processed subfolder.
+
+[2026-08-27 12:13:48] Detected file: Haliyal_170KLPD_Synthetic_Data.xlsx -> Factory: F01
+[2026-08-27 12:13:48] Successfully processed and published telemetry to: distillery/factory/F01/telemetry
+[2026-08-27 12:13:48]   - Efficiency: 0.92% | Yield: 114.61 KL | Alert: GOLDEN BATCH (Conf: 84.9%)
+[2026-08-27 12:13:48] Moved Haliyal_170KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 12:13:48] Detected file: Nellikuppam_120KLPD_Synthetic_Data.xlsx -> Factory: F03
+[2026-08-27 12:13:48] Successfully processed and published telemetry to: distillery/factory/F03/telemetry
+[2026-08-27 12:13:48]   - Efficiency: 0.89% | Yield: 80.4 KL | Alert: GOLDEN BATCH (Conf: 88.5%)
+[2026-08-27 12:13:48] Moved Nellikuppam_120KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 12:13:48] Detected file: Sankili_168KLPD_Synthetic_Data.xlsx -> Factory: F02
+[2026-08-27 12:13:48] Successfully processed and published telemetry to: distillery/factory/F02/telemetry
+[2026-08-27 12:13:48]   - Efficiency: 0.859% | Yield: 109.82 KL | Alert: GOLDEN BATCH (Conf: 76.5%)
+[2026-08-27 12:13:48] Moved Sankili_168KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 12:13:48] Detected file: Sivagangai_64KLPD_Synthetic_Data.xlsx -> Factory: F04
+[2026-08-27 12:13:48] Successfully processed and published telemetry to: distillery/factory/F04/telemetry
+[2026-08-27 12:13:48]   - Efficiency: 0.937% | Yield: 45.43 KL | Alert: GOLDEN BATCH (Conf: 85.4%)
+[2026-08-27 12:13:48] Moved Sivagangai_64KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 12:17:32] Detected file: Bagalkot_60KLPD_Synthetic_Data - Copy.xlsx -> Factory: F05
+[2026-08-27 12:17:32] Successfully processed and published telemetry to: distillery/factory/F05/telemetry
+[2026-08-27 12:17:32]   - Efficiency: 0.89% | Yield: 39.45 KL | Alert: GOLDEN BATCH (Conf: 90.3%)
+[2026-08-27 12:17:32] Moved Bagalkot_60KLPD_Synthetic_Data - Copy.xlsx to processed subfolder.
+
+[2026-08-27 12:17:32] Detected file: Haliyal_170KLPD_Synthetic_Data.xlsx -> Factory: F01
+[2026-08-27 12:17:33] Successfully processed and published telemetry to: distillery/factory/F01/telemetry
+[2026-08-27 12:17:33]   - Efficiency: 0.92% | Yield: 114.61 KL | Alert: GOLDEN BATCH (Conf: 84.9%)
+[2026-08-27 12:17:33] Moved Haliyal_170KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 12:17:33] Detected file: Nellikuppam_120KLPD_Synthetic_Data.xlsx -> Factory: F03
+[2026-08-27 12:17:33] Successfully processed and published telemetry to: distillery/factory/F03/telemetry
+[2026-08-27 12:17:33]   - Efficiency: 0.89% | Yield: 80.4 KL | Alert: GOLDEN BATCH (Conf: 88.5%)
+[2026-08-27 12:17:33] Moved Nellikuppam_120KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 12:17:33] Detected file: Sankili_168KLPD_Synthetic_Data.xlsx -> Factory: F02
+[2026-08-27 12:17:33] Successfully processed and published telemetry to: distillery/factory/F02/telemetry
+[2026-08-27 12:17:33]   - Efficiency: 0.859% | Yield: 109.82 KL | Alert: GOLDEN BATCH (Conf: 76.5%)
+[2026-08-27 12:17:33] Moved Sankili_168KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 12:17:33] Detected file: Sivagangai_64KLPD_Synthetic_Data.xlsx -> Factory: F04
+[2026-08-27 12:17:33] Successfully processed and published telemetry to: distillery/factory/F04/telemetry
+[2026-08-27 12:17:33]   - Efficiency: 0.937% | Yield: 45.43 KL | Alert: GOLDEN BATCH (Conf: 85.4%)
+[2026-08-27 12:17:33] Moved Sivagangai_64KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 12:25:15] Detected file: Bagalkot_60KLPD_Synthetic_Data - Copy.xlsx -> Factory: F05
+[2026-08-27 12:25:15] Successfully processed and published telemetry to: distillery/factory/F05/telemetry
+[2026-08-27 12:25:15]   - Efficiency: 0.89% | Yield: 39.45 KL | Alert: GOLDEN BATCH (Conf: 90.3%)
+[2026-08-27 12:25:15] Moved Bagalkot_60KLPD_Synthetic_Data - Copy.xlsx to processed subfolder.
+
+[2026-08-27 12:25:15] Detected file: Haliyal_170KLPD_Synthetic_Data.xlsx -> Factory: F01
+[2026-08-27 12:25:16] Successfully processed and published telemetry to: distillery/factory/F01/telemetry
+[2026-08-27 12:25:16]   - Efficiency: 0.92% | Yield: 114.61 KL | Alert: GOLDEN BATCH (Conf: 84.9%)
+[2026-08-27 12:25:16] Moved Haliyal_170KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 12:25:16] Detected file: Nellikuppam_120KLPD_Synthetic_Data.xlsx -> Factory: F03
+[2026-08-27 12:25:16] Successfully processed and published telemetry to: distillery/factory/F03/telemetry
+[2026-08-27 12:25:16]   - Efficiency: 0.89% | Yield: 80.4 KL | Alert: GOLDEN BATCH (Conf: 88.5%)
+[2026-08-27 12:25:16] Moved Nellikuppam_120KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 12:25:16] Detected file: Sankili_168KLPD_Synthetic_Data.xlsx -> Factory: F02
+[2026-08-27 12:25:16] Successfully processed and published telemetry to: distillery/factory/F02/telemetry
+[2026-08-27 12:25:16]   - Efficiency: 0.859% | Yield: 109.82 KL | Alert: GOLDEN BATCH (Conf: 76.5%)
+[2026-08-27 12:25:16] Moved Sankili_168KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 12:25:16] Detected file: Sivagangai_64KLPD_Synthetic_Data.xlsx -> Factory: F04
+[2026-08-27 12:25:16] Successfully processed and published telemetry to: distillery/factory/F04/telemetry
+[2026-08-27 12:25:16]   - Efficiency: 0.937% | Yield: 45.43 KL | Alert: GOLDEN BATCH (Conf: 85.4%)
+[2026-08-27 12:25:16] Moved Sivagangai_64KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 12:30:28] Detected file: Bagalkot_60KLPD_Synthetic_Data - Copy.xlsx -> Factory: F05
+[2026-08-27 12:30:28] Successfully processed and published telemetry to: distillery/factory/F05/telemetry
+[2026-08-27 12:30:28]   - Efficiency: 0.89% | Yield: 39.45 KL | Alert: GOLDEN BATCH (Conf: 90.3%)
+[2026-08-27 12:30:28] Moved Bagalkot_60KLPD_Synthetic_Data - Copy.xlsx to processed subfolder.
+
+[2026-08-27 12:30:28] Detected file: Haliyal_170KLPD_Synthetic_Data.xlsx -> Factory: F01
+[2026-08-27 12:30:29] Successfully processed and published telemetry to: distillery/factory/F01/telemetry
+[2026-08-27 12:30:29]   - Efficiency: 0.92% | Yield: 114.61 KL | Alert: GOLDEN BATCH (Conf: 84.9%)
+[2026-08-27 12:30:29] Moved Haliyal_170KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 12:30:29] Detected file: Nellikuppam_120KLPD_Synthetic_Data.xlsx -> Factory: F03
+[2026-08-27 12:30:29] Successfully processed and published telemetry to: distillery/factory/F03/telemetry
+[2026-08-27 12:30:29]   - Efficiency: 0.89% | Yield: 80.4 KL | Alert: GOLDEN BATCH (Conf: 88.5%)
+[2026-08-27 12:30:29] Moved Nellikuppam_120KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 12:30:29] Detected file: Sankili_168KLPD_Synthetic_Data.xlsx -> Factory: F02
+[2026-08-27 12:30:29] Successfully processed and published telemetry to: distillery/factory/F02/telemetry
+[2026-08-27 12:30:29]   - Efficiency: 0.859% | Yield: 109.82 KL | Alert: GOLDEN BATCH (Conf: 76.5%)
+[2026-08-27 12:30:29] Moved Sankili_168KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 12:30:29] Detected file: Sivagangai_64KLPD_Synthetic_Data.xlsx -> Factory: F04
+[2026-08-27 12:30:29] Successfully processed and published telemetry to: distillery/factory/F04/telemetry
+[2026-08-27 12:30:29]   - Efficiency: 0.937% | Yield: 45.43 KL | Alert: GOLDEN BATCH (Conf: 85.4%)
+[2026-08-27 12:30:29] Moved Sivagangai_64KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 12:33:15] Detected file: Bagalkot_60KLPD_Synthetic_Data - Copy.xlsx -> Factory: F05
+[2026-08-27 12:33:15] Successfully processed and published telemetry to: distillery/factory/F05/telemetry
+[2026-08-27 12:33:15]   - Efficiency: 0.89% | Yield: 39.45 KL | Alert: GOLDEN BATCH (Conf: 90.3%)
+[2026-08-27 12:33:15] Moved Bagalkot_60KLPD_Synthetic_Data - Copy.xlsx to processed subfolder.
+
+[2026-08-27 12:33:15] Detected file: Haliyal_170KLPD_Synthetic_Data.xlsx -> Factory: F01
+[2026-08-27 12:33:15] Successfully processed and published telemetry to: distillery/factory/F01/telemetry
+[2026-08-27 12:33:15]   - Efficiency: 0.92% | Yield: 114.61 KL | Alert: GOLDEN BATCH (Conf: 84.9%)
+[2026-08-27 12:33:15] Moved Haliyal_170KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 12:33:15] Detected file: Nellikuppam_120KLPD_Synthetic_Data.xlsx -> Factory: F03
+[2026-08-27 12:33:15] Successfully processed and published telemetry to: distillery/factory/F03/telemetry
+[2026-08-27 12:33:15]   - Efficiency: 0.89% | Yield: 80.4 KL | Alert: GOLDEN BATCH (Conf: 88.5%)
+[2026-08-27 12:33:15] Moved Nellikuppam_120KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 12:33:15] Detected file: Sankili_168KLPD_Synthetic_Data.xlsx -> Factory: F02
+[2026-08-27 12:33:16] Successfully processed and published telemetry to: distillery/factory/F02/telemetry
+[2026-08-27 12:33:16]   - Efficiency: 0.859% | Yield: 109.82 KL | Alert: GOLDEN BATCH (Conf: 76.5%)
+[2026-08-27 12:33:16] Moved Sankili_168KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 12:33:16] Detected file: Sivagangai_64KLPD_Synthetic_Data.xlsx -> Factory: F04
+[2026-08-27 12:33:16] Successfully processed and published telemetry to: distillery/factory/F04/telemetry
+[2026-08-27 12:33:16]   - Efficiency: 0.937% | Yield: 45.43 KL | Alert: GOLDEN BATCH (Conf: 85.4%)
+[2026-08-27 12:33:16] Moved Sivagangai_64KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 12:40:56] Detected file: Bagalkot_60KLPD_Synthetic_Data - Copy.xlsx -> Factory: F05
+[2026-08-27 12:40:56] Successfully processed and published telemetry to: distillery/factory/F05/telemetry
+[2026-08-27 12:40:56]   - Efficiency: 0.89% | Yield: 39.45 KL | Alert: GOLDEN BATCH (Conf: 90.3%)
+[2026-08-27 12:40:56] Moved Bagalkot_60KLPD_Synthetic_Data - Copy.xlsx to processed subfolder.
+
+[2026-08-27 12:40:56] Detected file: Haliyal_170KLPD_Synthetic_Data.xlsx -> Factory: F01
+[2026-08-27 12:40:56] Successfully processed and published telemetry to: distillery/factory/F01/telemetry
+[2026-08-27 12:40:56]   - Efficiency: 0.92% | Yield: 114.61 KL | Alert: GOLDEN BATCH (Conf: 84.9%)
+[2026-08-27 12:40:56] Moved Haliyal_170KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 12:40:56] Detected file: Nellikuppam_120KLPD_Synthetic_Data.xlsx -> Factory: F03
+[2026-08-27 12:40:56] Successfully processed and published telemetry to: distillery/factory/F03/telemetry
+[2026-08-27 12:40:56]   - Efficiency: 0.89% | Yield: 80.4 KL | Alert: GOLDEN BATCH (Conf: 88.5%)
+[2026-08-27 12:40:56] Moved Nellikuppam_120KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 12:40:56] Detected file: Sankili_168KLPD_Synthetic_Data.xlsx -> Factory: F02
+[2026-08-27 12:40:56] Successfully processed and published telemetry to: distillery/factory/F02/telemetry
+[2026-08-27 12:40:56]   - Efficiency: 0.859% | Yield: 109.82 KL | Alert: GOLDEN BATCH (Conf: 76.5%)
+[2026-08-27 12:40:56] Moved Sankili_168KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 12:40:56] Detected file: Sivagangai_64KLPD_Synthetic_Data.xlsx -> Factory: F04
+[2026-08-27 12:40:57] Successfully processed and published telemetry to: distillery/factory/F04/telemetry
+[2026-08-27 12:40:57]   - Efficiency: 0.937% | Yield: 45.43 KL | Alert: GOLDEN BATCH (Conf: 85.4%)
+[2026-08-27 12:40:57] Moved Sivagangai_64KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 12:49:20] Detected file: Bagalkot_60KLPD_Synthetic_Data - Copy.xlsx -> Factory: F05
+[2026-08-27 12:49:20] Successfully processed and published telemetry to: distillery/factory/F05/telemetry
+[2026-08-27 12:49:20]   - Efficiency: 0.89% | Yield: 39.45 KL | Alert: GOLDEN BATCH (Conf: 90.3%)
+[2026-08-27 12:49:20] Moved Bagalkot_60KLPD_Synthetic_Data - Copy.xlsx to processed subfolder.
+
+[2026-08-27 12:49:20] Detected file: Haliyal_170KLPD_Synthetic_Data.xlsx -> Factory: F01
+[2026-08-27 12:49:20] Successfully processed and published telemetry to: distillery/factory/F01/telemetry
+[2026-08-27 12:49:20]   - Efficiency: 0.92% | Yield: 114.61 KL | Alert: GOLDEN BATCH (Conf: 84.9%)
+[2026-08-27 12:49:20] Moved Haliyal_170KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 12:49:20] Detected file: Nellikuppam_120KLPD_Synthetic_Data.xlsx -> Factory: F03
+[2026-08-27 12:49:21] Successfully processed and published telemetry to: distillery/factory/F03/telemetry
+[2026-08-27 12:49:21]   - Efficiency: 0.89% | Yield: 80.4 KL | Alert: GOLDEN BATCH (Conf: 88.5%)
+[2026-08-27 12:49:21] Moved Nellikuppam_120KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 12:49:21] Detected file: Sankili_168KLPD_Synthetic_Data.xlsx -> Factory: F02
+[2026-08-27 12:49:21] Successfully processed and published telemetry to: distillery/factory/F02/telemetry
+[2026-08-27 12:49:21]   - Efficiency: 0.859% | Yield: 109.82 KL | Alert: GOLDEN BATCH (Conf: 76.5%)
+[2026-08-27 12:49:21] Moved Sankili_168KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 12:49:21] Detected file: Sivagangai_64KLPD_Synthetic_Data.xlsx -> Factory: F04
+[2026-08-27 12:49:21] Successfully processed and published telemetry to: distillery/factory/F04/telemetry
+[2026-08-27 12:49:21]   - Efficiency: 0.937% | Yield: 45.43 KL | Alert: GOLDEN BATCH (Conf: 85.4%)
+[2026-08-27 12:49:21] Moved Sivagangai_64KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 12:50:45] Detected file: Bagalkot_60KLPD_Synthetic_Data - Copy.xlsx -> Factory: F05
+[2026-08-27 12:50:45] Successfully processed and published telemetry to: distillery/factory/F05/telemetry
+[2026-08-27 12:50:45]   - Efficiency: 0.89% | Yield: 39.45 KL | Alert: GOLDEN BATCH (Conf: 90.3%)
+[2026-08-27 12:50:45] Moved Bagalkot_60KLPD_Synthetic_Data - Copy.xlsx to processed subfolder.
+
+[2026-08-27 12:50:45] Detected file: Haliyal_170KLPD_Synthetic_Data.xlsx -> Factory: F01
+[2026-08-27 12:50:45] Successfully processed and published telemetry to: distillery/factory/F01/telemetry
+[2026-08-27 12:50:45]   - Efficiency: 0.92% | Yield: 114.61 KL | Alert: GOLDEN BATCH (Conf: 84.9%)
+[2026-08-27 12:50:45] Moved Haliyal_170KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 12:50:45] Detected file: Nellikuppam_120KLPD_Synthetic_Data.xlsx -> Factory: F03
+[2026-08-27 12:50:45] Successfully processed and published telemetry to: distillery/factory/F03/telemetry
+[2026-08-27 12:50:45]   - Efficiency: 0.89% | Yield: 80.4 KL | Alert: GOLDEN BATCH (Conf: 88.5%)
+[2026-08-27 12:50:45] Moved Nellikuppam_120KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 12:50:45] Detected file: Sankili_168KLPD_Synthetic_Data.xlsx -> Factory: F02
+[2026-08-27 12:50:46] Successfully processed and published telemetry to: distillery/factory/F02/telemetry
+[2026-08-27 12:50:46]   - Efficiency: 0.859% | Yield: 109.82 KL | Alert: GOLDEN BATCH (Conf: 76.5%)
+[2026-08-27 12:50:46] Moved Sankili_168KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 12:50:46] Detected file: Sivagangai_64KLPD_Synthetic_Data.xlsx -> Factory: F04
+[2026-08-27 12:50:46] Successfully processed and published telemetry to: distillery/factory/F04/telemetry
+[2026-08-27 12:50:46]   - Efficiency: 0.937% | Yield: 45.43 KL | Alert: GOLDEN BATCH (Conf: 85.4%)
+[2026-08-27 12:50:46] Moved Sivagangai_64KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 13:43:35] Detected file: Bagalkot_60KLPD_Synthetic_Data - Copy.xlsx -> Factory: F05
+[2026-08-27 13:43:35] Successfully processed and published telemetry to: distillery/factory/F05/telemetry
+[2026-08-27 13:43:35]   - Efficiency: 0.89% | Yield: 39.45 KL | Alert: GOLDEN BATCH (Conf: 90.3%)
+[2026-08-27 13:43:35] Moved Bagalkot_60KLPD_Synthetic_Data - Copy.xlsx to processed subfolder.
+
+[2026-08-27 13:43:35] Detected file: Bagalkot_60KLPD_Synthetic_Data.xlsx -> Factory: F05
+[2026-08-27 13:43:35] Successfully processed and published telemetry to: distillery/factory/F05/telemetry
+[2026-08-27 13:43:35]   - Efficiency: 0.89% | Yield: 39.45 KL | Alert: GOLDEN BATCH (Conf: 90.3%)
+[2026-08-27 13:43:35] Moved Bagalkot_60KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 13:43:35] Detected file: Haliyal_170KLPD_Synthetic_Data.xlsx -> Factory: F01
+[2026-08-27 13:43:36] Successfully processed and published telemetry to: distillery/factory/F01/telemetry
+[2026-08-27 13:43:36]   - Efficiency: 0.92% | Yield: 114.61 KL | Alert: GOLDEN BATCH (Conf: 84.9%)
+[2026-08-27 13:43:36] Moved Haliyal_170KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 13:43:36] Detected file: Nellikuppam_120KLPD_Synthetic_Data.xlsx -> Factory: F03
+[2026-08-27 13:43:36] Successfully processed and published telemetry to: distillery/factory/F03/telemetry
+[2026-08-27 13:43:36]   - Efficiency: 0.89% | Yield: 80.4 KL | Alert: GOLDEN BATCH (Conf: 88.5%)
+[2026-08-27 13:43:36] Moved Nellikuppam_120KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 13:43:36] Detected file: Sankili_168KLPD_Synthetic_Data.xlsx -> Factory: F02
+[2026-08-27 13:43:36] Successfully processed and published telemetry to: distillery/factory/F02/telemetry
+[2026-08-27 13:43:36]   - Efficiency: 0.859% | Yield: 109.82 KL | Alert: GOLDEN BATCH (Conf: 76.5%)
+[2026-08-27 13:43:36] Moved Sankili_168KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 13:43:36] Detected file: Sivagangai_64KLPD_Synthetic_Data.xlsx -> Factory: F04
+[2026-08-27 13:43:36] Successfully processed and published telemetry to: distillery/factory/F04/telemetry
+[2026-08-27 13:43:36]   - Efficiency: 0.937% | Yield: 45.43 KL | Alert: GOLDEN BATCH (Conf: 85.4%)
+[2026-08-27 13:43:36] Moved Sivagangai_64KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 13:54:34] Detected file: Bagalkot_60KLPD_Synthetic_Data - Copy.xlsx -> Factory: F05
+[2026-08-27 13:54:35] Successfully processed and published telemetry to: distillery/factory/F05/telemetry
+[2026-08-27 13:54:35]   - Efficiency: 0.89% | Yield: 39.45 KL | Alert: GOLDEN BATCH (Conf: 90.3%)
+[2026-08-27 13:54:35] Moved Bagalkot_60KLPD_Synthetic_Data - Copy.xlsx to processed subfolder.
+
+[2026-08-27 13:54:35] Detected file: Bagalkot_60KLPD_Synthetic_Data.xlsx -> Factory: F05
+[2026-08-27 13:54:35] Successfully processed and published telemetry to: distillery/factory/F05/telemetry
+[2026-08-27 13:54:35]   - Efficiency: 0.89% | Yield: 39.45 KL | Alert: GOLDEN BATCH (Conf: 90.3%)
+[2026-08-27 13:54:35] Moved Bagalkot_60KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 13:54:35] Detected file: Haliyal_170KLPD_Synthetic_Data.xlsx -> Factory: F01
+[2026-08-27 13:54:35] Successfully processed and published telemetry to: distillery/factory/F01/telemetry
+[2026-08-27 13:54:35]   - Efficiency: 0.92% | Yield: 114.61 KL | Alert: GOLDEN BATCH (Conf: 84.9%)
+[2026-08-27 13:54:35] Moved Haliyal_170KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 13:54:35] Detected file: Nellikuppam_120KLPD_Synthetic_Data.xlsx -> Factory: F03
+[2026-08-27 13:54:35] Successfully processed and published telemetry to: distillery/factory/F03/telemetry
+[2026-08-27 13:54:35]   - Efficiency: 0.89% | Yield: 80.4 KL | Alert: GOLDEN BATCH (Conf: 88.5%)
+[2026-08-27 13:54:35] Moved Nellikuppam_120KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 13:54:35] Detected file: Sankili_168KLPD_Synthetic_Data.xlsx -> Factory: F02
+[2026-08-27 13:54:36] Successfully processed and published telemetry to: distillery/factory/F02/telemetry
+[2026-08-27 13:54:36]   - Efficiency: 0.859% | Yield: 109.82 KL | Alert: GOLDEN BATCH (Conf: 76.5%)
+[2026-08-27 13:54:36] Moved Sankili_168KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 13:54:36] Detected file: Sivagangai_64KLPD_Synthetic_Data.xlsx -> Factory: F04
+[2026-08-27 13:54:36] Successfully processed and published telemetry to: distillery/factory/F04/telemetry
+[2026-08-27 13:54:36]   - Efficiency: 0.937% | Yield: 45.43 KL | Alert: GOLDEN BATCH (Conf: 85.4%)
+[2026-08-27 13:54:36] Moved Sivagangai_64KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 13:56:34] Detected file: Bagalkot_60KLPD_Synthetic_Data - Copy.xlsx -> Factory: F05
+[2026-08-27 13:56:34] Successfully processed and published telemetry to: distillery/factory/F05/telemetry
+[2026-08-27 13:56:34]   - Efficiency: 0.89% | Yield: 39.45 KL | Alert: GOLDEN BATCH (Conf: 90.3%)
+[2026-08-27 13:56:34] Moved Bagalkot_60KLPD_Synthetic_Data - Copy.xlsx to processed subfolder.
+
+[2026-08-27 13:56:34] Detected file: Bagalkot_60KLPD_Synthetic_Data.xlsx -> Factory: F05
+[2026-08-27 13:56:35] Successfully processed and published telemetry to: distillery/factory/F05/telemetry
+[2026-08-27 13:56:35]   - Efficiency: 0.89% | Yield: 39.45 KL | Alert: GOLDEN BATCH (Conf: 90.3%)
+[2026-08-27 13:56:35] Moved Bagalkot_60KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 13:56:35] Detected file: Haliyal_170KLPD_Synthetic_Data.xlsx -> Factory: F01
+[2026-08-27 13:56:35] Successfully processed and published telemetry to: distillery/factory/F01/telemetry
+[2026-08-27 13:56:35]   - Efficiency: 0.92% | Yield: 114.61 KL | Alert: GOLDEN BATCH (Conf: 84.9%)
+[2026-08-27 13:56:35] Moved Haliyal_170KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 13:56:35] Detected file: Nellikuppam_120KLPD_Synthetic_Data.xlsx -> Factory: F03
+[2026-08-27 13:56:35] Successfully processed and published telemetry to: distillery/factory/F03/telemetry
+[2026-08-27 13:56:35]   - Efficiency: 0.89% | Yield: 80.4 KL | Alert: GOLDEN BATCH (Conf: 88.5%)
+[2026-08-27 13:56:35] Moved Nellikuppam_120KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 13:56:35] Detected file: Sankili_168KLPD_Synthetic_Data.xlsx -> Factory: F02
+[2026-08-27 13:56:36] Successfully processed and published telemetry to: distillery/factory/F02/telemetry
+[2026-08-27 13:56:36]   - Efficiency: 0.859% | Yield: 109.82 KL | Alert: GOLDEN BATCH (Conf: 76.5%)
+[2026-08-27 13:56:36] Moved Sankili_168KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 13:56:36] Detected file: Sivagangai_64KLPD_Synthetic_Data.xlsx -> Factory: F04
+[2026-08-27 13:56:36] Successfully processed and published telemetry to: distillery/factory/F04/telemetry
+[2026-08-27 13:56:36]   - Efficiency: 0.937% | Yield: 45.43 KL | Alert: GOLDEN BATCH (Conf: 85.4%)
+[2026-08-27 13:56:36] Moved Sivagangai_64KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 17:24:44] Detected file: Bagalkot_60KLPD_Synthetic_Data - Copy.xlsx -> Factory: F05
+[2026-08-27 17:24:44] Successfully processed and published telemetry to: distillery/factory/F05/telemetry
+[2026-08-27 17:24:44]   - Efficiency: 0.89% | Yield: 39.45 KL | Alert: GOLDEN BATCH (Conf: 90.3%)
+[2026-08-27 17:24:44] Moved Bagalkot_60KLPD_Synthetic_Data - Copy.xlsx to processed subfolder.
+
+[2026-08-27 17:24:44] Detected file: Haliyal_170KLPD_Synthetic_Data.xlsx -> Factory: F01
+[2026-08-27 17:24:44] Successfully processed and published telemetry to: distillery/factory/F01/telemetry
+[2026-08-27 17:24:44]   - Efficiency: 0.92% | Yield: 114.61 KL | Alert: GOLDEN BATCH (Conf: 84.9%)
+[2026-08-27 17:24:44] Moved Haliyal_170KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 17:24:44] Detected file: Nellikuppam_120KLPD_Synthetic_Data.xlsx -> Factory: F03
+[2026-08-27 17:24:44] Successfully processed and published telemetry to: distillery/factory/F03/telemetry
+[2026-08-27 17:24:44]   - Efficiency: 0.89% | Yield: 80.4 KL | Alert: GOLDEN BATCH (Conf: 88.5%)
+[2026-08-27 17:24:44] Moved Nellikuppam_120KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 17:24:44] Detected file: Sankili_168KLPD_Synthetic_Data.xlsx -> Factory: F02
+[2026-08-27 17:24:45] Successfully processed and published telemetry to: distillery/factory/F02/telemetry
+[2026-08-27 17:24:45]   - Efficiency: 0.859% | Yield: 109.82 KL | Alert: GOLDEN BATCH (Conf: 76.5%)
+[2026-08-27 17:24:45] Moved Sankili_168KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 17:24:45] Detected file: Sivagangai_64KLPD_Synthetic_Data.xlsx -> Factory: F04
+[2026-08-27 17:24:45] Successfully processed and published telemetry to: distillery/factory/F04/telemetry
+[2026-08-27 17:24:45]   - Efficiency: 0.937% | Yield: 45.43 KL | Alert: GOLDEN BATCH (Conf: 85.4%)
+[2026-08-27 17:24:45] Moved Sivagangai_64KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 17:26:47] Detected file: Bagalkot_60KLPD_Synthetic_Data - Copy.xlsx -> Factory: F05
+[2026-08-27 17:26:47] Successfully processed and published telemetry to: distillery/factory/F05/telemetry
+[2026-08-27 17:26:47]   - Efficiency: 0.89% | Yield: 39.45 KL | Alert: GOLDEN BATCH (Conf: 90.3%)
+[2026-08-27 17:26:47] Moved Bagalkot_60KLPD_Synthetic_Data - Copy.xlsx to processed subfolder.
+
+[2026-08-27 17:26:47] Detected file: Haliyal_170KLPD_Synthetic_Data.xlsx -> Factory: F01
+[2026-08-27 17:26:48] Successfully processed and published telemetry to: distillery/factory/F01/telemetry
+[2026-08-27 17:26:48]   - Efficiency: 0.92% | Yield: 114.61 KL | Alert: GOLDEN BATCH (Conf: 84.9%)
+[2026-08-27 17:26:48] Moved Haliyal_170KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 17:26:48] Detected file: Nellikuppam_120KLPD_Synthetic_Data.xlsx -> Factory: F03
+[2026-08-27 17:26:48] Successfully processed and published telemetry to: distillery/factory/F03/telemetry
+[2026-08-27 17:26:48]   - Efficiency: 0.89% | Yield: 80.4 KL | Alert: GOLDEN BATCH (Conf: 88.5%)
+[2026-08-27 17:26:48] Moved Nellikuppam_120KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 17:26:48] Detected file: Sankili_168KLPD_Synthetic_Data.xlsx -> Factory: F02
+[2026-08-27 17:26:48] Successfully processed and published telemetry to: distillery/factory/F02/telemetry
+[2026-08-27 17:26:48]   - Efficiency: 0.859% | Yield: 109.82 KL | Alert: GOLDEN BATCH (Conf: 76.5%)
+[2026-08-27 17:26:48] Moved Sankili_168KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 17:26:48] Detected file: Sivagangai_64KLPD_Synthetic_Data.xlsx -> Factory: F04
+[2026-08-27 17:26:48] Successfully processed and published telemetry to: distillery/factory/F04/telemetry
+[2026-08-27 17:26:48]   - Efficiency: 0.937% | Yield: 45.43 KL | Alert: GOLDEN BATCH (Conf: 85.4%)
+[2026-08-27 17:26:48] Moved Sivagangai_64KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 17:30:12] Detected file: Bagalkot_60KLPD_Synthetic_Data - Copy.xlsx -> Factory: F05
+[2026-08-27 17:30:12] Successfully processed and published telemetry to: distillery/factory/F05/telemetry
+[2026-08-27 17:30:12]   - Efficiency: 0.89% | Yield: 39.45 KL | Alert: GOLDEN BATCH (Conf: 90.3%)
+[2026-08-27 17:30:12] Moved Bagalkot_60KLPD_Synthetic_Data - Copy.xlsx to processed subfolder.
+
+[2026-08-27 17:30:12] Detected file: Haliyal_170KLPD_Synthetic_Data.xlsx -> Factory: F01
+[2026-08-27 17:30:13] Successfully processed and published telemetry to: distillery/factory/F01/telemetry
+[2026-08-27 17:30:13]   - Efficiency: 0.92% | Yield: 114.61 KL | Alert: GOLDEN BATCH (Conf: 84.9%)
+[2026-08-27 17:30:13] Moved Haliyal_170KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 17:30:13] Detected file: Nellikuppam_120KLPD_Synthetic_Data.xlsx -> Factory: F03
+[2026-08-27 17:30:13] Successfully processed and published telemetry to: distillery/factory/F03/telemetry
+[2026-08-27 17:30:13]   - Efficiency: 0.89% | Yield: 80.4 KL | Alert: GOLDEN BATCH (Conf: 88.5%)
+[2026-08-27 17:30:13] Moved Nellikuppam_120KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 17:30:13] Detected file: Sankili_168KLPD_Synthetic_Data.xlsx -> Factory: F02
+[2026-08-27 17:30:13] Successfully processed and published telemetry to: distillery/factory/F02/telemetry
+[2026-08-27 17:30:13]   - Efficiency: 0.859% | Yield: 109.82 KL | Alert: GOLDEN BATCH (Conf: 76.5%)
+[2026-08-27 17:30:13] Moved Sankili_168KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 17:30:13] Detected file: Sivagangai_64KLPD_Synthetic_Data.xlsx -> Factory: F04
+[2026-08-27 17:30:13] Successfully processed and published telemetry to: distillery/factory/F04/telemetry
+[2026-08-27 17:30:13]   - Efficiency: 0.937% | Yield: 45.43 KL | Alert: GOLDEN BATCH (Conf: 85.4%)
+[2026-08-27 17:30:13] Moved Sivagangai_64KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 17:36:32] Detected file: Bagalkot_60KLPD_Synthetic_Data - Copy.xlsx -> Factory: F05
+[2026-08-27 17:36:32] Successfully processed and published telemetry to: distillery/factory/F05/telemetry
+[2026-08-27 17:36:32]   - Efficiency: 0.89% | Yield: 39.45 KL | Alert: GOLDEN BATCH (Conf: 90.3%)
+[2026-08-27 17:36:32] Moved Bagalkot_60KLPD_Synthetic_Data - Copy.xlsx to processed subfolder.
+
+[2026-08-27 17:36:32] Detected file: Haliyal_170KLPD_Synthetic_Data.xlsx -> Factory: F01
+[2026-08-27 17:36:33] Successfully processed and published telemetry to: distillery/factory/F01/telemetry
+[2026-08-27 17:36:33]   - Efficiency: 0.92% | Yield: 114.61 KL | Alert: GOLDEN BATCH (Conf: 84.9%)
+[2026-08-27 17:36:33] Moved Haliyal_170KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 17:36:33] Detected file: Nellikuppam_120KLPD_Synthetic_Data.xlsx -> Factory: F03
+[2026-08-27 17:36:33] Successfully processed and published telemetry to: distillery/factory/F03/telemetry
+[2026-08-27 17:36:33]   - Efficiency: 0.89% | Yield: 80.4 KL | Alert: GOLDEN BATCH (Conf: 88.5%)
+[2026-08-27 17:36:33] Moved Nellikuppam_120KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 17:36:33] Detected file: Sankili_168KLPD_Synthetic_Data.xlsx -> Factory: F02
+[2026-08-27 17:36:33] Successfully processed and published telemetry to: distillery/factory/F02/telemetry
+[2026-08-27 17:36:33]   - Efficiency: 0.859% | Yield: 109.82 KL | Alert: GOLDEN BATCH (Conf: 76.5%)
+[2026-08-27 17:36:33] Moved Sankili_168KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 17:36:33] Detected file: Sivagangai_64KLPD_Synthetic_Data.xlsx -> Factory: F04
+[2026-08-27 17:36:34] Successfully processed and published telemetry to: distillery/factory/F04/telemetry
+[2026-08-27 17:36:34]   - Efficiency: 0.937% | Yield: 45.43 KL | Alert: GOLDEN BATCH (Conf: 85.4%)
+[2026-08-27 17:36:34] Moved Sivagangai_64KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 17:36:36] Detected file: Bagalkot_60KLPD_Synthetic_Data - Copy.xlsx -> Factory: F05
+[2026-08-27 17:36:36] Successfully processed and published telemetry to: distillery/factory/F05/telemetry
+[2026-08-27 17:36:36]   - Efficiency: 0.89% | Yield: 39.45 KL | Alert: GOLDEN BATCH (Conf: 90.3%)
+[2026-08-27 17:36:36] Moved Bagalkot_60KLPD_Synthetic_Data - Copy.xlsx to processed subfolder.
+
+[2026-08-27 17:36:36] Detected file: Haliyal_170KLPD_Synthetic_Data.xlsx -> Factory: F01
+[2026-08-27 17:36:36] Successfully processed and published telemetry to: distillery/factory/F01/telemetry
+[2026-08-27 17:36:36]   - Efficiency: 0.92% | Yield: 114.61 KL | Alert: GOLDEN BATCH (Conf: 84.9%)
+[2026-08-27 17:36:36] Moved Haliyal_170KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 17:36:36] Detected file: Nellikuppam_120KLPD_Synthetic_Data.xlsx -> Factory: F03
+[2026-08-27 17:36:36] Successfully processed and published telemetry to: distillery/factory/F03/telemetry
+[2026-08-27 17:36:36]   - Efficiency: 0.89% | Yield: 80.4 KL | Alert: GOLDEN BATCH (Conf: 88.5%)
+[2026-08-27 17:36:36] Moved Nellikuppam_120KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 17:37:34] Detected file: Sankili_168KLPD_Synthetic_Data.xlsx -> Factory: F02
+[2026-08-27 17:37:34] Error processing file Sankili_168KLPD_Synthetic_Data.xlsx: [Errno 13] Permission denied: 'C:\\Users\\Admin B\\StudioProjects\\Distillary\\excel_drops\\Sankili_168KLPD_Synthetic_Data.xlsx'
+
+[2026-08-27 17:37:36] Detected file: Bagalkot_60KLPD_Synthetic_Data - Copy.xlsx -> Factory: F05
+[2026-08-27 17:37:36] Successfully processed and published telemetry to: distillery/factory/F05/telemetry
+[2026-08-27 17:37:36]   - Efficiency: 0.89% | Yield: 39.45 KL | Alert: GOLDEN BATCH (Conf: 90.3%)
+[2026-08-27 17:37:36] Moved Bagalkot_60KLPD_Synthetic_Data - Copy.xlsx to processed subfolder.
+
+[2026-08-27 17:37:36] Detected file: Haliyal_170KLPD_Synthetic_Data.xlsx -> Factory: F01
+[2026-08-27 17:37:36] Successfully processed and published telemetry to: distillery/factory/F01/telemetry
+[2026-08-27 17:37:36]   - Efficiency: 0.92% | Yield: 114.61 KL | Alert: GOLDEN BATCH (Conf: 84.9%)
+[2026-08-27 17:37:36] Moved Haliyal_170KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 17:37:36] Detected file: Nellikuppam_120KLPD_Synthetic_Data.xlsx -> Factory: F03
+[2026-08-27 17:37:37] Successfully processed and published telemetry to: distillery/factory/F03/telemetry
+[2026-08-27 17:37:37]   - Efficiency: 0.89% | Yield: 80.4 KL | Alert: GOLDEN BATCH (Conf: 88.5%)
+[2026-08-27 17:37:37] Moved Nellikuppam_120KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 17:37:37] Detected file: Sankili_168KLPD_Synthetic_Data.xlsx -> Factory: F02
+[2026-08-27 17:37:37] Successfully processed and published telemetry to: distillery/factory/F02/telemetry
+[2026-08-27 17:37:37]   - Efficiency: 0.859% | Yield: 109.82 KL | Alert: GOLDEN BATCH (Conf: 76.5%)
+[2026-08-27 17:37:37] Moved Sankili_168KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 17:37:37] Detected file: Sivagangai_64KLPD_Synthetic_Data.xlsx -> Factory: F04
+[2026-08-27 17:37:37] Successfully processed and published telemetry to: distillery/factory/F04/telemetry
+[2026-08-27 17:37:37]   - Efficiency: 0.937% | Yield: 45.43 KL | Alert: GOLDEN BATCH (Conf: 85.4%)
+[2026-08-27 17:37:37] Moved Sivagangai_64KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 17:38:05] Detected file: Bagalkot_60KLPD_Synthetic_Data - Copy.xlsx -> Factory: F05
+[2026-08-27 17:38:05] Successfully processed and published telemetry to: distillery/factory/F05/telemetry
+[2026-08-27 17:38:05]   - Efficiency: 0.89% | Yield: 39.45 KL | Alert: GOLDEN BATCH (Conf: 90.3%)
+[2026-08-27 17:38:05] Moved Bagalkot_60KLPD_Synthetic_Data - Copy.xlsx to processed subfolder.
+
+[2026-08-27 17:38:05] Detected file: Haliyal_170KLPD_Synthetic_Data.xlsx -> Factory: F01
+[2026-08-27 17:38:05] Successfully processed and published telemetry to: distillery/factory/F01/telemetry
+[2026-08-27 17:38:05]   - Efficiency: 0.92% | Yield: 114.61 KL | Alert: GOLDEN BATCH (Conf: 84.9%)
+[2026-08-27 17:38:05] Moved Haliyal_170KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 17:38:05] Detected file: Nellikuppam_120KLPD_Synthetic_Data.xlsx -> Factory: F03
+[2026-08-27 17:38:06] Successfully processed and published telemetry to: distillery/factory/F03/telemetry
+[2026-08-27 17:38:06]   - Efficiency: 0.89% | Yield: 80.4 KL | Alert: GOLDEN BATCH (Conf: 88.5%)
+[2026-08-27 17:38:06] Moved Nellikuppam_120KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 17:38:06] Detected file: Sankili_168KLPD_Synthetic_Data.xlsx -> Factory: F02
+[2026-08-27 17:38:06] Successfully processed and published telemetry to: distillery/factory/F02/telemetry
+[2026-08-27 17:38:06]   - Efficiency: 0.859% | Yield: 109.82 KL | Alert: GOLDEN BATCH (Conf: 76.5%)
+[2026-08-27 17:38:06] Moved Sankili_168KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-27 17:38:06] Detected file: Sivagangai_64KLPD_Synthetic_Data.xlsx -> Factory: F04
+[2026-08-27 17:38:06] Successfully processed and published telemetry to: distillery/factory/F04/telemetry
+[2026-08-27 17:38:06]   - Efficiency: 0.937% | Yield: 45.43 KL | Alert: GOLDEN BATCH (Conf: 85.4%)
+[2026-08-27 17:38:06] Moved Sivagangai_64KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-28 10:36:04] Detected file: Bagalkot_60KLPD_Synthetic_Data - Copy.xlsx -> Factory: F05
+[2026-08-28 10:36:04] Successfully processed and published telemetry to: distillery/factory/F05/telemetry
+[2026-08-28 10:36:04]   - Efficiency: 0.89% | Yield: 39.45 KL | Alert: GOLDEN BATCH (Conf: 90.3%)
+[2026-08-28 10:36:04] Moved Bagalkot_60KLPD_Synthetic_Data - Copy.xlsx to processed subfolder.
+
+[2026-08-28 10:36:04] Detected file: Haliyal_170KLPD_Synthetic_Data.xlsx -> Factory: F01
+[2026-08-28 10:36:04] Successfully processed and published telemetry to: distillery/factory/F01/telemetry
+[2026-08-28 10:36:04]   - Efficiency: 0.92% | Yield: 114.61 KL | Alert: GOLDEN BATCH (Conf: 84.9%)
+[2026-08-28 10:36:04] Moved Haliyal_170KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-28 10:36:04] Detected file: Nellikuppam_120KLPD_Synthetic_Data.xlsx -> Factory: F03
+[2026-08-28 10:36:04] Successfully processed and published telemetry to: distillery/factory/F03/telemetry
+[2026-08-28 10:36:04]   - Efficiency: 0.89% | Yield: 80.4 KL | Alert: GOLDEN BATCH (Conf: 88.5%)
+[2026-08-28 10:36:04] Moved Nellikuppam_120KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-28 10:36:04] Detected file: Sankili_168KLPD_Synthetic_Data.xlsx -> Factory: F02
+[2026-08-28 10:36:05] Successfully processed and published telemetry to: distillery/factory/F02/telemetry
+[2026-08-28 10:36:05]   - Efficiency: 0.859% | Yield: 109.82 KL | Alert: GOLDEN BATCH (Conf: 76.5%)
+[2026-08-28 10:36:05] Moved Sankili_168KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-28 10:36:05] Detected file: Sivagangai_64KLPD_Synthetic_Data.xlsx -> Factory: F04
+[2026-08-28 10:36:05] Successfully processed and published telemetry to: distillery/factory/F04/telemetry
+[2026-08-28 10:36:05]   - Efficiency: 0.937% | Yield: 45.43 KL | Alert: GOLDEN BATCH (Conf: 85.4%)
+[2026-08-28 10:36:05] Moved Sivagangai_64KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-28 10:36:27] Detected file: Bagalkot_60KLPD_Synthetic_Data - Copy.xlsx -> Factory: F05
+[2026-08-28 10:36:27] Successfully processed and published telemetry to: distillery/factory/F05/telemetry
+[2026-08-28 10:36:27]   - Efficiency: 0.89% | Yield: 39.45 KL | Alert: GOLDEN BATCH (Conf: 90.3%)
+[2026-08-28 10:36:27] Moved Bagalkot_60KLPD_Synthetic_Data - Copy.xlsx to processed subfolder.
+
+[2026-08-28 10:36:27] Detected file: Haliyal_170KLPD_Synthetic_Data.xlsx -> Factory: F01
+[2026-08-28 10:36:27] Successfully processed and published telemetry to: distillery/factory/F01/telemetry
+[2026-08-28 10:36:27]   - Efficiency: 0.92% | Yield: 114.61 KL | Alert: GOLDEN BATCH (Conf: 84.9%)
+[2026-08-28 10:36:27] Moved Haliyal_170KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-28 10:36:27] Detected file: Nellikuppam_120KLPD_Synthetic_Data.xlsx -> Factory: F03
+[2026-08-28 10:36:27] Successfully processed and published telemetry to: distillery/factory/F03/telemetry
+[2026-08-28 10:36:27]   - Efficiency: 0.89% | Yield: 80.4 KL | Alert: GOLDEN BATCH (Conf: 88.5%)
+[2026-08-28 10:36:27] Moved Nellikuppam_120KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-28 10:36:27] Detected file: Sankili_168KLPD_Synthetic_Data.xlsx -> Factory: F02
+[2026-08-28 10:36:28] Successfully processed and published telemetry to: distillery/factory/F02/telemetry
+[2026-08-28 10:36:28]   - Efficiency: 0.859% | Yield: 109.82 KL | Alert: GOLDEN BATCH (Conf: 76.5%)
+[2026-08-28 10:36:28] Moved Sankili_168KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-28 10:36:28] Detected file: Sivagangai_64KLPD_Synthetic_Data.xlsx -> Factory: F04
+[2026-08-28 10:36:28] Successfully processed and published telemetry to: distillery/factory/F04/telemetry
+[2026-08-28 10:36:28]   - Efficiency: 0.937% | Yield: 45.43 KL | Alert: GOLDEN BATCH (Conf: 85.4%)
+[2026-08-28 10:36:28] Moved Sivagangai_64KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-28 19:13:35] Loading RandomForest AI model from: C:\Users\Admin B\StudioProjects\Distillary\server\batch_quality_classifier.joblib ...
+[2026-08-28 19:13:38] Model loaded successfully.
+[2026-08-28 19:13:38] Connecting to MQTT Broker [broker.emqx.io:1883]...
+[2026-08-28 19:13:39] Excel Directory Watcher active! Drop files in: C:\Users\Admin B\StudioProjects\Distillary\excel_drops
+
+[2026-08-28 19:14:03] Detected file: Bagalkot_60KLPD_Synthetic_Data.xlsx -> Factory: F05
+[2026-08-28 19:14:03] Successfully processed and published telemetry to: distillery/factory/F05/telemetry
+[2026-08-28 19:14:03]   - Efficiency: 0.89% | Yield: 39.45 KL | Alert: GOLDEN BATCH (Conf: 90.3%)
+[2026-08-28 19:14:03] Moved Bagalkot_60KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-28 19:14:03] Detected file: Haliyal_170KLPD_Synthetic_Data.xlsx -> Factory: F01
+[2026-08-28 19:14:04] Successfully processed and published telemetry to: distillery/factory/F01/telemetry
+[2026-08-28 19:14:04]   - Efficiency: 0.92% | Yield: 114.61 KL | Alert: GOLDEN BATCH (Conf: 84.9%)
+[2026-08-28 19:14:04] Moved Haliyal_170KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-28 19:14:04] Detected file: Nellikuppam_120KLPD_Synthetic_Data.xlsx -> Factory: F03
+[2026-08-28 19:14:04] Successfully processed and published telemetry to: distillery/factory/F03/telemetry
+[2026-08-28 19:14:04]   - Efficiency: 0.89% | Yield: 80.4 KL | Alert: GOLDEN BATCH (Conf: 88.5%)
+[2026-08-28 19:14:04] Moved Nellikuppam_120KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-28 19:14:04] Detected file: Sankili_168KLPD_Synthetic_Data.xlsx -> Factory: F02
+[2026-08-28 19:14:04] Successfully processed and published telemetry to: distillery/factory/F02/telemetry
+[2026-08-28 19:14:04]   - Efficiency: 0.859% | Yield: 109.82 KL | Alert: GOLDEN BATCH (Conf: 76.5%)
+[2026-08-28 19:14:04] Moved Sankili_168KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-28 19:14:04] Detected file: Sivagangai_64KLPD_Synthetic_Data.xlsx -> Factory: F04
+[2026-08-28 19:14:04] Successfully processed and published telemetry to: distillery/factory/F04/telemetry
+[2026-08-28 19:14:04]   - Efficiency: 0.937% | Yield: 45.43 KL | Alert: GOLDEN BATCH (Conf: 85.4%)
+[2026-08-28 19:14:04] Moved Sivagangai_64KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-31 09:24:49] Loading RandomForest AI model from: C:\Users\Admin B\StudioProjects\Distillary\server\batch_quality_classifier.joblib ...
+[2026-08-31 09:24:50] Model loaded successfully.
+[2026-08-31 09:24:50] Connecting to MQTT Broker [broker.emqx.io:1883]...
+[2026-08-31 09:24:51] Excel Directory Watcher active! Drop files in: C:\Users\Admin B\StudioProjects\Distillary\excel_drops
+
+[2026-08-31 09:24:51] Detected file: Bagalkot_60KLPD_Synthetic_Data - Copy.xlsx -> Factory: F05
+[2026-08-31 09:24:51] Successfully processed and published telemetry to: distillery/factory/F05/telemetry
+[2026-08-31 09:24:51]   - Efficiency: 89.0% | Yield: 39.45 KL | Alert: GOLDEN BATCH (Conf: 90.3%)
+[2026-08-31 09:24:51] Moved Bagalkot_60KLPD_Synthetic_Data - Copy.xlsx to processed subfolder.
+
+[2026-08-31 09:24:51] Detected file: Haliyal_170KLPD_Synthetic_Data.xlsx -> Factory: F01
+[2026-08-31 09:24:51] Successfully processed and published telemetry to: distillery/factory/F01/telemetry
+[2026-08-31 09:24:51]   - Efficiency: 92.0% | Yield: 114.61 KL | Alert: GOLDEN BATCH (Conf: 84.9%)
+[2026-08-31 09:24:51] Moved Haliyal_170KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-31 12:23:28] Loading RandomForest AI model from: C:\Users\Admin B\StudioProjects\Distillary\server\batch_quality_classifier.joblib ...
+[2026-08-31 12:23:29] Model loaded successfully.
+[2026-08-31 12:23:29] Connecting to MQTT Broker [broker.emqx.io:1883]...
+[2026-08-31 12:23:30] Excel Directory Watcher active! Drop files in: C:\Users\Admin B\StudioProjects\Distillary\excel_drops
+
+[2026-08-31 12:28:32] Detected file: Bagalkot_60KLPD_Synthetic_Data.xlsx -> Factory: F05
+[2026-08-31 12:28:32] Successfully processed and published telemetry to: distillery/factory/F05/telemetry
+[2026-08-31 12:28:32]   - Efficiency: 89.0% | Yield: 39.45 KL | Alert: GOLDEN BATCH (Conf: 90.3%)
+[2026-08-31 12:28:32] Moved Bagalkot_60KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-31 12:28:32] Detected file: Haliyal_170KLPD_Synthetic_Data.xlsx -> Factory: F01
+[2026-08-31 12:28:32] Successfully processed and published telemetry to: distillery/factory/F01/telemetry
+[2026-08-31 12:28:32]   - Efficiency: 92.0% | Yield: 114.61 KL | Alert: GOLDEN BATCH (Conf: 84.9%)
+[2026-08-31 12:28:32] Moved Haliyal_170KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-31 12:28:32] Detected file: Nellikuppam_120KLPD_Synthetic_Data.xlsx -> Factory: F03
+[2026-08-31 12:28:33] Successfully processed and published telemetry to: distillery/factory/F03/telemetry
+[2026-08-31 12:28:33]   - Efficiency: 89.0% | Yield: 80.4 KL | Alert: GOLDEN BATCH (Conf: 88.5%)
+[2026-08-31 12:28:33] Moved Nellikuppam_120KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-31 12:28:33] Detected file: Sankili_168KLPD_Synthetic_Data.xlsx -> Factory: F02
+[2026-08-31 12:28:33] Successfully processed and published telemetry to: distillery/factory/F02/telemetry
+[2026-08-31 12:28:33]   - Efficiency: 85.9% | Yield: 109.82 KL | Alert: GOLDEN BATCH (Conf: 76.5%)
+[2026-08-31 12:28:33] Moved Sankili_168KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-31 12:28:33] Detected file: Sivagangai_64KLPD_Synthetic_Data.xlsx -> Factory: F04
+[2026-08-31 12:28:33] Successfully processed and published telemetry to: distillery/factory/F04/telemetry
+[2026-08-31 12:28:33]   - Efficiency: 93.7% | Yield: 45.43 KL | Alert: GOLDEN BATCH (Conf: 85.4%)
+[2026-08-31 12:28:33] Moved Sivagangai_64KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-31 15:06:38] Loading RandomForest AI model from: C:\Users\Admin B\StudioProjects\Distillary\server\batch_quality_classifier.joblib ...
+[2026-08-31 15:06:39] Model loaded successfully.
+[2026-08-31 15:06:39] Connecting to MQTT Broker [broker.hivemq.com:1883]...
+[2026-08-31 15:06:40] Excel Directory Watcher active! Drop files in: C:\Users\Admin B\StudioProjects\Distillary\excel_drops
+
+[2026-08-31 15:42:01] Loading RandomForest AI model from: C:\Users\Admin B\StudioProjects\Distillary\server\batch_quality_classifier.joblib ...
+[2026-08-31 15:42:03] Model loaded successfully.
+[2026-08-31 15:42:03] Connecting to MQTT Broker [broker.hivemq.com:1883]...
+[2026-08-31 15:42:03] Excel Directory Watcher active! Drop files in: C:\Users\Admin B\StudioProjects\Distillary\excel_drops
+
+[2026-08-31 15:47:23] Detected file: Sankili_168KLPD_Synthetic_Data.xlsx -> Factory: F02
+[2026-08-31 15:47:24] Successfully processed and published telemetry to: distillery/factory/F02/telemetry
+[2026-08-31 15:47:24]   - Efficiency: 85.9% | Yield: 109.82 KL | Alert: GOLDEN BATCH (Conf: 76.5%)
+[2026-08-31 15:47:24] Moved Sankili_168KLPD_Synthetic_Data.xlsx to processed subfolder.
+
+[2026-08-31 15:47:24] Error streaming file Sankili_168KLPD_Synthetic_Data.xlsx: [Errno 2] No such file or directory: 'C:\\Users\\Admin B\\StudioProjects\\Distillary\\excel_drops\\Sankili_168KLPD_Synthetic_Data.xlsx'
+
+[2026-08-31 15:47:30] [F02] Starting live simulation stream for Sankili_168KLPD_Synthetic_Data.xlsx (205 rows)
+[2026-08-31 15:47:30] [F02] Published row 1/205 - alert: GOLDEN BATCH (Eff: 90.8%)
+[2026-08-31 15:47:33] [F02] Published row 2/205 - alert: GOLDEN BATCH (Eff: 90.2%)
+[2026-08-31 15:47:36] [F02] Published row 3/205 - alert: GOLDEN BATCH (Eff: 91.8%)
+[2026-08-31 15:47:39] [F02] Published row 4/205 - alert: GOLDEN BATCH (Eff: 90.10000000000001%)
+[2026-08-31 15:47:42] [F02] Published row 5/205 - alert: GOLDEN BATCH (Eff: 92.10000000000001%)
+[2026-08-31 15:47:45] [F02] Published row 6/205 - alert: GOLDEN BATCH (Eff: 89.1%)
+[2026-08-31 15:47:48] [F02] Published row 7/205 - alert: GOLDEN BATCH (Eff: 91.10000000000001%)
+[2026-08-31 15:47:51] [F02] Published row 8/205 - alert: GOLDEN BATCH (Eff: 91.5%)
+[2026-08-31 15:47:54] [F02] Published row 9/205 - alert: GOLDEN BATCH (Eff: 90.8%)
+[2026-08-31 15:47:57] [F02] Published row 10/205 - alert: GOLDEN BATCH (Eff: 90.60000000000001%)
+[2026-08-31 15:48:00] [F02] Published row 11/205 - alert: GOLDEN BATCH (Eff: 90.2%)
+[2026-08-31 15:48:03] [F02] Published row 12/205 - alert: GOLDEN BATCH (Eff: 91.3%)
+[2026-08-31 15:48:06] [F02] Published row 13/205 - alert: GOLDEN BATCH (Eff: 89.60000000000001%)
+[2026-08-31 15:48:09] [F02] Published row 14/205 - alert: GOLDEN BATCH (Eff: 90.3%)
+[2026-08-31 15:48:13] [F02] Published row 15/205 - alert: GOLDEN BATCH (Eff: 91.9%)
+[2026-08-31 15:48:16] [F02] Published row 16/205 - alert: GOLDEN BATCH (Eff: 90.9%)
+[2026-08-31 15:48:19] [F02] Published row 17/205 - alert: GOLDEN BATCH (Eff: 88.6%)
+[2026-08-31 15:48:22] [F02] Published row 18/205 - alert: GOLDEN BATCH (Eff: 89.8%)
+[2026-08-31 15:48:25] [F02] Published row 19/205 - alert: GOLDEN BATCH (Eff: 89.4%)
+[2026-08-31 15:48:28] [F02] Published row 20/205 - alert: GOLDEN BATCH (Eff: 91.3%)
+[2026-08-31 15:48:31] [F02] Published row 21/205 - alert: GOLDEN BATCH (Eff: 89.2%)
+[2026-08-31 15:48:34] [F02] Published row 22/205 - alert: GOLDEN BATCH (Eff: 91.8%)
+[2026-08-31 15:48:37] [F02] Published row 23/205 - alert: GOLDEN BATCH (Eff: 89.2%)
+[2026-08-31 15:48:40] [F02] Published row 24/205 - alert: GOLDEN BATCH (Eff: 90.0%)
+[2026-08-31 15:48:43] [F02] Published row 25/205 - alert: GOLDEN BATCH (Eff: 90.7%)
+[2026-08-31 15:48:46] [F02] Published row 26/205 - alert: GOLDEN BATCH (Eff: 89.8%)
+[2026-08-31 15:48:49] [F02] Published row 27/205 - alert: GOLDEN BATCH (Eff: 90.7%)
+[2026-08-31 15:48:52] [F02] Published row 28/205 - alert: GOLDEN BATCH (Eff: 91.4%)
+[2026-08-31 15:48:55] [F02] Published row 29/205 - alert: GOLDEN BATCH (Eff: 90.3%)
+[2026-08-31 15:48:58] [F02] Published row 30/205 - alert: GOLDEN BATCH (Eff: 90.7%)
+[2026-08-31 15:49:01] [F02] Published row 31/205 - alert: GOLDEN BATCH (Eff: 89.2%)
+[2026-08-31 15:49:04] [F02] Published row 32/205 - alert: GOLDEN BATCH (Eff: 89.7%)
+[2026-08-31 15:49:07] [F02] Published row 33/205 - alert: GOLDEN BATCH (Eff: 91.0%)
+[2026-08-31 15:49:11] [F02] Published row 34/205 - alert: GOLDEN BATCH (Eff: 88.4%)
+[2026-08-31 15:49:14] [F02] Published row 35/205 - alert: GOLDEN BATCH (Eff: 89.9%)
+[2026-08-31 15:49:17] [F02] Published row 36/205 - alert: GOLDEN BATCH (Eff: 90.60000000000001%)
+[2026-08-31 15:49:20] [F02] Published row 37/205 - alert: GOLDEN BATCH (Eff: 91.8%)
+[2026-08-31 15:49:23] [F02] Published row 38/205 - alert: GOLDEN BATCH (Eff: 90.8%)
+[2026-08-31 15:49:26] [F02] Published row 39/205 - alert: GOLDEN BATCH (Eff: 87.3%)
+[2026-08-31 15:49:29] [F02] Published row 40/205 - alert: GOLDEN BATCH (Eff: 89.5%)
+[2026-08-31 15:49:32] [F02] Published row 41/205 - alert: GOLDEN BATCH (Eff: 89.7%)
+[2026-08-31 15:49:35] [F02] Published row 42/205 - alert: GOLDEN BATCH (Eff: 89.5%)
+[2026-08-31 15:49:38] [F02] Published row 43/205 - alert: GOLDEN BATCH (Eff: 88.7%)
+[2026-08-31 15:49:41] [F02] Published row 44/205 - alert: GOLDEN BATCH (Eff: 90.5%)
+[2026-08-31 15:49:44] [F02] Published row 45/205 - alert: GOLDEN BATCH (Eff: 87.4%)
+[2026-08-31 15:49:47] [F02] Published row 46/205 - alert: GOLDEN BATCH (Eff: 91.10000000000001%)
+[2026-08-31 15:49:50] [F02] Published row 47/205 - alert: GOLDEN BATCH (Eff: 86.7%)
+[2026-08-31 15:49:53] [F02] Published row 48/205 - alert: GOLDEN BATCH (Eff: 90.9%)
+[2026-08-31 15:49:56] [F02] Published row 49/205 - alert: GOLDEN BATCH (Eff: 91.2%)
+[2026-08-31 15:50:00] [F02] Published row 50/205 - alert: GOLDEN BATCH (Eff: 92.0%)
+[2026-08-31 15:50:03] [F02] Published row 51/205 - alert: GOLDEN BATCH (Eff: 89.0%)
+[2026-08-31 15:50:06] [F02] Published row 52/205 - alert: GOLDEN BATCH (Eff: 89.5%)
+[2026-08-31 15:50:09] [F02] Published row 53/205 - alert: GOLDEN BATCH (Eff: 91.3%)
+[2026-08-31 15:50:12] [F02] Published row 54/205 - alert: GOLDEN BATCH (Eff: 91.9%)
+[2026-08-31 15:50:15] [F02] Published row 55/205 - alert: GOLDEN BATCH (Eff: 91.10000000000001%)
+[2026-08-31 15:50:18] [F02] Published row 56/205 - alert: GOLDEN BATCH (Eff: 90.7%)
+[2026-08-31 15:50:21] [F02] Published row 57/205 - alert: GOLDEN BATCH (Eff: 91.60000000000001%)
+[2026-08-31 15:50:24] [F02] Published row 58/205 - alert: GOLDEN BATCH (Eff: 90.8%)
+[2026-08-31 15:50:27] [F02] Published row 59/205 - alert: GOLDEN BATCH (Eff: 90.0%)
+[2026-08-31 15:50:30] [F02] Published row 60/205 - alert: GOLDEN BATCH (Eff: 88.7%)
+[2026-08-31 15:50:33] [F02] Published row 61/205 - alert: GOLDEN BATCH (Eff: 90.2%)
+[2026-08-31 15:50:36] [F02] Published row 62/205 - alert: GOLDEN BATCH (Eff: 90.10000000000001%)
+[2026-08-31 15:50:39] [F02] Published row 63/205 - alert: GOLDEN BATCH (Eff: 89.7%)
+[2026-08-31 15:50:42] [F02] Published row 64/205 - alert: GOLDEN BATCH (Eff: 91.0%)
+[2026-08-31 15:50:45] [F02] Published row 65/205 - alert: GOLDEN BATCH (Eff: 90.4%)
+[2026-08-31 15:50:48] [F02] Published row 66/205 - alert: GOLDEN BATCH (Eff: 89.7%)
+[2026-08-31 15:50:52] [F02] Published row 67/205 - alert: GOLDEN BATCH (Eff: 89.4%)
+[2026-08-31 15:50:55] [F02] Published row 68/205 - alert: GOLDEN BATCH (Eff: 90.7%)
+[2026-08-31 15:50:58] [F02] Published row 69/205 - alert: GOLDEN BATCH (Eff: 89.7%)
+[2026-08-31 15:51:01] [F02] Published row 70/205 - alert: GOLDEN BATCH (Eff: 89.7%)
+[2026-08-31 15:51:04] [F02] Published row 71/205 - alert: GOLDEN BATCH (Eff: 89.60000000000001%)
+[2026-08-31 15:51:07] [F02] Published row 72/205 - alert: GOLDEN BATCH (Eff: 91.2%)
+[2026-08-31 15:51:10] [F02] Published row 73/205 - alert: GOLDEN BATCH (Eff: 90.5%)
+[2026-08-31 15:51:13] [F02] Published row 74/205 - alert: GOLDEN BATCH (Eff: 90.9%)
+[2026-08-31 15:51:16] [F02] Published row 75/205 - alert: GOLDEN BATCH (Eff: 91.0%)
+[2026-08-31 15:51:19] [F02] Published row 76/205 - alert: GOLDEN BATCH (Eff: 89.3%)
+[2026-08-31 15:51:22] [F02] Published row 77/205 - alert: GOLDEN BATCH (Eff: 91.5%)
+[2026-08-31 15:51:25] [F02] Published row 78/205 - alert: GOLDEN BATCH (Eff: 89.9%)
+[2026-08-31 15:51:28] [F02] Published row 79/205 - alert: GOLDEN BATCH (Eff: 89.5%)
+[2026-08-31 15:51:31] [F02] Published row 80/205 - alert: GOLDEN BATCH (Eff: 93.10000000000001%)
+[2026-08-31 15:51:34] [F02] Published row 81/205 - alert: GOLDEN BATCH (Eff: 91.0%)
+[2026-08-31 15:51:37] [F02] Published row 82/205 - alert: GOLDEN BATCH (Eff: 89.1%)
+[2026-08-31 15:51:40] [F02] Published row 83/205 - alert: GOLDEN BATCH (Eff: 89.5%)
+[2026-08-31 15:51:44] [F02] Published row 84/205 - alert: GOLDEN BATCH (Eff: 93.10000000000001%)
+[2026-08-31 15:51:47] [F02] Published row 85/205 - alert: GOLDEN BATCH (Eff: 91.7%)
+[2026-08-31 15:51:50] [F02] Published row 86/205 - alert: GOLDEN BATCH (Eff: 91.7%)
+[2026-08-31 15:51:53] [F02] Published row 87/205 - alert: GOLDEN BATCH (Eff: 89.8%)
+[2026-08-31 15:51:56] [F02] Published row 88/205 - alert: GOLDEN BATCH (Eff: 89.0%)
+[2026-08-31 15:51:59] [F02] Published row 89/205 - alert: GOLDEN BATCH (Eff: 90.0%)
+[2026-08-31 15:52:02] [F02] Published row 90/205 - alert: GOLDEN BATCH (Eff: 89.8%)
+[2026-08-31 15:52:05] [F02] Published row 91/205 - alert: GOLDEN BATCH (Eff: 91.2%)
+[2026-08-31 15:52:08] [F02] Published row 92/205 - alert: GOLDEN BATCH (Eff: 88.6%)
+[2026-08-31 15:52:11] [F02] Published row 93/205 - alert: GOLDEN BATCH (Eff: 92.30000000000001%)
+[2026-08-31 15:52:14] [F02] Published row 94/205 - alert: GOLDEN BATCH (Eff: 88.9%)
+[2026-08-31 15:52:17] [F02] Published row 95/205 - alert: GOLDEN BATCH (Eff: 91.9%)
+[2026-08-31 15:52:20] [F02] Published row 96/205 - alert: GOLDEN BATCH (Eff: 89.7%)
+[2026-08-31 15:52:23] [F02] Published row 97/205 - alert: GOLDEN BATCH (Eff: 89.8%)
+[2026-08-31 15:52:26] [F02] Published row 98/205 - alert: GOLDEN BATCH (Eff: 89.2%)
+[2026-08-31 15:52:29] [F02] Published row 99/205 - alert: GOLDEN BATCH (Eff: 89.8%)
+[2026-08-31 15:52:33] [F02] Published row 100/205 - alert: GOLDEN BATCH (Eff: 89.8%)
+[2026-08-31 15:52:36] [F02] Published row 101/205 - alert: GOLDEN BATCH (Eff: 92.5%)
+[2026-08-31 15:52:39] [F02] Published row 102/205 - alert: GOLDEN BATCH (Eff: 93.10000000000001%)
+[2026-08-31 15:52:42] [F02] Published row 103/205 - alert: GOLDEN BATCH (Eff: 88.2%)
+[2026-08-31 15:52:45] [F02] Published row 104/205 - alert: GOLDEN BATCH (Eff: 90.9%)
+[2026-08-31 15:52:48] [F02] Published row 105/205 - alert: GOLDEN BATCH (Eff: 90.4%)
+[2026-08-31 15:52:51] [F02] Published row 106/205 - alert: GOLDEN BATCH (Eff: 90.7%)
+[2026-08-31 15:52:54] [F02] Published row 107/205 - alert: GOLDEN BATCH (Eff: 90.8%)
+[2026-08-31 15:52:57] [F02] Published row 108/205 - alert: GOLDEN BATCH (Eff: 93.10000000000001%)
+[2026-08-31 15:53:00] [F02] Published row 109/205 - alert: GOLDEN BATCH (Eff: 90.8%)
+[2026-08-31 15:53:03] [F02] Published row 110/205 - alert: GOLDEN BATCH (Eff: 91.0%)
+[2026-08-31 15:53:06] [F02] Published row 111/205 - alert: GOLDEN BATCH (Eff: 91.0%)
+[2026-08-31 15:53:09] [F02] Published row 112/205 - alert: GOLDEN BATCH (Eff: 89.7%)
+[2026-08-31 15:53:12] [F02] Published row 113/205 - alert: GOLDEN BATCH (Eff: 89.60000000000001%)
+[2026-08-31 15:53:15] [F02] Published row 114/205 - alert: GOLDEN BATCH (Eff: 91.3%)
+[2026-08-31 15:53:18] [F02] Published row 115/205 - alert: GOLDEN BATCH (Eff: 88.7%)
+[2026-08-31 15:53:21] [F02] Published row 116/205 - alert: GOLDEN BATCH (Eff: 90.5%)
+[2026-08-31 15:53:24] [F02] Published row 117/205 - alert: GOLDEN BATCH (Eff: 90.2%)
+[2026-08-31 15:53:27] [F02] Published row 118/205 - alert: GOLDEN BATCH (Eff: 90.5%)
+[2026-08-31 15:53:30] [F02] Published row 119/205 - alert: GOLDEN BATCH (Eff: 88.2%)
+[2026-08-31 15:53:34] [F02] Published row 120/205 - alert: GOLDEN BATCH (Eff: 89.2%)
+[2026-08-31 15:53:37] [F02] Published row 121/205 - alert: GOLDEN BATCH (Eff: 87.9%)
+[2026-08-31 15:53:40] [F02] Published row 122/205 - alert: GOLDEN BATCH (Eff: 89.2%)
+[2026-08-31 15:53:43] [F02] Published row 123/205 - alert: GOLDEN BATCH (Eff: 91.2%)
+[2026-08-31 15:53:46] [F02] Published row 124/205 - alert: GOLDEN BATCH (Eff: 91.10000000000001%)
+[2026-08-31 15:53:49] [F02] Published row 125/205 - alert: GOLDEN BATCH (Eff: 89.8%)
+[2026-08-31 15:53:52] [F02] Published row 126/205 - alert: GOLDEN BATCH (Eff: 92.30000000000001%)
+[2026-08-31 15:53:55] [F02] Published row 127/205 - alert: GOLDEN BATCH (Eff: 88.9%)
+[2026-08-31 15:53:58] [F02] Published row 128/205 - alert: GOLDEN BATCH (Eff: 89.1%)
+[2026-08-31 15:54:01] [F02] Published row 129/205 - alert: GOLDEN BATCH (Eff: 90.4%)
+[2026-08-31 15:54:04] [F02] Published row 130/205 - alert: GOLDEN BATCH (Eff: 89.9%)
+[2026-08-31 15:54:07] [F02] Published row 131/205 - alert: GOLDEN BATCH (Eff: 91.2%)
+[2026-08-31 15:54:10] [F02] Published row 132/205 - alert: GOLDEN BATCH (Eff: 90.2%)
+[2026-08-31 15:54:13] [F02] Published row 133/205 - alert: GOLDEN BATCH (Eff: 92.80000000000001%)
+[2026-08-31 15:54:16] [F02] Published row 134/205 - alert: GOLDEN BATCH (Eff: 89.9%)
+[2026-08-31 15:54:19] [F02] Published row 135/205 - alert: GOLDEN BATCH (Eff: 90.60000000000001%)
+[2026-08-31 15:54:22] [F02] Published row 136/205 - alert: GOLDEN BATCH (Eff: 92.10000000000001%)
+[2026-08-31 15:54:25] [F02] Published row 137/205 - alert: GOLDEN BATCH (Eff: 91.5%)
+[2026-08-31 15:54:29] [F02] Published row 138/205 - alert: GOLDEN BATCH (Eff: 90.2%)
+[2026-08-31 15:54:32] [F02] Published row 139/205 - alert: GOLDEN BATCH (Eff: 90.60000000000001%)
+[2026-08-31 15:54:35] [F02] Published row 140/205 - alert: GOLDEN BATCH (Eff: 88.7%)
+[2026-08-31 15:54:38] [F02] Published row 141/205 - alert: GOLDEN BATCH (Eff: 90.7%)
+[2026-08-31 15:54:41] [F02] Published row 142/205 - alert: GOLDEN BATCH (Eff: 90.8%)
+[2026-08-31 15:54:44] [F02] Published row 143/205 - alert: GOLDEN BATCH (Eff: 90.60000000000001%)
+[2026-08-31 15:54:47] [F02] Published row 144/205 - alert: GOLDEN BATCH (Eff: 91.9%)
+[2026-08-31 15:54:50] [F02] Published row 145/205 - alert: GOLDEN BATCH (Eff: 90.2%)
+[2026-08-31 15:54:53] [F02] Published row 146/205 - alert: GOLDEN BATCH (Eff: 91.3%)
+[2026-08-31 15:54:56] [F02] Published row 147/205 - alert: GOLDEN BATCH (Eff: 89.9%)
+[2026-08-31 15:54:59] [F02] Published row 148/205 - alert: GOLDEN BATCH (Eff: 90.60000000000001%)
+[2026-08-31 15:55:02] [F02] Published row 149/205 - alert: GOLDEN BATCH (Eff: 91.0%)
+[2026-08-31 15:55:05] [F02] Published row 150/205 - alert: GOLDEN BATCH (Eff: 89.8%)
+[2026-08-31 15:55:08] [F02] Published row 151/205 - alert: GOLDEN BATCH (Eff: 90.2%)
+[2026-08-31 15:55:11] [F02] Published row 152/205 - alert: GOLDEN BATCH (Eff: 86.3%)
+[2026-08-31 15:55:15] [F02] Published row 153/205 - alert: GOLDEN BATCH (Eff: 89.3%)
+[2026-08-31 15:55:18] [F02] Published row 154/205 - alert: GOLDEN BATCH (Eff: 91.0%)
+[2026-08-31 15:55:21] [F02] Published row 155/205 - alert: GOLDEN BATCH (Eff: 92.2%)
+[2026-08-31 15:55:24] [F02] Published row 156/205 - alert: GOLDEN BATCH (Eff: 90.5%)
+[2026-08-31 15:55:27] [F02] Published row 157/205 - alert: GOLDEN BATCH (Eff: 89.5%)
+[2026-08-31 15:55:30] [F02] Published row 158/205 - alert: GOLDEN BATCH (Eff: 90.7%)
+[2026-08-31 15:55:33] [F02] Published row 159/205 - alert: GOLDEN BATCH (Eff: 90.10000000000001%)
+[2026-08-31 15:55:36] [F02] Published row 160/205 - alert: GOLDEN BATCH (Eff: 88.2%)
+[2026-08-31 15:55:39] [F02] Published row 161/205 - alert: GOLDEN BATCH (Eff: 90.0%)
+[2026-08-31 15:55:42] [F02] Published row 162/205 - alert: GOLDEN BATCH (Eff: 83.5%)
+[2026-08-31 15:55:45] [F02] Published row 163/205 - alert: GOLDEN BATCH (Eff: 90.2%)
+[2026-08-31 15:55:48] [F02] Published row 164/205 - alert: GOLDEN BATCH (Eff: 90.5%)
+[2026-08-31 15:55:51] [F02] Published row 165/205 - alert: GOLDEN BATCH (Eff: 90.60000000000001%)
+[2026-08-31 15:55:54] [F02] Published row 166/205 - alert: GOLDEN BATCH (Eff: 90.7%)
+[2026-08-31 15:55:57] [F02] Published row 167/205 - alert: GOLDEN BATCH (Eff: 91.4%)
+[2026-08-31 15:56:00] [F02] Published row 168/205 - alert: GOLDEN BATCH (Eff: 90.5%)
+[2026-08-31 15:56:03] [F02] Published row 169/205 - alert: GOLDEN BATCH (Eff: 92.5%)
+[2026-08-31 15:56:06] [F02] Published row 170/205 - alert: GOLDEN BATCH (Eff: 88.2%)
+[2026-08-31 15:56:09] [F02] Published row 171/205 - alert: GOLDEN BATCH (Eff: 89.2%)
+[2026-08-31 15:56:12] [F02] Published row 172/205 - alert: GOLDEN BATCH (Eff: 91.60000000000001%)
+[2026-08-31 15:56:15] [F02] Published row 173/205 - alert: GOLDEN BATCH (Eff: 91.60000000000001%)
+[2026-08-31 15:56:18] [F02] Published row 174/205 - alert: GOLDEN BATCH (Eff: 91.5%)
+[2026-08-31 15:56:21] [F02] Published row 175/205 - alert: GOLDEN BATCH (Eff: 90.5%)
+[2026-08-31 15:56:24] [F02] Published row 176/205 - alert: GOLDEN BATCH (Eff: 90.0%)
+[2026-08-31 15:56:27] [F02] Published row 177/205 - alert: GOLDEN BATCH (Eff: 91.9%)
+[2026-08-31 15:56:30] [F02] Published row 178/205 - alert: GOLDEN BATCH (Eff: 91.10000000000001%)
+[2026-08-31 15:56:33] [F02] Published row 179/205 - alert: GOLDEN BATCH (Eff: 91.3%)
+[2026-08-31 15:56:36] [F02] Published row 180/205 - alert: GOLDEN BATCH (Eff: 91.10000000000001%)
+[2026-08-31 15:56:39] [F02] Published row 181/205 - alert: GOLDEN BATCH (Eff: 90.0%)
+[2026-08-31 15:56:42] [F02] Published row 182/205 - alert: GOLDEN BATCH (Eff: 88.7%)
+[2026-08-31 15:56:45] [F02] Published row 183/205 - alert: GOLDEN BATCH (Eff: 91.0%)
+[2026-08-31 15:56:48] [F02] Published row 184/205 - alert: GOLDEN BATCH (Eff: 88.7%)
+[2026-08-31 15:56:51] [F02] Published row 185/205 - alert: GOLDEN BATCH (Eff: 90.60000000000001%)
+[2026-08-31 15:56:54] [F02] Published row 186/205 - alert: GOLDEN BATCH (Eff: 89.60000000000001%)
+[2026-08-31 15:56:57] [F02] Published row 187/205 - alert: GOLDEN BATCH (Eff: 90.60000000000001%)
+[2026-08-31 15:57:00] [F02] Published row 188/205 - alert: GOLDEN BATCH (Eff: 89.5%)
+[2026-08-31 15:57:03] [F02] Published row 189/205 - alert: GOLDEN BATCH (Eff: 87.7%)
+[2026-08-31 15:57:06] [F02] Published row 190/205 - alert: GOLDEN BATCH (Eff: 90.10000000000001%)
+[2026-08-31 15:57:09] [F02] Published row 191/205 - alert: GOLDEN BATCH (Eff: 89.5%)
+[2026-08-31 15:57:12] [F02] Published row 192/205 - alert: GOLDEN BATCH (Eff: 91.2%)
+[2026-08-31 15:57:15] [F02] Published row 193/205 - alert: GOLDEN BATCH (Eff: 84.2%)
+[2026-08-31 15:57:19] [F02] Published row 194/205 - alert: GOLDEN BATCH (Eff: 90.5%)
+[2026-08-31 15:57:22] [F02] Published row 195/205 - alert: GOLDEN BATCH (Eff: 91.7%)
+[2026-08-31 15:57:25] [F02] Published row 196/205 - alert: GOLDEN BATCH (Eff: 89.4%)
+[2026-08-31 15:57:28] [F02] Published row 197/205 - alert: GOLDEN BATCH (Eff: 90.60000000000001%)
+[2026-08-31 15:57:31] [F02] Published row 198/205 - alert: GOLDEN BATCH (Eff: 89.5%)
+[2026-08-31 15:57:34] [F02] Published row 199/205 - alert: GOLDEN BATCH (Eff: 90.0%)
+[2026-08-31 15:57:37] [F02] Published row 200/205 - alert: GOLDEN BATCH (Eff: 93.10000000000001%)
+[2026-08-31 15:57:40] [F02] Published row 201/205 - alert: GOLDEN BATCH (Eff: 91.5%)
+[2026-08-31 15:57:43] [F02] Published row 202/205 - alert: GOLDEN BATCH (Eff: 90.0%)
+[2026-08-31 15:57:46] [F02] Published row 203/205 - alert: GOLDEN BATCH (Eff: 88.4%)
+[2026-08-31 15:57:49] [F02] Published row 204/205 - alert: GOLDEN BATCH (Eff: 91.2%)
+[2026-08-31 15:57:52] [F02] Published row 205/205 - alert: GOLDEN BATCH (Eff: 85.9%)
+[2026-08-31 15:57:55] [F02] Finished streaming Sankili_168KLPD_Synthetic_Data.xlsx. Moved to processed subfolder.
+
