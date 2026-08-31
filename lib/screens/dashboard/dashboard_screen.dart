@@ -1520,7 +1520,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           : const Icon(Icons.sync_rounded, size: 14, color: AppColors.cyan),
                       const SizedBox(width: 6),
                       Text(
-                        'Current Excel: $_lastSyncTime',
+                        'Current Excel: ${(() {
+                          final currentFactory = const ['F01', 'F02', 'F03', 'F04', 'F05'][_selectedFactoryIndex];
+                          final cached = localPipelineService.lastEmittedPackets[currentFactory];
+                          return cached?.fileName ?? 'None (Waiting for upload)';
+                        })()}',
                         style: const TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
