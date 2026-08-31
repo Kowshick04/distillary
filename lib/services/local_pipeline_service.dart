@@ -70,7 +70,9 @@ class LocalPipelineService {
 
   void startAutoScanning() {
     _scanTimer?.cancel();
-    scanLocalFolder();
+    loadPersistedPayloadsLocal().then((_) {
+      scanLocalFolder();
+    });
     _scanTimer = Timer.periodic(const Duration(seconds: 10), (_) => scanLocalFolder());
   }
 
@@ -328,7 +330,14 @@ class LocalPipelineService {
   }
 
   Future<void> _persistLastMqttPayload(String factoryCode, Map<String, dynamic> payload) async {
-    // No-op: do not persist to disk
+    try {
+      final dir = await getApplicationSupportDirectory();
+      final file = File('${dir.path}/last_telemetry_$factoryCode.json');
+      await file.writeAsString(jsonEncode(payload));
+      print('LocalPipelineService: Persisted telemetry for $factoryCode to disk.');
+    } catch (e) {
+      print('LocalPipelineService: Failed to persist telemetry: $e');
+    }
   }
 
   Map<String, dynamic>? getLastPayload(String factoryCode) {
@@ -336,7 +345,87 @@ class LocalPipelineService {
   }
 
   Future<void> replayPersistedPayloads() async {
-    // No-op: do not replay on startup/reconnect
+    try {
+      final dir = await getApplicationSupportDirectory();
+      for (final factoryCode in ['F01', 'F02', 'F03', 'F04', 'F05']) {
+        final file = File('${dir.path}/last_telemetry_$factoryCode.json');
+        if (!await file.exists()) continue;
+        try {
+          final content = await file.readAsString();
+          final payload = Map<String, dynamic>.from(jsonDecode(content));
+          
+          final fermenters = payload['fermenters'] as List?;
+          if (fermenters != null) {
+            final activeCount = fermenters.where((f) => f['status'] != 'AWAITING_SYNC').length;
+            if (activeCount > 1) {
+              print('LocalPipelineService: Deleting legacy buggy telemetry payload for $factoryCode from disk.');
+              try {
+                await file.delete();
+              } catch (_) {}
+              continue;
+            }
+          }
+
+          // Populate last emitted packets in memory
+          final telemetry = TelemetryDataModel.fromJson(payload);
+          lastEmittedPackets[factoryCode] = telemetry;
+          _lastMqttPayloads[factoryCode] = payload;
+
+          if (fermenters != null) {
+            _vesselsState[factoryCode] = List<Map<String, dynamic>>.from(
+              fermenters.map((f) => Map<String, dynamic>.from(f))
+            );
+          }
+
+          // Emit to local UI listeners
+          _telemetryStreamController.add(telemetry);
+
+          print('LocalPipelineService: Replaying persisted telemetry for $factoryCode from disk...');
+          await mqttPublishService.publishTelemetry(factoryCode, payload);
+        } catch (e) {
+          print('LocalPipelineService: Failed to replay persisted telemetry for $factoryCode: $e');
+        }
+      }
+    } catch (e) {
+      print('LocalPipelineService: Failed to load persisted payloads dir: $e');
+    }
+  }
+
+  Future<void> loadPersistedPayloadsLocal() async {
+    try {
+      final dir = await getApplicationSupportDirectory();
+      for (final factoryCode in ['F01', 'F02', 'F03', 'F04', 'F05']) {
+        final file = File('${dir.path}/last_telemetry_$factoryCode.json');
+        if (!await file.exists()) continue;
+        try {
+          final content = await file.readAsString();
+          final payload = Map<String, dynamic>.from(jsonDecode(content));
+          
+          final fermenters = payload['fermenters'] as List?;
+          if (fermenters != null) {
+            final activeCount = fermenters.where((f) => f['status'] != 'AWAITING_SYNC').length;
+            if (activeCount > 1) continue;
+          }
+
+          final telemetry = TelemetryDataModel.fromJson(payload);
+          lastEmittedPackets[factoryCode] = telemetry;
+          _lastMqttPayloads[factoryCode] = payload;
+
+          if (fermenters != null) {
+            _vesselsState[factoryCode] = List<Map<String, dynamic>>.from(
+              fermenters.map((f) => Map<String, dynamic>.from(f))
+            );
+          }
+
+          _telemetryStreamController.add(telemetry);
+          print('LocalPipelineService: Locally loaded persisted telemetry for $factoryCode.');
+        } catch (e) {
+          print('LocalPipelineService: Failed to locally load telemetry for $factoryCode: $e');
+        }
+      }
+    } catch (e) {
+      print('LocalPipelineService: Failed to load local payloads dir: $e');
+    }
   }
 
   // ─── Custom XLSX Parser ──────────────────────────────────────────────────
