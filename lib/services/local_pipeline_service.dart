@@ -319,7 +319,7 @@ class LocalPipelineService {
       _telemetryStreamController.add(telemetry);
       _emitStatus(PipelineStatus(
         type: PipelineStatusType.fileLoaded,
-        message: 'Loaded: $fileName | Alcohol: ${productAlcohol.toStringAsFixed(1)}% | $predLabel',
+        message: '${_getFactoryName(factoryCode)} Excel file is synced',
         fileName: fileName,
       ));
       print("LocalPipelineService: SUCCESS — $fileName | $predLabel @ ${confidence.toStringAsFixed(1)}%");
@@ -420,7 +420,7 @@ class LocalPipelineService {
           _telemetryStreamController.add(telemetry);
           _emitStatus(PipelineStatus(
             type: PipelineStatusType.fileLoaded,
-            message: 'Loaded: ${telemetry.fileName} | Alcohol: ${telemetry.alcohol.toStringAsFixed(1)}% | ${telemetry.predictionLabel.toUpperCase()}',
+            message: '${_getFactoryName(factoryCode)} Excel file is synced',
             fileName: telemetry.fileName,
           ));
           print('LocalPipelineService: Locally loaded persisted telemetry for $factoryCode.');
@@ -558,6 +558,17 @@ class LocalPipelineService {
     final str = val.toString().trim();
     if (str.isEmpty || str == '-' || str.startsWith('=')) return null;
     return int.tryParse(str);
+  }
+
+  String _getFactoryName(String code) {
+    switch (code) {
+      case 'F01': return 'Haliyal';
+      case 'F02': return 'Sankili';
+      case 'F03': return 'Nellikuppam';
+      case 'F04': return 'Sivagangai';
+      case 'F05': return 'Bagalkot';
+      default: return 'Haliyal';
+    }
   }
 }
 
