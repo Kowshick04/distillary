@@ -328,67 +328,15 @@ class LocalPipelineService {
   }
 
   Future<void> _persistLastMqttPayload(String factoryCode, Map<String, dynamic> payload) async {
-    try {
-      final dir = await getApplicationSupportDirectory();
-      final file = File('${dir.path}/last_telemetry_$factoryCode.json');
-      await file.writeAsString(jsonEncode(payload));
-      print('LocalPipelineService: Persisted telemetry for $factoryCode to disk.');
-    } catch (e) {
-      print('LocalPipelineService: Failed to persist telemetry: $e');
-    }
+    // No-op: do not persist to disk
   }
 
   Map<String, dynamic>? getLastPayload(String factoryCode) {
     return _lastMqttPayloads[factoryCode];
   }
 
-  /// Load persisted last MQTT payloads from disk and replay them over MQTT.
-  /// Call this once after the MQTT publisher has connected on startup.
   Future<void> replayPersistedPayloads() async {
-    try {
-      final dir = await getApplicationSupportDirectory();
-      for (final factoryCode in ['F01', 'F02', 'F03', 'F04', 'F05']) {
-        final file = File('${dir.path}/last_telemetry_$factoryCode.json');
-        if (!await file.exists()) continue;
-        try {
-          final content = await file.readAsString();
-          final payload = Map<String, dynamic>.from(jsonDecode(content));
-          
-          final fermenters = payload['fermenters'] as List?;
-          if (fermenters != null) {
-            final activeCount = fermenters.where((f) => f['status'] != 'AWAITING_SYNC').length;
-            if (activeCount > 1) {
-              print('LocalPipelineService: Deleting legacy buggy telemetry payload for $factoryCode from disk.');
-              try {
-                await file.delete();
-              } catch (_) {}
-              continue;
-            }
-          }
-
-          // Populate last emitted packets in memory
-          final telemetry = TelemetryDataModel.fromJson(payload);
-          lastEmittedPackets[factoryCode] = telemetry;
-          _lastMqttPayloads[factoryCode] = payload;
-
-          if (fermenters != null) {
-            _vesselsState[factoryCode] = List<Map<String, dynamic>>.from(
-              fermenters.map((f) => Map<String, dynamic>.from(f))
-            );
-          }
-
-          // Emit to local UI listeners
-          _telemetryStreamController.add(telemetry);
-
-          print('LocalPipelineService: Replaying persisted telemetry for $factoryCode from disk...');
-          await mqttPublishService.publishTelemetry(factoryCode, payload);
-        } catch (e) {
-          print('LocalPipelineService: Failed to replay persisted telemetry for $factoryCode: $e');
-        }
-      }
-    } catch (e) {
-      print('LocalPipelineService: Failed to load persisted payloads dir: $e');
-    }
+    // No-op: do not replay on startup/reconnect
   }
 
   // ─── Custom XLSX Parser ──────────────────────────────────────────────────
