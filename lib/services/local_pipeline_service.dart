@@ -319,7 +319,7 @@ class LocalPipelineService {
       _telemetryStreamController.add(telemetry);
       _emitStatus(PipelineStatus(
         type: PipelineStatusType.fileLoaded,
-        message: '${_getFactoryName(factoryCode)} Excel file is synced',
+        message: 'Loaded: $fileName | Alcohol: ${productAlcohol.toStringAsFixed(1)}% | $predLabel',
         fileName: fileName,
       ));
       print("LocalPipelineService: SUCCESS — $fileName | $predLabel @ ${confidence.toStringAsFixed(1)}%");
@@ -420,7 +420,7 @@ class LocalPipelineService {
           _telemetryStreamController.add(telemetry);
           _emitStatus(PipelineStatus(
             type: PipelineStatusType.fileLoaded,
-            message: '${_getFactoryName(factoryCode)} Excel file is synced',
+            message: 'Loaded: ${telemetry.fileName} | Alcohol: ${telemetry.alcohol.toStringAsFixed(1)}% | ${telemetry.predictionLabel.toUpperCase()}',
             fileName: telemetry.fileName,
           ));
           print('LocalPipelineService: Locally loaded persisted telemetry for $factoryCode.');
