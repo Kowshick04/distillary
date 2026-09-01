@@ -159,53 +159,15 @@ class LocalPipelineService {
       final bytes = await file.readAsBytes();
       if (bytes.isEmpty) return;
 
-      // Custom xlsx parser — reads raw XML, handles formula cached values
-      final row = _readLastDataRowFromXlsx(bytes);
-      if (row.isEmpty) {
-        print("LocalPipelineService: No data row found in $fileName");
+      // Custom xlsx parser — reads raw XML, handles formula cached values for up to 2 active fermenters
+      final activeRows = _readRecentFermenterRowsFromXlsx(bytes, maxFermenters: 2);
+      if (activeRows.isEmpty) {
+        print("LocalPipelineService: No data rows found in $fileName");
         return;
       }
-      print("LocalPipelineService: Row length=${row.length}, processing $fileName");
-
-      final int fermenterNum    = _parseInt(row.length > 4  ? row[4]  : null) ?? 1;
-      final double feedingHours = _parseD(row, 8)  ?? _featureMedians["feeding_hours"]!;
-      final double retentHours  = _parseD(row, 9)  ?? _featureMedians["retention_hours"]!;
-      final double setupSg      = _parseD(row, 28) ?? _featureMedians["setup_sg"]!;
-      final double finalSg      = _parseD(row, 29) ?? _featureMedians["final_sg"]!;
-      final double sgDiff       = (setupSg - finalSg).abs();
-      final double setupAlc     = _parseD(row, 31) ?? _featureMedians["setup_alc"]!;
-      final double finalAlc     = _parseD(row, 32) ?? _featureMedians["final_alc"]!;
-      final double setupPh      = _parseD(row, 35) ?? _featureMedians["setup_ph"]!;
-      final double finalPh      = _parseD(row, 36) ?? _featureMedians["final_ph"]!;
-
-      final double spentwashRecycle     = _parseD(row, 11) ?? 6.0;
-      final double finalRs              = _parseD(row, 34) ?? 2.3;
-      final double analyserTemp         = 75.0 + finalRs;
-      final double feedRate             = _parseD(row, 49) ?? 54.7;
-      final double concSpentwashBrix    = _parseD(row, 55) ?? 56.4;
-      final double alcoholLossSpentwash = _parseD(row, 62) ?? 0.05;
-      final double washAlcoholFeed      = _parseD(row, 63) ?? 12.9;
-      final double bottomSpentwashBrix  = _parseD(row, 65) ?? 4.6;
-      final double rawSpentwashBrix     = _parseD(row, 66) ?? 14.7;
-      final double ffeOutletBrix        = _parseD(row, 67) ?? 27.7;
-      final double productAlcohol       = _parseD(row, 68) ?? 97.6;
-      final double actualProduction     = _parseD(row, 45) ?? 1575.9;
-      double rawEfficiency = _parseD(row, 46) ?? 91.8;
-      if (rawEfficiency > 0.0 && rawEfficiency <= 1.0) {
-        rawEfficiency *= 100.0;
-      }
-      final double efficiency = rawEfficiency;
+      print("LocalPipelineService: Processing $fileName with ${activeRows.length} active fermenter row(s)");
 
       if (!randomForestPredictor.isLoaded) await randomForestPredictor.loadModel();
-
-      final prediction = randomForestPredictor.predict({
-        "feeding_hours": feedingHours, "retention_hours": retentHours,
-        "setup_sg": setupSg, "final_sg": finalSg, "sg_diff": sgDiff,
-        "setup_alc": setupAlc, "final_alc": finalAlc,
-        "setup_ph": setupPh, "final_ph": finalPh,
-      });
-      final predLabel = prediction['predictionLabel']?.toString() ?? 'normal';
-      final confidence = prediction['confidence'] != null ? (prediction['confidence'] as num).toDouble() : 90.0;
 
       String factoryCode = "F01";
       final fn = file.path.toLowerCase();
@@ -215,45 +177,121 @@ class LocalPipelineService {
       if (fn.contains("sivaganga") || fn.contains("sivagangai") || fn.contains("f04"))  factoryCode = "F04";
       if (fn.contains("bagalkot") || fn.contains("f05"))    factoryCode = "F05";
 
-      final int targetVesselNum = fermenterNum.clamp(1, 4);
       final factoryVessels = _createInitialVessels();
-      factoryVessels[targetVesselNum - 1] = {
-        "id": fermenterNum,
-        "status": predLabel.toUpperCase().contains('GOLDEN') ? 'GOLDEN BATCH'
-            : (predLabel.toUpperCase().contains('INFECTION') ? 'RISK (INFECTION)' : 'NORMAL'),
-        "subStatus": "FERMENTING",
-        "temp": 30.5 + ((feedingHours * 0.1) % 3.0),
-        "ph": finalPh,
-        "brix": finalSg * 100.0 - 100.0,
-        "yeast": "320M",
-        "va": "80p",
-        "vol": targetVesselNum == 4 ? 92 : 80,
-        "aiPredict": predLabel.toUpperCase().contains('GOLDEN') ? 'GOLDEN BATCH'
-            : (predLabel.toUpperCase().contains('INFECTION') ? 'RISK (INFECTION)' : 'NORMAL'),
-      };
+
+      String primaryPredLabel = 'NORMAL';
+      double primaryConfidence = 90.0;
+      int primaryFermenterNum = 1;
+      double primaryEfficiency = 91.8;
+      double primaryProductAlcohol = 97.6;
+      double primaryAnalyserTemp = 76.1;
+      double primarySetupPh = 4.5;
+      double primaryFinalPh = 4.48;
+      double primarySetupSg = 1.085;
+      double primaryFinalSg = 1.010;
+      double primaryFeedingHours = 18.5;
+      double primaryRetentHours = 48.0;
+      double primarySpentwashRecycle = 6.0;
+      double primaryFeedRate = 54.7;
+      double primaryConcSpentwashBrix = 56.4;
+      double primaryAlcoholLoss = 0.05;
+      double primaryWashAlcoholFeed = 12.9;
+      double primaryBottomSpentwashBrix = 4.6;
+      double primaryRawSpentwashBrix = 14.7;
+      double primaryFfeOutletBrix = 27.7;
+      double primaryActualProduction = 1575.9;
+      double primaryFinalRs = 2.3;
+
+      for (int i = 0; i < activeRows.length; i++) {
+        final row = activeRows[i];
+        final int rawFermenterNum = _parseInt(row.length > 4 ? row[4] : null) ?? (i + 1);
+        final int targetVesselNum = rawFermenterNum.clamp(1, 4);
+
+        final double feedingHours = _parseD(row, 8) ?? _featureMedians["feeding_hours"]!;
+        final double retentHours = _parseD(row, 9) ?? _featureMedians["retention_hours"]!;
+        final double setupSg = _parseD(row, 28) ?? _featureMedians["setup_sg"]!;
+        final double finalSg = _parseD(row, 29) ?? _featureMedians["final_sg"]!;
+        final double sgDiff = (setupSg - finalSg).abs();
+        final double setupAlc = _parseD(row, 31) ?? _featureMedians["setup_alc"]!;
+        final double finalAlc = _parseD(row, 32) ?? _featureMedians["final_alc"]!;
+        final double setupPh = _parseD(row, 35) ?? _featureMedians["setup_ph"]!;
+        final double finalPh = _parseD(row, 36) ?? _featureMedians["final_ph"]!;
+
+        final prediction = randomForestPredictor.predict({
+          "feeding_hours": feedingHours, "retention_hours": retentHours,
+          "setup_sg": setupSg, "final_sg": finalSg, "sg_diff": sgDiff,
+          "setup_alc": setupAlc, "final_alc": finalAlc,
+          "setup_ph": setupPh, "final_ph": finalPh,
+        });
+        final predLabel = prediction['predictionLabel']?.toString() ?? 'NORMAL';
+        final confidence = prediction['confidence'] != null ? (prediction['confidence'] as num).toDouble() : 90.0;
+
+        factoryVessels[targetVesselNum - 1] = {
+          "id": targetVesselNum,
+          "status": predLabel.toUpperCase().contains('GOLDEN') ? 'GOLDEN BATCH'
+              : (predLabel.toUpperCase().contains('INFECTION') ? 'RISK (INFECTION)' : 'NORMAL'),
+          "subStatus": "FERMENTING",
+          "temp": 30.5 + ((feedingHours * 0.1) % 3.0),
+          "ph": finalPh,
+          "brix": (finalSg * 100.0 - 100.0).clamp(0.5, 12.0),
+          "yeast": targetVesselNum == 1 ? "320M" : "310M",
+          "va": targetVesselNum == 1 ? "80p" : "75p",
+          "vol": targetVesselNum == 4 ? 92 : (targetVesselNum == 1 ? 85 : 80),
+          "aiPredict": predLabel.toUpperCase().contains('GOLDEN') ? 'GOLDEN BATCH'
+              : (predLabel.toUpperCase().contains('INFECTION') ? 'RISK (INFECTION)' : 'NORMAL'),
+        };
+
+        if (i == 0) {
+          primaryPredLabel = predLabel;
+          primaryConfidence = confidence;
+          primaryFermenterNum = targetVesselNum;
+          primarySpentwashRecycle = _parseD(row, 11) ?? 6.0;
+          primaryFinalRs = _parseD(row, 34) ?? 2.3;
+          primaryAnalyserTemp = 75.0 + primaryFinalRs;
+          primaryFeedRate = _parseD(row, 49) ?? 54.7;
+          primaryConcSpentwashBrix = _parseD(row, 55) ?? 56.4;
+          primaryAlcoholLoss = _parseD(row, 62) ?? 0.05;
+          primaryWashAlcoholFeed = _parseD(row, 63) ?? 12.9;
+          primaryBottomSpentwashBrix = _parseD(row, 65) ?? 4.6;
+          primaryRawSpentwashBrix = _parseD(row, 66) ?? 14.7;
+          primaryFfeOutletBrix = _parseD(row, 67) ?? 27.7;
+          primaryProductAlcohol = _parseD(row, 68) ?? 97.6;
+          primaryActualProduction = _parseD(row, 45) ?? 1575.9;
+          double rawEff = _parseD(row, 46) ?? 91.8;
+          if (rawEff > 0.0 && rawEff <= 1.0) rawEff *= 100.0;
+          primaryEfficiency = rawEff;
+          primarySetupPh = setupPh;
+          primaryFinalPh = finalPh;
+          primarySetupSg = setupSg;
+          primaryFinalSg = finalSg;
+          primaryFeedingHours = feedingHours;
+          primaryRetentHours = retentHours;
+        }
+      }
+
       _vesselsState[factoryCode] = factoryVessels;
 
       final telemetry = TelemetryDataModel(
         factoryCode: factoryCode, timestampMinute: 0,
-        batchId: 1000 + fermenterNum, fermenter: fermenterNum,
+        batchId: 1000 + primaryFermenterNum, fermenter: primaryFermenterNum,
         state: 'DRIVE_INGEST',
-        temperature: 30.5 + ((feedingHours * 0.1) % 3.0),
-        alcohol: productAlcohol,
-        brix: finalRs * 3.0,
-        ph: finalPh,
+        temperature: primaryAnalyserTemp,
+        alcohol: primaryProductAlcohol,
+        brix: primaryFinalRs * 3.0,
+        ph: primaryFinalPh,
         plantPowerKw: 1.0, fermenterPowerKw: 28.0, steamConsumptionKgph: 92.0,
         coolingWaterFlowLpm: 400.0, energyCostPerHour: 1600.0,
-        fermentationEfficiency: efficiency, yieldPercentage: efficiency,
-        batchQualityScore: confidence, agitatorHealthScore: 95.0,
+        fermentationEfficiency: primaryEfficiency, yieldPercentage: primaryEfficiency,
+        batchQualityScore: primaryConfidence, agitatorHealthScore: 95.0,
         valveCoolingHealth: 98.0, valveSteamHealth: 99.0,
         serverTimestamp: DateTime.now().toString().split(' ')[1].substring(0, 5),
-        predictionLabel: predLabel, predictionConfidence: confidence,
+        predictionLabel: primaryPredLabel, predictionConfidence: primaryConfidence,
         fileName: fileName, fileUrl: file.path,
-        spentwashRecycle: spentwashRecycle, analyserTemp: analyserTemp,
-        feedRate: feedRate, concSpentwashBrix: concSpentwashBrix,
-        alcoholLossSpentwash: alcoholLossSpentwash, washAlcoholFeed: washAlcoholFeed,
-        bottomSpentwashBrix: bottomSpentwashBrix, rawSpentwashBrix: rawSpentwashBrix,
-        ffeOutletBrix: ffeOutletBrix, productAlcoholFinal: productAlcohol,
+        spentwashRecycle: primarySpentwashRecycle, analyserTemp: primaryAnalyserTemp,
+        feedRate: primaryFeedRate, concSpentwashBrix: primaryConcSpentwashBrix,
+        alcoholLossSpentwash: primaryAlcoholLoss, washAlcoholFeed: primaryWashAlcoholFeed,
+        bottomSpentwashBrix: primaryBottomSpentwashBrix, rawSpentwashBrix: primaryRawSpentwashBrix,
+        ffeOutletBrix: primaryFfeOutletBrix, productAlcoholFinal: primaryProductAlcohol,
         fermentersList: factoryVessels.map((f) => FermenterItem.fromJson(f)).toList(),
       );
 
@@ -262,53 +300,53 @@ class LocalPipelineService {
         "factoryCode": factoryCode,
         "fileName": fileName,
         "excelTimestamp": syncTimeStr,
-        "fermenter": fermenterNum,
+        "fermenter": primaryFermenterNum,
         "pf": "PF-1",
-        "alert": predLabel.toUpperCase().contains('GOLDEN') ? 'GOLDEN BATCH'
-            : (predLabel.toUpperCase().contains('INFECTION') ? 'RISK (INFECTION)' : 'NORMAL'),
-        "actualProduction": actualProduction,
-        "feEfficiency": efficiency,
-        "washAlcohol": finalAlc,
-        "ethanolPct": productAlcohol,
-        "temperature": analyserTemp,
+        "alert": primaryPredLabel.toUpperCase().contains('GOLDEN') ? 'GOLDEN BATCH'
+            : (primaryPredLabel.toUpperCase().contains('INFECTION') ? 'RISK (INFECTION)' : 'NORMAL'),
+        "actualProduction": primaryActualProduction,
+        "feEfficiency": primaryEfficiency,
+        "washAlcohol": primaryWashAlcoholFeed,
+        "ethanolPct": primaryProductAlcohol,
+        "temperature": primaryAnalyserTemp,
         "pressure": 0.63,
         "vacuum": -0.62,
         "deltaP": 0.22,
-        "setupPh": setupPh,
-        "finalPh": finalPh,
-        "setupSg": setupSg,
-        "finalSg": finalSg,
-        "feedingHours": feedingHours,
-        "retentionHours": retentHours,
-        "confidence": confidence,
-        "spentwashRecycle": spentwashRecycle,
-        "analyserTemp": analyserTemp,
-        "feedRate": feedRate,
-        "concSpentwashBrix": concSpentwashBrix,
-        "alcoholLossSpentwash": alcoholLossSpentwash,
-        "washAlcoholFeed": washAlcoholFeed,
-        "bottomSpentwashBrix": bottomSpentwashBrix,
-        "rawSpentwashBrix": rawSpentwashBrix,
-        "ffeOutletBrix": ffeOutletBrix,
-        "productAlcoholFinal": productAlcohol,
+        "setupPh": primarySetupPh,
+        "finalPh": primaryFinalPh,
+        "setupSg": primarySetupSg,
+        "finalSg": primaryFinalSg,
+        "feedingHours": primaryFeedingHours,
+        "retentionHours": primaryRetentHours,
+        "confidence": primaryConfidence,
+        "spentwashRecycle": primarySpentwashRecycle,
+        "analyserTemp": primaryAnalyserTemp,
+        "feedRate": primaryFeedRate,
+        "concSpentwashBrix": primaryConcSpentwashBrix,
+        "alcoholLossSpentwash": primaryAlcoholLoss,
+        "washAlcoholFeed": primaryWashAlcoholFeed,
+        "bottomSpentwashBrix": primaryBottomSpentwashBrix,
+        "rawSpentwashBrix": primaryRawSpentwashBrix,
+        "ffeOutletBrix": primaryFfeOutletBrix,
+        "productAlcoholFinal": primaryProductAlcohol,
         "fermenters": factoryVessels,
         "distillation": {
-          "washAlcohol": washAlcoholFeed,
-          "feedRate": feedRate,
-          "finalAlcohol": productAlcohol,
-          "alcoholLoss": alcoholLossSpentwash,
-          "spentWashFeed": feedRate,
-          "analyserColumn": analyserTemp,
-          "ffe": ffeOutletBrix,
-          "spentWashTank": spentwashRecycle,
-          "rcStrength": productAlcohol,
+          "washAlcohol": primaryWashAlcoholFeed,
+          "feedRate": primaryFeedRate,
+          "finalAlcohol": primaryProductAlcohol,
+          "alcoholLoss": primaryAlcoholLoss,
+          "spentWashFeed": primaryFeedRate,
+          "analyserColumn": primaryAnalyserTemp,
+          "ffe": primaryFfeOutletBrix,
+          "spentWashTank": primarySpentwashRecycle,
+          "rcStrength": primaryProductAlcohol,
           "msdh": 98.2,
-          "ethanol": productAlcohol,
-          "rawSpentWashBrix": rawSpentwashBrix,
-          "bottomSpentWashBrix": bottomSpentwashBrix,
-          "ffeOutletBrix": ffeOutletBrix,
-          "concentratedBrix": concSpentwashBrix,
-          "spentWashRecycle": spentwashRecycle
+          "ethanol": primaryProductAlcohol,
+          "rawSpentWashBrix": primaryRawSpentwashBrix,
+          "bottomSpentWashBrix": primaryBottomSpentwashBrix,
+          "ffeOutletBrix": primaryFfeOutletBrix,
+          "concentratedBrix": primaryConcSpentwashBrix,
+          "spentWashRecycle": primarySpentwashRecycle
         }
       };
 
@@ -320,10 +358,10 @@ class LocalPipelineService {
       _telemetryStreamController.add(telemetry);
       _emitStatus(PipelineStatus(
         type: PipelineStatusType.fileLoaded,
-        message: 'Loaded: $fileName | Alcohol: ${productAlcohol.toStringAsFixed(1)}% | $predLabel',
+        message: 'Loaded: $fileName | Alcohol: ${primaryProductAlcohol.toStringAsFixed(1)}% | $primaryPredLabel',
         fileName: fileName,
       ));
-      print("LocalPipelineService: SUCCESS — $fileName | $predLabel @ ${confidence.toStringAsFixed(1)}%");
+      print("LocalPipelineService: SUCCESS — $fileName | $primaryPredLabel @ ${primaryConfidence.toStringAsFixed(1)}%");
     } catch (e, st) {
       print("LocalPipelineService: Error parsing $fileName: $e\n$st");
       _emitStatus(PipelineStatus(type: PipelineStatusType.error, message: 'Error: $fileName'));
@@ -437,6 +475,104 @@ class LocalPipelineService {
   // ─── Custom XLSX Parser ──────────────────────────────────────────────────
   // Reads xlsx as ZIP, parses raw XML. Formula cells expose their CACHED <v>
   // element which contains the already-computed numeric result.
+
+  List<List<dynamic>> _readRecentFermenterRowsFromXlsx(Uint8List bytes, {int maxFermenters = 2}) {
+    try {
+      final archive = ZipDecoder().decodeBytes(bytes);
+
+      // 1. Load shared strings table
+      final ssEntry = archive.findFile('xl/sharedStrings.xml');
+      final List<String> sharedStrings = [];
+      if (ssEntry != null) {
+        final ssDoc = XmlDocument.parse(utf8.decode(ssEntry.content as List<int>));
+        for (final si in ssDoc.findAllElements('si')) {
+          final text = si.findAllElements('t').map((t) => t.innerText).join('');
+          sharedStrings.add(text);
+        }
+      }
+
+      // 2. Find the first worksheet
+      ArchiveFile? wsEntry;
+      for (int i = 1; i <= 5; i++) {
+        wsEntry = archive.findFile('xl/worksheets/sheet$i.xml');
+        if (wsEntry != null) break;
+      }
+      if (wsEntry == null) return [];
+
+      final wsDoc = XmlDocument.parse(utf8.decode(wsEntry.content as List<int>));
+      final allRows = wsDoc.findAllElements('row').toList();
+      if (allRows.isEmpty) return [];
+
+      final Map<int, List<dynamic>> fermenterRows = {};
+
+      for (final r in allRows.reversed) {
+        final cells = r.findElements('c').toList();
+        if (cells.isEmpty) continue;
+
+        const maxCols = 75;
+        final rowData = List<dynamic>.filled(maxCols, null);
+
+        for (final c in cells) {
+          final ref = c.getAttribute('r') ?? '';
+          final colIdx = _colRefToIndex(ref);
+          if (colIdx < 0 || colIdx >= maxCols) continue;
+
+          final type = c.getAttribute('t') ?? '';
+          if (type == 'inlineStr') {
+            final isEl = c.findElements('is').firstOrNull;
+            if (isEl != null) {
+              final tEl = isEl.findElements('t').firstOrNull;
+              rowData[colIdx] = tEl?.innerText ?? '';
+            }
+            continue;
+          }
+
+          final vEl = c.findElements('v').firstOrNull;
+          final vText = vEl?.innerText.trim() ?? '';
+          if (vText.isEmpty) { rowData[colIdx] = null; continue; }
+
+          if (type == 's') {
+            final idx = int.tryParse(vText);
+            rowData[colIdx] = (idx != null && idx < sharedStrings.length) ? sharedStrings[idx] : null;
+          } else if (type == 'str') {
+            rowData[colIdx] = vText;
+          } else if (type == 'b') {
+            rowData[colIdx] = vText == '1';
+          } else {
+            rowData[colIdx] = num.tryParse(vText);
+          }
+        }
+
+        final fNum = _parseInt(rowData.length > 4 ? rowData[4] : null);
+        final hasData = _parseD(rowData, 8) != null || _parseD(rowData, 29) != null;
+        if (fNum != null && fNum > 0 && hasData) {
+          final mappedNum = fNum.clamp(1, 4);
+          if (!fermenterRows.containsKey(mappedNum)) {
+            fermenterRows[mappedNum] = rowData;
+            if (fermenterRows.length >= maxFermenters) {
+              break;
+            }
+          }
+        }
+      }
+
+      if (fermenterRows.isEmpty) {
+        final lastRow = _readLastDataRowFromXlsx(bytes);
+        if (lastRow.isNotEmpty) return [lastRow];
+        return [];
+      }
+
+      return fermenterRows.values.toList();
+    } catch (e, st) {
+      print("LocalPipelineService: Multi-XLSX parse error: $e\n$st");
+      final lastRow = _readLastDataRowFromXlsx(bytes);
+      if (lastRow.isNotEmpty) return [lastRow];
+      return [];
+    }
+  }
+
+  List<List<dynamic>> readRecentFermenterRowsForTesting(Uint8List bytes, {int maxFermenters = 2}) =>
+      _readRecentFermenterRowsFromXlsx(bytes, maxFermenters: maxFermenters);
 
   List<dynamic> _readLastDataRowFromXlsx(Uint8List bytes) {
     try {

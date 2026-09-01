@@ -72,30 +72,20 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
   }
 
   String _getFactoryCodeForRole(String role) {
-    if (role == 'operator1') return 'F03'; // Nellikuppam
-    if (role == 'operator2') return 'F04'; // Sivaganga
-    if (role == 'operator3') return 'F02'; // Sankili
-    if (role == 'operator4') return 'F01'; // Haliyal
+    if (role == 'operator1') return 'F01'; // Haliyal
+    if (role == 'operator2') return 'F02'; // Sankili
+    if (role == 'operator3') return 'F03'; // Nellikuppam
+    if (role == 'operator4') return 'F04'; // Sivaganga
     if (role == 'operator5') return 'F05'; // Bagalkot
     return 'F01'; // Default
   }
 
   // Predefined mock facility summaries
-  // Factory 1=Nellikuppam, 2=Sivaganga, 3=Sankili, 4=Haliyal, 5=Bagalkot
+  // Factory 1=Haliyal, 2=Sankili, 3=Nellikuppam, 4=Sivaganga, 5=Bagalkot
   final List<Map<String, dynamic>> _facilities = [
     {
       'id': 'operator1',
-      'title': 'Nellikuppam',
-      'vessels': '2 / 4 Fermenters Active',
-      'efficiency': 0.918, // 91.8%
-      'flag': 'GOLDEN BATCH',
-      'color': AppColors.cyan,
-      'icon': Icons.factory_rounded,
-      'vesselsState': [true, false, true, false],
-    },
-    {
-      'id': 'operator2',
-      'title': 'Sivaganga',
+      'title': 'Haliyal',
       'vessels': '0 / 4 Active (STANDBY)',
       'efficiency': 0.0,
       'flag': 'STANDBY',
@@ -104,7 +94,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
       'vesselsState': [false, false, false, false],
     },
     {
-      'id': 'operator3',
+      'id': 'operator2',
       'title': 'Sankili',
       'vessels': '2 / 4 Fermenters Active',
       'efficiency': 0.885, // 88.5%
@@ -114,8 +104,18 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
       'vesselsState': [true, false, null, false],
     },
     {
+      'id': 'operator3',
+      'title': 'Nellikuppam',
+      'vessels': '2 / 4 Fermenters Active',
+      'efficiency': 0.918, // 91.8%
+      'flag': 'GOLDEN BATCH',
+      'color': AppColors.cyan,
+      'icon': Icons.factory_rounded,
+      'vesselsState': [true, false, true, false],
+    },
+    {
       'id': 'operator4',
-      'title': 'Haliyal',
+      'title': 'Sivaganga',
       'vessels': '0 / 4 Active (STANDBY)',
       'efficiency': 0.0,
       'flag': 'STANDBY',
@@ -268,10 +268,10 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
         setState(() {
           final String code = packet.factoryCode;
           int facIdx = -1;
-          if (code == 'F03') facIdx = 0; // Nellikuppam
-          else if (code == 'F04') facIdx = 1; // Sivaganga
-          else if (code == 'F02') facIdx = 2; // Sankili
-          else if (code == 'F01') facIdx = 3; // Haliyal
+          if (code == 'F01') facIdx = 0; // Haliyal
+          else if (code == 'F02') facIdx = 1; // Sankili
+          else if (code == 'F03') facIdx = 2; // Nellikuppam
+          else if (code == 'F04') facIdx = 3; // Sivaganga
           else if (code == 'F05') facIdx = 4; // Bagalkot
           
           if (facIdx >= 0 && facIdx < _facilities.length) {

@@ -201,7 +201,7 @@ class MqttPublishService {
         final topic = 'distillery/factory/$factoryCode/telemetry';
         final builder = MqttClientPayloadBuilder();
         builder.addString(jsonEncode(payload));
-        _client!.publishMessage(topic, MqttQos.atLeastOnce, builder.payload!, retain: false);
+        _client!.publishMessage(topic, MqttQos.atLeastOnce, builder.payload!, retain: true);
         debugPrint('MQTT Publisher: Published ${jsonEncode(payload).length} bytes to $topic');
         return; // Success
       } catch (e) {
@@ -282,7 +282,7 @@ class MqttPublishService {
         final topic = 'distillery/factory/$factoryCode/telemetry';
         final builder = MqttClientPayloadBuilder();
         builder.addString(jsonEncode(payload));
-        _client!.publishMessage(topic, MqttQos.atLeastOnce, builder.payload!, retain: false);
+        _client!.publishMessage(topic, MqttQos.atLeastOnce, builder.payload!, retain: true);
         debugPrint('MQTT Publisher: Flushed buffered telemetry packet for $factoryCode successfully');
       } catch (e) {
         debugPrint('MQTT Publisher: Failed to flush buffered packet for $factoryCode: $e');

@@ -88,6 +88,7 @@ class TelemetryDataModel {
   final double ffeOutletBrix;
   final double concentratedBrix;
   final double spentWashRecycle;
+  final String fileName;
 
   // Fermenter array items
   final List<FermenterItem> fermentersList;
@@ -128,6 +129,7 @@ class TelemetryDataModel {
     required this.ffeOutletBrix,
     required this.concentratedBrix,
     required this.spentWashRecycle,
+    this.fileName = '',
     required this.fermentersList,
   });
 
@@ -256,6 +258,7 @@ class TelemetryDataModel {
       ffeOutletBrix: (json['ffeOutletBrix'] as num?)?.toDouble() ?? (dist['ffeOutletBrix'] as num?)?.toDouble() ?? 27.7,
       concentratedBrix: (json['concSpentwashBrix'] as num?)?.toDouble() ?? (dist['concentratedBrix'] as num?)?.toDouble() ?? 56.4,
       spentWashRecycle: (json['spentwashRecycle'] as num?)?.toDouble() ?? (dist['spentWashRecycle'] as num?)?.toDouble() ?? 6.0,
+      fileName: json['fileName']?.toString() ?? json['file_name']?.toString() ?? '',
       fermentersList: fermenters,
     );
   }
