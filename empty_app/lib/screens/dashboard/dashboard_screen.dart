@@ -64,17 +64,59 @@ class _DashboardScreenState extends State<DashboardScreen> {
       return 0; // Default F01 (Haliyal)
     })();
 
-    // Initialize blank vessels
+    // Initialize vessels with Golden (F1) and Normal (F2) baseline
     _factoriesVessels = List.generate(5, (fIdx) {
-      return List.generate(4, (vIdx) {
-        return {
-          'title': 'Fermentation ${vIdx + 1}',
+      return [
+        {
+          'title': 'Fermentation 1',
+          'levelFactor': 0.85,
+          'stateText': 'FERMENTING',
+          'temperature': 33.4,
+          'ph': 4.65,
+          'brix': 2.8,
+          'qualityFlag': 'GOLDEN BATCH',
+          'confidence': 0.92,
+          'isRecoverable': true,
+          'volatileAcidityPpm': 51.0,
+          'yeastCount': 344.0,
+          'alcohol': 13.8,
+          'fermentationEfficiency': 92.0,
+          'isEmpty': false,
+          'qcActions': const <QCEntry>[],
+          'brixHistory': <double>[2.8],
+          'alcoholHistory': <double>[13.8],
+          'tempHistory': <double>[33.4],
+        },
+        {
+          'title': 'Fermentation 2',
+          'levelFactor': 0.80,
+          'stateText': 'FERMENTING',
+          'temperature': 31.3,
+          'ph': 4.25,
+          'brix': 5.2,
+          'qualityFlag': 'NORMAL',
+          'confidence': 0.70,
+          'isRecoverable': true,
+          'volatileAcidityPpm': 98.0,
+          'yeastCount': 195.0,
+          'alcohol': 8.5,
+          'fermentationEfficiency': 82.0,
+          'isEmpty': false,
+          'qcActions': const <QCEntry>[
+            QCEntry(action: 'Add Ammonium Hydroxide buffer', description: 'Adjust pH up to target 4.8.')
+          ],
+          'brixHistory': <double>[5.2],
+          'alcoholHistory': <double>[8.5],
+          'tempHistory': <double>[31.3],
+        },
+        {
+          'title': 'Fermentation 3',
           'levelFactor': 0.0,
           'stateText': 'STANDBY',
           'temperature': 0.0,
           'ph': 0.0,
           'brix': 0.0,
-          'qualityFlag': 'AWAITING SYNC',
+          'qualityFlag': 'STANDBY',
           'confidence': 0.0,
           'isRecoverable': true,
           'volatileAcidityPpm': 0.0,
@@ -86,8 +128,28 @@ class _DashboardScreenState extends State<DashboardScreen> {
           'brixHistory': <double>[],
           'alcoholHistory': <double>[],
           'tempHistory': <double>[],
-        };
-      });
+        },
+        {
+          'title': 'Fermentation 4',
+          'levelFactor': 0.0,
+          'stateText': 'STANDBY',
+          'temperature': 0.0,
+          'ph': 0.0,
+          'brix': 0.0,
+          'qualityFlag': 'STANDBY',
+          'confidence': 0.0,
+          'isRecoverable': true,
+          'volatileAcidityPpm': 0.0,
+          'yeastCount': 0.0,
+          'alcohol': 0.0,
+          'fermentationEfficiency': 0.0,
+          'isEmpty': true,
+          'qcActions': const <QCEntry>[],
+          'brixHistory': <double>[],
+          'alcoholHistory': <double>[],
+          'tempHistory': <double>[],
+        },
+      ];
     });
 
     // Check for cached MQTT packet on startup
