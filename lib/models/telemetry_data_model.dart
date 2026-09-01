@@ -149,6 +149,7 @@ class TelemetryDataModel {
 
     return TelemetryDataModel(
       factoryCode: json['factoryCode']?.toString() ?? 'F01',
+      fileName: json['fileName']?.toString() ?? json['file_name']?.toString() ?? '',
       fileUrl: json['fileUrl']?.toString() ?? '',
       timestampMinute: toInt(json['timestamp_minute']),
       batchId: toInt(json['batch_id']),

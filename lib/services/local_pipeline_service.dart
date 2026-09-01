@@ -260,6 +260,7 @@ class LocalPipelineService {
       final syncTimeStr = DateTime.now().toString().split(' ')[1].substring(0, 5);
       final mqttPayload = {
         "factoryCode": factoryCode,
+        "fileName": fileName,
         "excelTimestamp": syncTimeStr,
         "fermenter": fermenterNum,
         "pf": "PF-1",

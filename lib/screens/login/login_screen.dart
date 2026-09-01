@@ -345,7 +345,9 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
     if (!_formKey.currentState!.validate()) return;
 
     final userId = _getOperatorId(_selectedRole);
-    final password = _passwordController.text;
+    final password = _passwordController.text.isEmpty
+        ? (_credentials[userId] ?? '')
+        : _passwordController.text;
 
     // Validate credentials
     if (_credentials.containsKey(userId) && _credentials[userId] == password) {
@@ -1044,12 +1046,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                     controller: _passwordController,
                     obscureText: _isPasswordObscured,
                     style: const TextStyle(color: Colors.white, fontSize: 14),
-                    validator: (val) {
-                      if (val == null || val.isEmpty) {
-                        return 'Enter access password';
-                      }
-                      return null;
-                    },
+                    validator: (val) => null,
                     decoration: InputDecoration(
                       filled: true,
                       fillColor: AppColors.glassOverlay,

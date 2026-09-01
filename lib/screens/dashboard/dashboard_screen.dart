@@ -1523,7 +1523,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         'Current Excel: ${(() {
                           final currentFactory = const ['F01', 'F02', 'F03', 'F04', 'F05'][_selectedFactoryIndex];
                           final cached = localPipelineService.lastEmittedPackets[currentFactory];
-                          return cached?.fileName ?? 'None (Waiting for upload)';
+                          final fn = cached?.fileName.trim() ?? '';
+                          return fn.isNotEmpty ? fn : 'None (Waiting for upload)';
                         })()}',
                         style: const TextStyle(
                           fontSize: 12,
