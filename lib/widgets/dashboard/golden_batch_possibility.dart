@@ -173,7 +173,7 @@ class _GoldenBatchPossibilityState extends State<GoldenBatchPossibility> {
                       ),
                     ),
                     const SizedBox(height: 4),
-                    if (widget.confidence >= 0.80 && activeActions.isEmpty)
+                    if (activeActions.isEmpty)
                       Container(
                         width: double.infinity,
                         padding: const EdgeInsets.all(8),
@@ -190,12 +190,8 @@ class _GoldenBatchPossibilityState extends State<GoldenBatchPossibility> {
                     else ...[
                       Builder(
                         builder: (context) {
-                          final actionTitle = activeActions.isNotEmpty
-                              ? activeActions.first.action
-                              : 'Add Ammonium Hydroxide buffer';
-                          final actionDesc = activeActions.isNotEmpty
-                              ? activeActions.first.description
-                              : 'Adjust pH up to target 4.8.';
+                          final actionTitle = activeActions.first.action;
+                          final actionDesc = activeActions.first.description;
                           final isWarning = actionTitle.toUpperCase().contains('WARNING') || actionTitle.toUpperCase().contains('CRITICAL');
                           final borderColor = isWarning ? AppColors.red : (widget.confidence >= 0.80 ? AppColors.cyan : AppColors.orange);
 
