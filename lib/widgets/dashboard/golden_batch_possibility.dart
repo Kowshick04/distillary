@@ -103,9 +103,7 @@ class _GoldenBatchPossibilityState extends State<GoldenBatchPossibility> {
 
   @override
   Widget build(BuildContext context) {
-    final Color dialColor = widget.confidence >= 0.80
-        ? AppColors.cyan
-        : (widget.confidence >= 0.45 ? AppColors.orange : AppColors.red);
+    const Color dialColor = AppColors.cyan;
 
     final effectiveActions = widget.qcActions.isNotEmpty
         ? widget.qcActions
@@ -517,30 +515,23 @@ class _ConcentricDialPainter extends CustomPainter {
       innerArcPaint,
     );
 
-    // Center Recovery text percentage & label
-    final String labelText = confidence >= 0.80
-        ? '\nGolden Recovery'
-        : (confidence >= 0.45 ? '\nNormal Batch' : '\nRisk Recovery');
-    final Color labelColor = confidence >= 0.80
-        ? AppColors.cyan
-        : (confidence >= 0.45 ? AppColors.orange : AppColors.red);
-
+    // Center Golden Recovery text percentage
     final textPainter = TextPainter(
       text: TextSpan(
         text: '${(confidence * 100).toStringAsFixed(0)}%',
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 18,
           fontWeight: FontWeight.w900,
-          color: labelColor,
+          color: AppColors.textPrimary,
         ),
-        children: [
+        children: const [
           TextSpan(
-            text: labelText,
+            text: '\nGolden Recovery',
             style: TextStyle(
               fontSize: 6.5,
               height: 1.3,
               fontWeight: FontWeight.bold,
-              color: labelColor.withValues(alpha: 0.8),
+              color: AppColors.textMuted,
             ),
           ),
         ],
