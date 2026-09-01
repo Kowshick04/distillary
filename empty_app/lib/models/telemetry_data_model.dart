@@ -9,6 +9,9 @@ class FermenterItem {
   final String va;
   final int vol;
   final String aiPredict;
+  final double confidence;
+  final double recovery;
+  final double alcohol;
 
   FermenterItem({
     required this.id,
@@ -21,6 +24,9 @@ class FermenterItem {
     required this.va,
     required this.vol,
     required this.aiPredict,
+    this.confidence = 0.0,
+    this.recovery = 0.0,
+    this.alcohol = 0.0,
   });
 
   factory FermenterItem.fromJson(Map<String, dynamic> json) {
@@ -35,6 +41,9 @@ class FermenterItem {
       va: json['va']?.toString() ?? '0p',
       vol: (json['vol'] as num?)?.toInt() ?? 0,
       aiPredict: json['aiPredict']?.toString() ?? 'AWAITING SYNC',
+      confidence: (json['confidence'] as num?)?.toDouble() ?? 0.0,
+      recovery: (json['recovery'] as num?)?.toDouble() ?? 0.0,
+      alcohol: (json['alcohol'] as num?)?.toDouble() ?? 0.0,
     );
   }
 }

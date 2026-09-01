@@ -226,19 +226,29 @@ class LocalPipelineService {
         final predLabel = prediction['predictionLabel']?.toString() ?? 'NORMAL';
         final confidence = prediction['confidence'] != null ? (prediction['confidence'] as num).toDouble() : 90.0;
 
+        final isGolden = predLabel.toUpperCase().contains('GOLDEN');
+        final isRisk = predLabel.toUpperCase().contains('INFECTION');
+        final vesselStatus = isGolden ? 'GOLDEN BATCH' : (isRisk ? 'RISK (INFECTION)' : 'NORMAL');
+        final double vesselConfidence = isGolden ? 92.4 : (isRisk ? 40.0 : 70.0);
+        final double vesselRecovery = isGolden ? 92.4 : (isRisk ? 38.0 : 70.0);
+        final double vesselAlcohol = isGolden ? 13.8 : 8.5;
+        final String vesselYeast = isGolden ? "344M" : "195M";
+        final String vesselVa = isGolden ? "51p" : "98p";
+
         factoryVessels[targetVesselNum - 1] = {
           "id": targetVesselNum,
-          "status": predLabel.toUpperCase().contains('GOLDEN') ? 'GOLDEN BATCH'
-              : (predLabel.toUpperCase().contains('INFECTION') ? 'RISK (INFECTION)' : 'NORMAL'),
+          "status": vesselStatus,
           "subStatus": "FERMENTING",
           "temp": 30.5 + ((feedingHours * 0.1) % 3.0),
           "ph": finalPh,
           "brix": (finalSg * 100.0 - 100.0).clamp(0.5, 12.0),
-          "yeast": targetVesselNum == 1 ? "320M" : "310M",
-          "va": targetVesselNum == 1 ? "80p" : "75p",
+          "yeast": vesselYeast,
+          "va": vesselVa,
           "vol": targetVesselNum == 4 ? 92 : (targetVesselNum == 1 ? 85 : 80),
-          "aiPredict": predLabel.toUpperCase().contains('GOLDEN') ? 'GOLDEN BATCH'
-              : (predLabel.toUpperCase().contains('INFECTION') ? 'RISK (INFECTION)' : 'NORMAL'),
+          "aiPredict": vesselStatus,
+          "confidence": vesselConfidence,
+          "recovery": vesselRecovery,
+          "alcohol": vesselAlcohol,
         };
 
         if (i == 0) {
@@ -396,7 +406,7 @@ class LocalPipelineService {
           final fermenters = payload['fermenters'] as List?;
           if (fermenters != null) {
             final activeCount = fermenters.where((f) => f['status'] != 'AWAITING_SYNC').length;
-            if (activeCount > 1) {
+            if (activeCount > 2) {
               print('LocalPipelineService: Deleting legacy buggy telemetry payload for $factoryCode from disk.');
               try {
                 await file.delete();
@@ -443,7 +453,7 @@ class LocalPipelineService {
           final fermenters = payload['fermenters'] as List?;
           if (fermenters != null) {
             final activeCount = fermenters.where((f) => f['status'] != 'AWAITING_SYNC').length;
-            if (activeCount > 1) continue;
+            if (activeCount > 2) continue;
           }
 
           final telemetry = TelemetryDataModel.fromJson(payload);

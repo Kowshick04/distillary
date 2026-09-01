@@ -53,9 +53,16 @@ class _AiOperatorAdvisorState extends State<AiOperatorAdvisor>
   @override
   Widget build(BuildContext context) {
     final hasInfection = widget.volatileAcidityPpm > 1500;
-    final Color feasibilityColor = widget.isRecoverable ? AppColors.cyan : AppColors.red;
-    final Color feasibilityBg = widget.isRecoverable ? AppColors.cyan.withOpacity(0.12) : AppColors.red.withOpacity(0.12);
-    final String feasibilityText = widget.isRecoverable ? 'RECOVERABLE' : 'UNRECOVERABLE';
+    final isOptimal = widget.pitchAlcohol >= 11.5 && widget.ph >= 4.40 && widget.volatileAcidityPpm <= 70.0;
+    final Color feasibilityColor = isOptimal
+        ? AppColors.cyan
+        : (widget.isRecoverable ? AppColors.orange : AppColors.red);
+    final Color feasibilityBg = isOptimal
+        ? AppColors.cyan.withValues(alpha: 0.15)
+        : (widget.isRecoverable ? AppColors.orange.withValues(alpha: 0.15) : AppColors.red.withValues(alpha: 0.15));
+    final String feasibilityText = isOptimal
+        ? 'OPTIMAL'
+        : (widget.isRecoverable ? 'RECOVERABLE' : 'UNRECOVERABLE');
 
     return GlassCard(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -64,111 +71,108 @@ class _AiOperatorAdvisorState extends State<AiOperatorAdvisor>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-          // 1. Header conformed to mockup
-          const Row(
-            children: [
-              Icon(Icons.psychology_rounded, color: AppColors.cyan, size: 20),
-              SizedBox(width: 8),
-              Text(
-                'AI Operator Advisor',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.textPrimary,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-
-          // Infection Warning Alert Banner
-          if (hasInfection) ...[
-            AnimatedBuilder(
-              animation: _flashAnimation,
-              builder: (context, child) {
-                return Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                  decoration: BoxDecoration(
-                    color: AppColors.red.withValues(alpha: _flashAnimation.value),
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: AppColors.red, width: 1.5),
+            // 1. Header conformed to mockup
+            const Row(
+              children: [
+                Icon(Icons.psychology_rounded, color: AppColors.cyan, size: 20),
+                SizedBox(width: 8),
+                Text(
+                  'AI Operator Advisor',
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.textPrimary,
                   ),
-                  child: const Row(
-                    children: [
-                      Icon(Icons.gpp_bad_rounded, color: AppColors.textPrimary, size: 18),
-                      SizedBox(width: 8),
-                      Expanded(
-                        child: Text(
-                          '🚨 Bacterial contamination detected. Fermentation is suppressed.',
-                          style: TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.textPrimary,
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+
+            // Infection Warning Alert Banner
+            if (hasInfection) ...[
+              AnimatedBuilder(
+                animation: _flashAnimation,
+                builder: (context, child) {
+                  return Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    decoration: BoxDecoration(
+                      color: AppColors.red.withValues(alpha: _flashAnimation.value),
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: AppColors.red, width: 1.5),
+                    ),
+                    child: const Row(
+                      children: [
+                        Icon(Icons.gpp_bad_rounded, color: AppColors.textPrimary, size: 18),
+                        SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            'CRITICAL: Infection threshold breach. High volatile acidity.',
+                            style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.textPrimary,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
+                  );
+                },
+              ),
+              const SizedBox(height: 12),
+            ],
+
+            // 2. Model descriptor pills
+            Row(
+              children: [
+                const Text(
+                  'STATUS: ',
+                  style: TextStyle(fontSize: 8, fontWeight: FontWeight.bold, color: AppColors.textMuted),
+                ),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1.5),
+                  decoration: BoxDecoration(
+                    color: feasibilityBg,
+                    borderRadius: BorderRadius.circular(5),
                   ),
+                  child: Text(
+                    feasibilityText,
+                    style: TextStyle(fontSize: 7, fontWeight: FontWeight.bold, color: feasibilityColor),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
+
+            // 3. Feature Importance progress bars (dynamic from real telemetry)
+            const Text(
+              'FEATURE IMPORTANCE',
+              style: TextStyle(
+                fontSize: 10,
+                letterSpacing: 0.8,
+                fontWeight: FontWeight.bold,
+                color: AppColors.textMuted,
+              ),
+            ),
+            const SizedBox(height: 4),
+            Builder(
+              builder: (context) {
+                final double pitchAlcFactor = (widget.pitchAlcohol / 15.0).clamp(0.0, 1.0);
+                final double volatileFactor = (widget.volatileAcidityPpm / 2500.0).clamp(0.0, 1.0);
+                final double effFactor = (widget.fermentationEfficiency / 100.0).clamp(0.0, 1.0);
+                final double phFactor = widget.ph > 0 ? ((widget.ph - 3.5) / 2.5).clamp(0.0, 1.0) : 0.0;
+
+                return Column(
+                  children: [
+                    _buildFeatureBar('Pitch Alcohol', pitchAlcFactor, isOptimal ? AppColors.cyan : AppColors.cyan),
+                    _buildFeatureBar('Volatile Acidity', volatileFactor, isOptimal ? AppColors.cyan : AppColors.cyan),
+                    _buildFeatureBar('Ferment. Efficiency', effFactor, AppColors.blue),
+                    _buildFeatureBar('pH Level', phFactor, AppColors.blue),
+                  ],
                 );
               },
             ),
-            const SizedBox(height: 12),
-          ],
-
-          // 2. Model descriptor pills
-          Row(
-            children: [
-              const Text(
-                'STATUS: ',
-                style: TextStyle(fontSize: 8, fontWeight: FontWeight.bold, color: AppColors.textMuted),
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1.5),
-                decoration: BoxDecoration(
-                  color: feasibilityBg,
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                child: Text(
-                  feasibilityText,
-                  style: TextStyle(fontSize: 7, fontWeight: FontWeight.bold, color: feasibilityColor),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-
-          // 3. Feature Importance progress bars (dynamic from real telemetry)
-          const Text(
-            'FEATURE IMPORTANCE',
-            style: TextStyle(
-              fontSize: 10,
-              letterSpacing: 0.8,
-              fontWeight: FontWeight.bold,
-              color: AppColors.textMuted,
-            ),
-          ),
-          const SizedBox(height: 4),
-          Builder(
-            builder: (context) {
-              final double pitchAlcFactor = (widget.pitchAlcohol / 15.0).clamp(0.0, 1.0);
-              final double volatileFactor = (widget.volatileAcidityPpm / 3000.0).clamp(0.0, 1.0);
-              final double effFactor = (widget.fermentationEfficiency / 100.0).clamp(0.0, 1.0);
-              final double phFactor = widget.ph > 0 ? ((widget.ph - 3.5) / 2.5).clamp(0.0, 1.0) : 0.0;
-
-              return ListView(
-                shrinkWrap: true,
-                padding: EdgeInsets.zero,
-                physics: const NeverScrollableScrollPhysics(),
-                children: [
-                  _buildFeatureBar('Pitch Alcohol', pitchAlcFactor, AppColors.cyan),
-                  _buildFeatureBar('Volatile Acidity', volatileFactor, AppColors.cyan),
-                  _buildFeatureBar('Ferment. Efficiency', effFactor, AppColors.blue),
-                  _buildFeatureBar('pH Level', phFactor, AppColors.blue),
-                ],
-              );
-            },
-          ),
           ],
         ),
       ),

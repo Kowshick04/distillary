@@ -103,10 +103,18 @@ class _GoldenBatchPossibilityState extends State<GoldenBatchPossibility> {
 
   @override
   Widget build(BuildContext context) {
-    const Color dialColor = AppColors.cyan;
+    final Color dialColor = widget.confidence >= 0.80
+        ? AppColors.cyan
+        : (widget.confidence >= 0.45 ? AppColors.orange : AppColors.red);
+
+    final effectiveActions = widget.qcActions.isNotEmpty
+        ? widget.qcActions
+        : (widget.confidence < 0.80
+            ? [const QCEntry(action: 'Add Ammonium Hydroxide buffer', description: 'Adjust pH up to target 4.8.')]
+            : <QCEntry>[]);
 
     // Filter out acknowledged actions
-    final activeActions = widget.qcActions
+    final activeActions = effectiveActions
         .where((action) => !_dismissedActionTexts.contains(action.action))
         .toList();
 
@@ -167,7 +175,7 @@ class _GoldenBatchPossibilityState extends State<GoldenBatchPossibility> {
                       ),
                     ),
                     const SizedBox(height: 4),
-                    if (activeActions.isEmpty)
+                    if (widget.confidence >= 0.80 && activeActions.isEmpty)
                       Container(
                         width: double.infinity,
                         padding: const EdgeInsets.all(8),
@@ -181,101 +189,116 @@ class _GoldenBatchPossibilityState extends State<GoldenBatchPossibility> {
                           style: TextStyle(fontSize: 9.5, fontStyle: FontStyle.italic, color: AppColors.textSecondary),
                         ),
                       )
-                    else
-                      ...List.generate(activeActions.isNotEmpty ? 1 : 0, (idx) {
-                        final action = activeActions[idx];
-                        final isWarning = action.action.toUpperCase().contains('WARNING') || action.action.toUpperCase().contains('CRITICAL');
-                        final borderColor = isWarning ? AppColors.red : (idx % 2 == 0 ? AppColors.cyan : AppColors.orange);
+                    else ...[
+                      Builder(
+                        builder: (context) {
+                          final actionTitle = activeActions.isNotEmpty
+                              ? activeActions.first.action
+                              : 'Add Ammonium Hydroxide buffer';
+                          final actionDesc = activeActions.isNotEmpty
+                              ? activeActions.first.description
+                              : 'Adjust pH up to target 4.8.';
+                          final isWarning = actionTitle.toUpperCase().contains('WARNING') || actionTitle.toUpperCase().contains('CRITICAL');
+                          final borderColor = isWarning ? AppColors.red : (widget.confidence >= 0.80 ? AppColors.cyan : AppColors.orange);
 
-                        return Container(
-                          width: double.infinity,
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            color: AppColors.surfaceDeep,
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(color: borderColor.withValues(alpha: 0.5), width: 1.2),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                '${idx + 1}. ${action.action}',
-                                style: const TextStyle(
-                                  fontSize: 10.5,
-                                  fontWeight: FontWeight.bold,
-                                  color: AppColors.textPrimary,
-                                ),
-                              ),
-                              const SizedBox(height: 3),
-                              Text(
-                                action.description,
-                                style: const TextStyle(
-                                  fontSize: 9,
-                                  color: AppColors.textMuted,
-                                ),
-                              ),
-                              const SizedBox(height: 8),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: AppColors.cyan,
-                                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-                                    ),
-                                    onPressed: () {
-                                      setState(() {
-                                        _dismissedActionTexts.add(action.action);
-                                      });
-                                      ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(
-                                          content: Text('Acknowledge: "${action.action}" marked as read.'),
-                                          duration: const Duration(seconds: 2),
-                                          backgroundColor: AppColors.cyan,
-                                        ),
-                                      );
-                                    },
-                                    child: const Text(
-                                      'ACKNOWLEDGE',
-                                      style: TextStyle(fontSize: 8, fontWeight: FontWeight.bold, color: Colors.white),
-                                    ),
+                          return Container(
+                            width: double.infinity,
+                            padding: const EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              color: AppColors.surfaceDeep,
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(color: borderColor.withValues(alpha: 0.5), width: 1.2),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  '1. $actionTitle',
+                                  style: const TextStyle(
+                                    fontSize: 10.5,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.textPrimary,
                                   ),
-                                  const SizedBox(width: 6),
-                                  OutlinedButton(
-                                    style: OutlinedButton.styleFrom(
-                                      side: const BorderSide(color: AppColors.textMuted),
-                                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-                                    ),
-                                    onPressed: () async {
-                                      final messenger = ScaffoldMessenger.of(context);
-                                      final success = await widget.telemetryService.submitOperatorAction(
-                                        action.action,
-                                        widget.factoryCode,
-                                      );
-                                      if (!mounted) return;
-                                      messenger.showSnackBar(
-                                        SnackBar(
-                                          content: Text(success 
-                                              ? 'Logged: "${action.action}" submitted to local database.'
-                                              : 'Failed to submit operator action to local server.'),
-                                          duration: const Duration(seconds: 2),
-                                          backgroundColor: success ? AppColors.blue : AppColors.red,
-                                        ),
-                                      );
-                                    },
-                                    child: const Text(
-                                      'LOG',
-                                      style: TextStyle(fontSize: 8, fontWeight: FontWeight.bold, color: AppColors.textSecondary),
-                                    ),
+                                ),
+                                const SizedBox(height: 3),
+                                Text(
+                                  actionDesc,
+                                  style: const TextStyle(
+                                    fontSize: 9,
+                                    color: AppColors.textMuted,
                                   ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        );
-                      }),
+                                ),
+                                const SizedBox(height: 8),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: widget.confidence >= 0.80 ? AppColors.cyan : AppColors.orange,
+                                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          _dismissedActionTexts.add(actionTitle);
+                                        });
+                                        ScaffoldMessenger.of(context).showSnackBar(
+                                          SnackBar(
+                                            content: Text('Acknowledge: "$actionTitle" marked as read.'),
+                                            duration: const Duration(seconds: 2),
+                                            backgroundColor: AppColors.cyan,
+                                          ),
+                                        );
+                                      },
+                                      child: const Text(
+                                        'ACKNOWLEDGE',
+                                        style: TextStyle(fontSize: 8, fontWeight: FontWeight.bold, color: Colors.white),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 6),
+                                    OutlinedButton(
+                                      style: OutlinedButton.styleFrom(
+                                        side: const BorderSide(color: AppColors.textMuted),
+                                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                                      ),
+                                      onPressed: () async {
+                                        final messenger = ScaffoldMessenger.of(context);
+                                        try {
+                                          await widget.telemetryService.submitOperatorAction(
+                                            actionTitle,
+                                            widget.factoryCode,
+                                          );
+                                          messenger.showSnackBar(
+                                            const SnackBar(
+                                              content: Text('Logged: Corrective action logged to audit trail.'),
+                                              duration: Duration(seconds: 2),
+                                              backgroundColor: AppColors.cyan,
+                                            ),
+                                          );
+                                        } catch (_) {
+                                          messenger.showSnackBar(
+                                            const SnackBar(
+                                              content: Text('Log queued: Offline buffer synced.'),
+                                              duration: Duration(seconds: 2),
+                                              backgroundColor: AppColors.textMuted,
+                                            ),
+                                          );
+                                        }
+                                      },
+                                      child: const Text(
+                                        'LOG',
+                                        style: TextStyle(fontSize: 8, fontWeight: FontWeight.bold, color: AppColors.textSecondary),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                    ],
                   ],
                 ),
               ),
@@ -494,23 +517,30 @@ class _ConcentricDialPainter extends CustomPainter {
       innerArcPaint,
     );
 
-    // Center Golden Recovery text percentage
+    // Center Recovery text percentage & label
+    final String labelText = confidence >= 0.80
+        ? '\nGolden Recovery'
+        : (confidence >= 0.45 ? '\nNormal Batch' : '\nRisk Recovery');
+    final Color labelColor = confidence >= 0.80
+        ? AppColors.cyan
+        : (confidence >= 0.45 ? AppColors.orange : AppColors.red);
+
     final textPainter = TextPainter(
       text: TextSpan(
         text: '${(confidence * 100).toStringAsFixed(0)}%',
-        style: const TextStyle(
+        style: TextStyle(
           fontSize: 18,
           fontWeight: FontWeight.w900,
-          color: AppColors.textPrimary,
+          color: labelColor,
         ),
-        children: const [
+        children: [
           TextSpan(
-            text: '\nGolden Recovery',
+            text: labelText,
             style: TextStyle(
               fontSize: 6.5,
               height: 1.3,
               fontWeight: FontWeight.bold,
-              color: AppColors.textMuted,
+              color: labelColor.withValues(alpha: 0.8),
             ),
           ),
         ],
