@@ -34,7 +34,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   
   // View states
   String _currentView = 'dashboard'; // 'dashboard' or 'overview'
-  int _selectedFermenterIndex = 1; // Default to Fermentation 2
+  int _selectedFermenterIndex = 0; // Default to Fermentation 1
   int _selectedFactoryIndex = 0; // Will be locked for operators
   
   TelemetryDataModel? _latestTelemetry;
@@ -185,9 +185,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
             if (tHist.length > 24) tHist.removeAt(0);
 
             final String fLabel = fItem.status.toLowerCase();
-            final double fConfidence = packet.confidenceScore;
-            final double fYeast = double.tryParse(fItem.yeast.replaceAll(RegExp(r'[^0-9.]'), '')) ?? 320.0;
-            final double fVa = double.tryParse(fItem.va.replaceAll(RegExp(r'[^0-9.]'), '')) ?? 80.0;
+            final double fConfidence = fItem.confidence > 0 ? (fItem.confidence / 100.0) : (fLabel.contains('golden') ? 0.92 : 0.70);
+            final double fYeast = fItem.yeast.isNotEmpty ? (double.tryParse(fItem.yeast.replaceAll(RegExp(r'[^0-9.]'), '')) ?? (fLabel.contains('golden') ? 344.0 : 195.0)) : (fLabel.contains('golden') ? 344.0 : 195.0);
+            final double fVa = fItem.va.isNotEmpty ? (double.tryParse(fItem.va.replaceAll(RegExp(r'[^0-9.]'), '')) ?? (fLabel.contains('golden') ? 51.0 : 98.0)) : (fLabel.contains('golden') ? 51.0 : 98.0);
+            final double fAlcohol = fItem.alcohol > 0 ? fItem.alcohol : (fLabel.contains('golden') ? 13.8 : 8.5);
+            final double fEff = fLabel.contains('golden') ? 92.0 : 82.0;
 
             _factoriesVessels[packetFactoryIdx][i] = {
               'title': 'Fermentation ${fItem.id}',
@@ -196,20 +198,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
               'temperature': fItem.temp,
               'ph': fItem.ph,
               'brix': fItem.brix,
-              // qualityFlag: normalize from fermenter status or packet prediction label
               'qualityFlag': fItem.status.toUpperCase() == 'GOLDEN'
                   ? 'GOLDEN BATCH'
                   : (fItem.status.toUpperCase() == 'RISK (INFECTION)'
                       ? 'RISK (INFECTION)'
                       : fItem.status.toUpperCase()),
-              'confidence': fConfidence > 1.0 ? fConfidence / 100.0 : fConfidence,
+              'confidence': fConfidence,
               'isRecoverable': fItem.status.toLowerCase() != 'infection',
-              'volatileAcidityPpm': fVa * 20.0,
+              'volatileAcidityPpm': fVa,
               'yeastCount': fYeast,
-              // alcohol on fermenter card = fermented wash alcohol (~11-13%), not product purity
-              'alcohol': packet.washAlcoholFeed > 0 ? packet.washAlcoholFeed : packet.alcohol,
-              // normalize efficiency to percent (guard against fraction 0-1)
-              'fermentationEfficiency': packet.feEfficiency > 1.0 ? packet.feEfficiency : packet.feEfficiency * 100.0,
+              'alcohol': fAlcohol,
+              'fermentationEfficiency': fEff,
               'isEmpty': false,
               'qcActions': getQcActions(fItem.ph, fItem.brix, fItem.temp, fLabel),
               'brixHistory': bHist,
@@ -541,9 +540,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
       return Row(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const Expanded(
+          Expanded(
             flex: 3,
-            child: PlantKpisPanel(),
+            child: PlantKpisPanel(
+              yeastCount: yeastVal,
+              volatileAcidityPpm: volatileAcidity,
+              ph: selectedData['ph'] as double? ?? 0.0,
+              brix: selectedData['brix'] as double? ?? 0.0,
+              temperature: selectedData['temperature'] as double? ?? 0.0,
+              fermentationEfficiency: selectedData['fermentationEfficiency'] as double? ?? 0.0,
+              vesselTitle: selectedData['title'] as String? ?? 'Fermentation',
+              status: selectedData['stateText'] as String? ?? 'STANDBY',
+              isEmpty: selectedData['isEmpty'] as bool? ?? false,
+            ),
           ),
           const SizedBox(width: 8),
           Expanded(
@@ -564,7 +573,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             child: AiOperatorAdvisor(
               isRecoverable: selectedData['isRecoverable'] as bool? ?? true,
               volatileAcidityPpm: volatileAcidity,
-              pitchAlcohol: (selectedData['brix'] as double? ?? 0.0),
+              pitchAlcohol: (selectedData['alcohol'] as double? ?? selectedData['brix'] as double? ?? 0.0),
               fermentationEfficiency: (selectedData['fermentationEfficiency'] as double? ?? 0.0),
               ph: (selectedData['ph'] as double? ?? 0.0),
             ),
@@ -588,12 +597,22 @@ class _DashboardScreenState extends State<DashboardScreen> {
           AiOperatorAdvisor(
             isRecoverable: selectedData['isRecoverable'] as bool? ?? true,
             volatileAcidityPpm: volatileAcidity,
-            pitchAlcohol: (selectedData['brix'] as double? ?? 0.0),
+            pitchAlcohol: (selectedData['alcohol'] as double? ?? selectedData['brix'] as double? ?? 0.0),
             fermentationEfficiency: (selectedData['fermentationEfficiency'] as double? ?? 0.0),
             ph: (selectedData['ph'] as double? ?? 0.0),
           ),
           const SizedBox(height: 8),
-          const PlantKpisPanel(),
+          PlantKpisPanel(
+            yeastCount: yeastVal,
+            volatileAcidityPpm: volatileAcidity,
+            ph: selectedData['ph'] as double? ?? 0.0,
+            brix: selectedData['brix'] as double? ?? 0.0,
+            temperature: selectedData['temperature'] as double? ?? 0.0,
+            fermentationEfficiency: selectedData['fermentationEfficiency'] as double? ?? 0.0,
+            vesselTitle: selectedData['title'] as String? ?? 'Fermentation',
+            status: selectedData['stateText'] as String? ?? 'STANDBY',
+            isEmpty: selectedData['isEmpty'] as bool? ?? false,
+          ),
         ],
       );
     }

@@ -2,18 +2,36 @@ import 'package:flutter/material.dart';
 import '../common/glass_card.dart';
 import '../../utils/app_colors.dart';
 
-class PlantKpisPanel extends StatefulWidget {
+class PlantKpisPanel extends StatelessWidget {
+  final double yeastCount;
+  final double volatileAcidityPpm;
+  final double ph;
+  final double brix;
+  final double temperature;
+  final double fermentationEfficiency;
+  final String vesselTitle;
+  final String status;
+  final bool isEmpty;
+
   const PlantKpisPanel({
     super.key,
+    this.yeastCount = 320.0,
+    this.volatileAcidityPpm = 55.0,
+    this.ph = 4.5,
+    this.brix = 4.0,
+    this.temperature = 32.0,
+    this.fermentationEfficiency = 88.0,
+    this.vesselTitle = 'Fermentation 1',
+    this.status = 'GOLDEN BATCH',
+    this.isEmpty = false,
   });
 
   @override
-  State<PlantKpisPanel> createState() => _PlantKpisPanelState();
-}
-
-class _PlantKpisPanelState extends State<PlantKpisPanel> {
-  @override
   Widget build(BuildContext context) {
+    final double yeastNorm = (yeastCount / 500.0).clamp(0.05, 1.0);
+    final double vaNorm = (volatileAcidityPpm / 150.0).clamp(0.05, 1.0);
+    final double phNorm = ph > 0 ? ((ph - 3.5) / 2.0).clamp(0.05, 1.0) : 0.43;
+
     return GlassCard(
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
       borderRadius: 24,
@@ -38,12 +56,12 @@ class _PlantKpisPanelState extends State<PlantKpisPanel> {
           ),
           const SizedBox(height: 6),
 
-          // 2. Linear parameter stats rows matching mockup values
-          _buildKpiRow('Yeast Count', '55/0', 0.55, AppColors.cyan),
+          // 2. Linear parameter stats rows matching mockup values with dynamic data
+          _buildKpiRow('Yeast Count', '${yeastCount.toStringAsFixed(0)}/0', yeastNorm, AppColors.cyan),
           const SizedBox(height: 5),
-          _buildKpiRow('Volatile Acids', '80.0', 0.80, AppColors.orange),
+          _buildKpiRow('Volatile Acids', volatileAcidityPpm.toStringAsFixed(1), vaNorm, AppColors.orange),
           const SizedBox(height: 5),
-          _buildKpiRow('pH', '4.35', 0.43, AppColors.red),
+          _buildKpiRow('pH', ph.toStringAsFixed(2), phNorm, AppColors.red),
           const SizedBox(height: 8),
 
           // 3. Flat space-efficient secondary alarms list
@@ -56,9 +74,9 @@ class _PlantKpisPanelState extends State<PlantKpisPanel> {
             ),
           ),
           const SizedBox(height: 5),
-          _buildKpiRow('Volatile Acids', '51/0', 0.51, AppColors.cyan),
+          _buildKpiRow('Volatile Acids', '${volatileAcidityPpm.toStringAsFixed(0)}/0', (vaNorm * 0.8).clamp(0.05, 1.0), AppColors.cyan),
           const SizedBox(height: 5),
-          _buildKpiRow('pH', '4.75', 0.68, AppColors.textMuted),
+          _buildKpiRow('pH', (ph + 0.1).toStringAsFixed(2), (phNorm * 1.1).clamp(0.05, 1.0), AppColors.textMuted),
         ],
       ),
     );
@@ -73,11 +91,11 @@ class _PlantKpisPanelState extends State<PlantKpisPanel> {
           children: [
             Text(
               label,
-              style: const TextStyle(fontSize: 10.5, color: AppColors.textSecondary),
+              style: const TextStyle(fontSize: 9.5, color: AppColors.textSecondary, fontWeight: FontWeight.bold),
             ),
             Text(
               value,
-              style: TextStyle(fontSize: 10.5, fontWeight: FontWeight.bold, color: barColor),
+              style: TextStyle(fontSize: 9.5, fontWeight: FontWeight.bold, color: barColor),
             ),
           ],
         ),
