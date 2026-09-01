@@ -43,3 +43,10 @@
   * `scripts/publish_fresh_retained.py` — Retained batch reset utility.
   * `scripts/inspect_user_uploaded.py` — Row inspector & inference checker.
   * `scripts/sweep_features.py` — Threshold sweeping tool.
+
+---
+
+## 10. Tablet Local Storage Permissions & Ingestion Verification (2026-09-01 11:59:13)
+- **Permissions:** Full `MANAGE_EXTERNAL_STORAGE` and `READ_EXTERNAL_STORAGE` granted to `com.auraliss.distillary`.
+- **Directory Ingestion:** Automatic scanning of `/sdcard/Download/Distillery/` and factory subfolders (e.g. `Nellikuppam/`).
+- **Verified Ingestion:** Correctly reads and parses live files directly from tablet internal storage (e.g. `Nellikuppam_120KLPD_Normal_vs_Golden.xlsx`) with 2 active fermenters and 2 standby vessels.
