@@ -4,7 +4,7 @@
 
 ### 1. Plant & Operator Role Mapping (1-to-1 Standard)
 | Index | Plant Name | Code | Operator ID | Password | Retained MQTT Telemetry Topic | Default Synthetic File |
-| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | **0** | **Haliyal** | `F01` | `operator01` | `factory1` | `distillery/factory/F01/telemetry` | `Haliyal_170KLPD_Synthetic_Data.xlsx` |
 | **1** | **Sankili** | `F02` | `operator02` | `factory2` | `distillery/factory/F02/telemetry` | `Sankili_168KLPD_Synthetic_Data.xlsx` |
 | **2** | **Nellikuppam** | `F03` | `operator03` | `factory3` | `distillery/factory/F03/telemetry` | `Nellikuppam_120KLPD_Synthetic_Data.xlsx` |
@@ -30,23 +30,28 @@
 
 ---
 
-### 4. Random Forest Decision Boundaries
-* **`GOLDEN BATCH` ($85\% \sim 92\%$ confidence):** Final wash alcohol $\ge 11.5\%$, retention $18 \sim 28\text{ hrs}$, specific gravity $1.030 \sim 1.045$, pH $4.4 \sim 4.8$.
-* **`NORMAL` ($65\% \sim 78\%$ confidence):** Final wash alcohol between $6.0\% \sim 9.5\%$ or retention $>40\text{ hrs}$.
+### 4. UI/UX Enhancements & Visual Overhauls
+* **Golden Batch Recovery Dial:** Single bold 5.5px outer ring gauge with centered percentage reading and `GOLDEN RECOVERY` caption below.
+* **Analyser Column Health:** Header updated to `ANALYSER COLUMN HEALTH` overseeing the 4 distillation parameters (Temperature, Pressure, Vacuum, $\Delta P$).
+* **Dynamic Dual-Axis Mandatory Operational Trends:**
+  * **Left Y-Axis (Cyan):** `Product Alcohol (%)` scaled from $94.0\% - 100.0\%$.
+  * **Right Y-Axis (Orange):** `Alcohol Loss in Spent Wash (%)` scaled from $0.00\% - 0.45\%$.
+  * **Real-time Badges:** Top-right pills displaying live `Product Alc: XX.XX%` and `Spent Loss: X.XXX%`.
+  * **Safety Threshold Lines:** Dashed $95.0\%$ Min Product Limit and dotted $0.25\%$ Loss Alert Limit.
+  * **Dynamic Binding:** 100% data-driven curves and endpoint markers bound directly to incoming telemetry without hardcoded values.
+* **Mobile Portrait Responsive Distillery Dashboard:**
+  * Adaptive layout wrapping `DistilleryOverviewScreen` in smooth `SingleChildScrollView` on portrait screens / width $< 650\text{px}$.
+  * 4 KPI cards arranged in a clean 2x2 grid.
+  * Operational Trends Chart, Key Distillation Metrics, Loss Analysis, Analyser Column Gauges, Spent Wash Summary, and Alarm Center stacked vertically with zero `RenderFlex` overflow errors.
+  * Preserves 100% of executive single-screen desktop/tablet landscape dashboard untouched.
 
 ---
 
-### 5. Repository Binaries & Scripts
-* **Release APK:** `releases/Distillary_PrimaryApp_2Fermenters_Release.apk`
-* **Diagnostic Suite:**
-  * `scripts/diagnose_broker.py` — Live subscriber tool.
-  * `scripts/publish_fresh_retained.py` — Retained batch reset utility.
-  * `scripts/inspect_user_uploaded.py` — Row inspector & inference checker.
-  * `scripts/sweep_features.py` — Threshold sweeping tool.
-
----
-
-## 10. Tablet Local Storage Permissions & Ingestion Verification (2026-09-01 11:59:13)
-- **Permissions:** Full `MANAGE_EXTERNAL_STORAGE` and `READ_EXTERNAL_STORAGE` granted to `com.auraliss.distillary`.
-- **Directory Ingestion:** Automatic scanning of `/sdcard/Download/Distillery/` and factory subfolders (e.g. `Nellikuppam/`).
-- **Verified Ingestion:** Correctly reads and parses live files directly from tablet internal storage (e.g. `Nellikuppam_120KLPD_Normal_vs_Golden.xlsx`) with 2 active fermenters and 2 standby vessels.
+### 5. Repository Binaries & Saved APKs
+* **Target Directories:**
+  * `APKs/Parrys_Aura_Main_App.apk` (64.5 MB)
+  * `APKs/Parrys_Aura_Empty_App.apk` (56.8 MB)
+  * `Downloads/Parrys_Aura_Main_App.apk`
+  * `Downloads/Parrys_Aura_Empty_App.apk`
+  * `Documents/final draft/Distillary/APKs/Parrys_Aura_Main_App.apk`
+  * `Documents/final draft/Distillary/APKs/Parrys_Aura_Empty_App.apk`

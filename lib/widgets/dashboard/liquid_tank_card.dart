@@ -223,7 +223,7 @@ class _LiquidTankCardState extends State<LiquidTankCard> {
                                 const SizedBox(height: 3),
                                 _buildMetricRow('pH', widget.isEmpty ? '-' : widget.ph.toStringAsFixed(2)),
                                 const SizedBox(height: 3),
-                                _buildMetricRow('Brix', widget.isEmpty ? '0.0%' : '${widget.brix.toStringAsFixed(1)}%'),
+                                _buildMetricRow('Brix', widget.isEmpty ? '-' : '${widget.brix.toStringAsFixed(1)}%'),
                               ],
                             ),
                           ),

@@ -75,63 +75,63 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
     if (role == 'operator1') return 'F01'; // Haliyal
     if (role == 'operator2') return 'F02'; // Sankili
     if (role == 'operator3') return 'F03'; // Nellikuppam
-    if (role == 'operator4') return 'F04'; // Sivaganga
+    if (role == 'operator4') return 'F04'; // Sivagangai
     if (role == 'operator5') return 'F05'; // Bagalkot
     return 'F01'; // Default
   }
 
-  // Predefined mock facility summaries
-  // Factory 1=Haliyal, 2=Sankili, 3=Nellikuppam, 4=Sivaganga, 5=Bagalkot
+  // Predefined mock facility summaries matching 5 factory baseline telemetry
+  // Factory 1=Haliyal, 2=Sankili, 3=Nellikuppam, 4=Sivagangai, 5=Bagalkot
   final List<Map<String, dynamic>> _facilities = [
     {
       'id': 'operator1',
       'title': 'Haliyal',
-      'vessels': '0 / 4 Active (STANDBY)',
-      'efficiency': 0.0,
-      'flag': 'STANDBY',
-      'color': AppColors.textMuted,
+      'vessels': '2 / 4 Fermenters Active',
+      'efficiency': 0.940, // 94.0% (F1: 95%, F4: 91%)
+      'flag': 'GOLDEN BATCH',
+      'color': AppColors.cyan,
       'icon': Icons.factory_rounded,
-      'vesselsState': [false, false, false, false],
+      'vesselsState': [true, false, false, true],
     },
     {
       'id': 'operator2',
       'title': 'Sankili',
       'vessels': '2 / 4 Fermenters Active',
-      'efficiency': 0.885, // 88.5%
-      'flag': 'RISK (INFECTION)',
-      'color': AppColors.red,
+      'efficiency': 0.840, // 84.0% (F1: 72% Normal, F4: 93% Golden)
+      'flag': 'NORMAL',
+      'color': AppColors.orange,
       'icon': Icons.factory_rounded,
-      'vesselsState': [true, false, null, false],
+      'vesselsState': [null, false, false, true],
     },
     {
       'id': 'operator3',
       'title': 'Nellikuppam',
       'vessels': '2 / 4 Fermenters Active',
-      'efficiency': 0.918, // 91.8%
+      'efficiency': 0.920, // 92.0% (F1: 92% Golden, F2: 70% Normal)
       'flag': 'GOLDEN BATCH',
       'color': AppColors.cyan,
       'icon': Icons.factory_rounded,
-      'vesselsState': [true, false, true, false],
+      'vesselsState': [true, null, false, false],
     },
     {
       'id': 'operator4',
-      'title': 'Sivaganga',
-      'vessels': '0 / 4 Active (STANDBY)',
-      'efficiency': 0.0,
-      'flag': 'STANDBY',
-      'color': AppColors.textMuted,
+      'title': 'Sivagangai',
+      'vessels': '2 / 4 Fermenters Active',
+      'efficiency': 0.890, // 89.0% (F2: 89% Golden, F3: 75% Normal)
+      'flag': 'GOLDEN BATCH',
+      'color': AppColors.cyan,
       'icon': Icons.factory_rounded,
-      'vesselsState': [false, false, false, false],
+      'vesselsState': [false, true, null, false],
     },
     {
       'id': 'operator5',
       'title': 'Bagalkot',
-      'vessels': '1 / 4 Fermenters Active',
-      'efficiency': 0.902, // 90.2%
-      'flag': 'NORMAL',
-      'color': AppColors.blue,
+      'vessels': '2 / 4 Fermenters Active',
+      'efficiency': 0.960, // 96.0% (F1: 96% Golden, F2: 94% Golden)
+      'flag': 'GOLDEN BATCH',
+      'color': AppColors.cyan,
       'icon': Icons.factory_rounded,
-      'vesselsState': [true, false, false, false],
+      'vesselsState': [true, true, false, false],
     },
   ];
 
@@ -345,17 +345,32 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
     if (!_formKey.currentState!.validate()) return;
 
     final userId = _getOperatorId(_selectedRole);
-    final password = _passwordController.text.isEmpty
-        ? (_credentials[userId] ?? '')
-        : _passwordController.text;
+    final password = _passwordController.text.trim();
+
+    String targetRole = _selectedRole;
+    bool isValid = (_credentials.containsKey(userId) && _credentials[userId] == password);
+    if (!isValid) {
+      // Check if password matches any other valid operator or CEO
+      _credentials.forEach((uId, pwd) {
+        if (pwd == password) {
+          isValid = true;
+          if (uId == 'ceo') targetRole = 'ceo';
+          else if (uId == 'operator01') targetRole = 'operator1';
+          else if (uId == 'operator02') targetRole = 'operator2';
+          else if (uId == 'operator03') targetRole = 'operator3';
+          else if (uId == 'operator04') targetRole = 'operator4';
+          else if (uId == 'operator05') targetRole = 'operator5';
+        }
+      });
+    }
 
     // Validate credentials
-    if (_credentials.containsKey(userId) && _credentials[userId] == password) {
+    if (isValid) {
       setState(() {
         _isLoading = true;
       });
 
-      Timer(const Duration(milliseconds: 1000), () {
+      Timer(const Duration(milliseconds: 600), () {
         if (mounted) {
           setState(() {
             _isLoading = false;
@@ -365,13 +380,13 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
             PageRouteBuilder(
               pageBuilder: (context, animation, secondaryAnimation) =>
                   DashboardScreen(
-                    role: _selectedRole,
-                    factoryCode: _getFactoryCodeForRole(_selectedRole),
+                    role: targetRole,
+                    factoryCode: _getFactoryCodeForRole(targetRole),
                   ),
               transitionsBuilder: (context, animation, secondaryAnimation, child) {
                 return FadeTransition(opacity: animation, child: child);
               },
-              transitionDuration: const Duration(milliseconds: 500),
+              transitionDuration: const Duration(milliseconds: 300),
             ),
           );
         }

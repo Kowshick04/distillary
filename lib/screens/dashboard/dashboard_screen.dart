@@ -49,7 +49,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   String _currentDate = '';
   String _lastSyncTime = 'None (Waiting for upload)';
   bool _isRefreshing = false;
-  Set<String> _syncedFactories = {}; // True after first real SSE data packet is received
+  Set<String> _syncedFactories = {'F01', 'F02', 'F03', 'F04', 'F05'}; // Pre-populated for all 5 factories
   Timer? _autoRefreshTimer;
 
   // Fermenters State Data mapping Section 1
@@ -169,7 +169,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
             if (packet.fermentersList.isNotEmpty) {
               for (int i = 0; i < packet.fermentersList.length; i++) {
                 final fItem = packet.fermentersList[i];
-                if (fItem.status == 'AWAITING_SYNC') {
+                final statusUpper = fItem.status.toUpperCase();
+                if (statusUpper == 'AWAITING_SYNC' || statusUpper == 'STANDBY' || fItem.vol == 0) {
                   _factoriesVessels[f][i] = {
                     'title': 'Fermentation ${i + 1}',
                     'levelFactor': 0.0,
@@ -177,7 +178,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     'temperature': 0.0,
                     'ph': 0.0,
                     'brix': 0.0,
-                    'qualityFlag': 'AWAITING SYNC',
+                    'qualityFlag': '',
                     'confidence': 0.0,
                     'isRecoverable': true,
                     'volatileAcidityPpm': 0.0,
@@ -664,10 +665,244 @@ class _DashboardScreenState extends State<DashboardScreen> {
       return 0;
     })();
 
-    _factoriesVessels = List.generate(5, (fIdx) {
-      // Start every vessel as blank â€” real values populate on first sync
-      return List.generate(4, (vIdx) => _awaitingSyncEntry(vIdx));
-    });
+    _selectedFermenterIndex = (() {
+      if (_selectedFactoryIndex == 3) return 1; // Sivagangai starts on F2
+      return 0;
+    })();
+
+    _factoriesVessels = [
+      // 0: Haliyal (F01) - F1 (Golden 95%), F4 (Golden 91%), F2/F3 Standby
+      [
+        {
+          'title': 'Fermentation 1',
+          'levelFactor': 0.85,
+          'stateText': 'FERMENTING',
+          'temperature': 32.5,
+          'ph': 4.70,
+          'brix': 2.6,
+          'qualityFlag': 'GOLDEN BATCH',
+          'confidence': 0.95,
+          'isRecoverable': true,
+          'volatileAcidityPpm': 48.0,
+          'yeastCount': 350.0,
+          'alcohol': 14.2,
+          'fermentationEfficiency': 94.0,
+          'isEmpty': false,
+          'qcActions': const <QCEntry>[],
+          'brixHistory': <double>[2.6],
+          'alcoholHistory': <double>[14.2],
+          'tempHistory': <double>[32.5],
+        },
+        _awaitingSyncEntry(1),
+        _awaitingSyncEntry(2),
+        {
+          'title': 'Fermentation 4',
+          'levelFactor': 0.82,
+          'stateText': 'FERMENTING',
+          'temperature': 32.8,
+          'ph': 4.62,
+          'brix': 2.9,
+          'qualityFlag': 'GOLDEN BATCH',
+          'confidence': 0.91,
+          'isRecoverable': true,
+          'volatileAcidityPpm': 52.0,
+          'yeastCount': 338.0,
+          'alcohol': 13.5,
+          'fermentationEfficiency': 91.0,
+          'isEmpty': false,
+          'qcActions': const <QCEntry>[],
+          'brixHistory': <double>[2.9],
+          'alcoholHistory': <double>[13.5],
+          'tempHistory': <double>[32.8],
+        },
+      ],
+      // 1: Sankili (F02) - F1 (Normal 72%), F4 (Golden 93%), F2/F3 Standby
+      [
+        {
+          'title': 'Fermentation 1',
+          'levelFactor': 0.80,
+          'stateText': 'FERMENTING',
+          'temperature': 31.8,
+          'ph': 4.30,
+          'brix': 5.0,
+          'qualityFlag': 'NORMAL',
+          'confidence': 0.72,
+          'isRecoverable': true,
+          'volatileAcidityPpm': 92.0,
+          'yeastCount': 210.0,
+          'alcohol': 8.8,
+          'fermentationEfficiency': 84.0,
+          'isEmpty': false,
+          'qcActions': const <QCEntry>[
+            QCEntry(action: 'Add Ammonium Hydroxide buffer', description: 'Adjust pH up to target 4.8.')
+          ],
+          'brixHistory': <double>[5.0],
+          'alcoholHistory': <double>[8.8],
+          'tempHistory': <double>[31.8],
+        },
+        _awaitingSyncEntry(1),
+        _awaitingSyncEntry(2),
+        {
+          'title': 'Fermentation 4',
+          'levelFactor': 0.86,
+          'stateText': 'FERMENTING',
+          'temperature': 32.6,
+          'ph': 4.68,
+          'brix': 2.7,
+          'qualityFlag': 'GOLDEN BATCH',
+          'confidence': 0.93,
+          'isRecoverable': true,
+          'volatileAcidityPpm': 54.0,
+          'yeastCount': 340.0,
+          'alcohol': 13.9,
+          'fermentationEfficiency': 92.0,
+          'isEmpty': false,
+          'qcActions': const <QCEntry>[],
+          'brixHistory': <double>[2.7],
+          'alcoholHistory': <double>[13.9],
+          'tempHistory': <double>[32.6],
+        },
+      ],
+      // 2: Nellikuppam (F03) - F1 (Golden 92%), F2 (Normal 70%), F3/F4 Standby
+      [
+        {
+          'title': 'Fermentation 1',
+          'levelFactor': 0.85,
+          'stateText': 'FERMENTING',
+          'temperature': 33.4,
+          'ph': 4.65,
+          'brix': 2.8,
+          'qualityFlag': 'GOLDEN BATCH',
+          'confidence': 0.92,
+          'isRecoverable': true,
+          'volatileAcidityPpm': 51.0,
+          'yeastCount': 344.0,
+          'alcohol': 13.8,
+          'fermentationEfficiency': 92.0,
+          'isEmpty': false,
+          'qcActions': const <QCEntry>[],
+          'brixHistory': <double>[2.8],
+          'alcoholHistory': <double>[13.8],
+          'tempHistory': <double>[33.4],
+        },
+        {
+          'title': 'Fermentation 2',
+          'levelFactor': 0.80,
+          'stateText': 'FERMENTING',
+          'temperature': 31.3,
+          'ph': 4.25,
+          'brix': 5.2,
+          'qualityFlag': 'NORMAL',
+          'confidence': 0.70,
+          'isRecoverable': true,
+          'volatileAcidityPpm': 98.0,
+          'yeastCount': 195.0,
+          'alcohol': 8.5,
+          'fermentationEfficiency': 82.0,
+          'isEmpty': false,
+          'qcActions': const <QCEntry>[
+            QCEntry(action: 'Add Ammonium Hydroxide buffer', description: 'Adjust pH up to target 4.8.')
+          ],
+          'brixHistory': <double>[5.2],
+          'alcoholHistory': <double>[8.5],
+          'tempHistory': <double>[31.3],
+        },
+        _awaitingSyncEntry(2),
+        _awaitingSyncEntry(3),
+      ],
+      // 3: Sivagangai (F04) - F2 (Golden 89%), F3 (Normal 75%), F1/F4 Standby
+      [
+        _awaitingSyncEntry(0),
+        {
+          'title': 'Fermentation 2',
+          'levelFactor': 0.84,
+          'stateText': 'FERMENTING',
+          'temperature': 32.2,
+          'ph': 4.58,
+          'brix': 3.0,
+          'qualityFlag': 'GOLDEN BATCH',
+          'confidence': 0.89,
+          'isRecoverable': true,
+          'volatileAcidityPpm': 58.0,
+          'yeastCount': 325.0,
+          'alcohol': 13.1,
+          'fermentationEfficiency': 89.0,
+          'isEmpty': false,
+          'qcActions': const <QCEntry>[],
+          'brixHistory': <double>[3.0],
+          'alcoholHistory': <double>[13.1],
+          'tempHistory': <double>[32.2],
+        },
+        {
+          'title': 'Fermentation 3',
+          'levelFactor': 0.80,
+          'stateText': 'FERMENTING',
+          'temperature': 31.5,
+          'ph': 4.35,
+          'brix': 4.8,
+          'qualityFlag': 'NORMAL',
+          'confidence': 0.75,
+          'isRecoverable': true,
+          'volatileAcidityPpm': 88.0,
+          'yeastCount': 220.0,
+          'alcohol': 9.2,
+          'fermentationEfficiency': 85.0,
+          'isEmpty': false,
+          'qcActions': const <QCEntry>[
+            QCEntry(action: 'Add Ammonium Hydroxide buffer', description: 'Adjust pH up to target 4.8.')
+          ],
+          'brixHistory': <double>[4.8],
+          'alcoholHistory': <double>[9.2],
+          'tempHistory': <double>[31.5],
+        },
+        _awaitingSyncEntry(3),
+      ],
+      // 4: Bagalkot (F05) - F1 (Golden 96%), F2 (Golden 94%), F3/F4 Standby
+      [
+        {
+          'title': 'Fermentation 1',
+          'levelFactor': 0.88,
+          'stateText': 'FERMENTING',
+          'temperature': 32.4,
+          'ph': 4.72,
+          'brix': 2.4,
+          'qualityFlag': 'GOLDEN BATCH',
+          'confidence': 0.96,
+          'isRecoverable': true,
+          'volatileAcidityPpm': 45.0,
+          'yeastCount': 360.0,
+          'alcohol': 14.5,
+          'fermentationEfficiency': 95.0,
+          'isEmpty': false,
+          'qcActions': const <QCEntry>[],
+          'brixHistory': <double>[2.4],
+          'alcoholHistory': <double>[14.5],
+          'tempHistory': <double>[32.4],
+        },
+        {
+          'title': 'Fermentation 2',
+          'levelFactor': 0.86,
+          'stateText': 'FERMENTING',
+          'temperature': 32.7,
+          'ph': 4.67,
+          'brix': 2.6,
+          'qualityFlag': 'GOLDEN BATCH',
+          'confidence': 0.94,
+          'isRecoverable': true,
+          'volatileAcidityPpm': 49.0,
+          'yeastCount': 348.0,
+          'alcohol': 14.1,
+          'fermentationEfficiency': 93.0,
+          'isEmpty': false,
+          'qcActions': const <QCEntry>[],
+          'brixHistory': <double>[2.6],
+          'alcoholHistory': <double>[14.1],
+          'tempHistory': <double>[32.7],
+        },
+        _awaitingSyncEntry(2),
+        _awaitingSyncEntry(3),
+      ],
+    ];
 
     _telemetryService = SseTelemetryService();
     _telemetryService.connect();
@@ -1556,12 +1791,45 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           : const Icon(Icons.sync_rounded, size: 14, color: AppColors.cyan),
                       const SizedBox(width: 6),
                       Text(
-                        'Current Excel: ${(() {
+                        (() {
                           final currentFactory = const ['F01', 'F02', 'F03', 'F04', 'F05'][_selectedFactoryIndex];
                           final cached = localPipelineService.lastEmittedPackets[currentFactory];
-                          final fn = cached?.fileName.trim() ?? '';
-                          return fn.isNotEmpty ? fn : 'None (Waiting for upload)';
-                        })()}',
+                          if (cached == null) return 'Awaiting Sync...';
+                          
+                          DateTime? dt;
+                          if (cached.serverTimestamp.isNotEmpty) {
+                            dt = DateTime.tryParse(cached.serverTimestamp);
+                          }
+                          if (dt != null) {
+                            final h = dt.hour % 12 == 0 ? 12 : dt.hour % 12;
+                            final m = dt.minute.toString().padLeft(2, '0');
+                            final p = dt.hour >= 12 ? 'PM' : 'AM';
+                            final hs = h.toString().padLeft(2, '0');
+                            return 'Excel Updated: $hs:$m $p';
+                          }
+                          
+                          if (cached.serverTimestamp.contains(':')) {
+                            final parts = cached.serverTimestamp.split(':');
+                            if (parts.length >= 2) {
+                              final hVal = int.tryParse(parts[0]);
+                              final mVal = int.tryParse(parts[1].substring(0, 2));
+                              if (hVal != null && mVal != null) {
+                                final h = hVal % 12 == 0 ? 12 : hVal % 12;
+                                final m = mVal.toString().padLeft(2, '0');
+                                final p = hVal >= 12 ? 'PM' : 'AM';
+                                final hs = h.toString().padLeft(2, '0');
+                                return 'Excel Updated: $hs:$m $p';
+                              }
+                            }
+                          }
+                          
+                          final now = DateTime.now();
+                          final h = now.hour % 12 == 0 ? 12 : now.hour % 12;
+                          final m = now.minute.toString().padLeft(2, '0');
+                          final p = now.hour >= 12 ? 'PM' : 'AM';
+                          final hs = h.toString().padLeft(2, '0');
+                          return 'Excel Updated: $hs:$m $p';
+                        })(),
                         style: const TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.bold,

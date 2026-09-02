@@ -45,10 +45,31 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Timer? _clockTimer;
   
   // Synced factories list
-  final Set<String> _syncedFactories = {};
+  final Set<String> _syncedFactories = {'F01', 'F02', 'F03', 'F04', 'F05'};
   
   // Multi-factory vessels data structure matching primary app
   late List<List<Map<String, dynamic>>> _factoriesVessels;
+
+  static Map<String, dynamic> _standbyEntry(int idx) => {
+    'title': 'Fermentation ${idx + 1}',
+    'levelFactor': 0.0,
+    'stateText': 'STANDBY',
+    'temperature': 0.0,
+    'ph': 0.0,
+    'brix': 0.0,
+    'qualityFlag': 'STANDBY',
+    'confidence': 0.0,
+    'isRecoverable': true,
+    'volatileAcidityPpm': 0.0,
+    'yeastCount': 0.0,
+    'alcohol': 0.0,
+    'fermentationEfficiency': 0.0,
+    'isEmpty': true,
+    'qcActions': const <QCEntry>[],
+    'brixHistory': <double>[],
+    'alcoholHistory': <double>[],
+    'tempHistory': <double>[],
+  };
 
   @override
   void initState() {
@@ -64,9 +85,107 @@ class _DashboardScreenState extends State<DashboardScreen> {
       return 0; // Default F01 (Haliyal)
     })();
 
-    // Initialize vessels with Golden (F1) and Normal (F2) baseline
-    _factoriesVessels = List.generate(5, (fIdx) {
-      return [
+    _selectedFermenterIndex = (() {
+      if (_selectedFactoryIndex == 3) return 1; // Sivagangai starts on F2
+      return 0;
+    })();
+
+    // Initialize vessels with factory-specific Golden and Normal baselines
+    _factoriesVessels = [
+      // 0: Haliyal (F01) - F1 (Golden 95%), F4 (Golden 91%), F2/F3 Standby
+      [
+        {
+          'title': 'Fermentation 1',
+          'levelFactor': 0.85,
+          'stateText': 'FERMENTING',
+          'temperature': 32.5,
+          'ph': 4.70,
+          'brix': 2.6,
+          'qualityFlag': 'GOLDEN BATCH',
+          'confidence': 0.95,
+          'isRecoverable': true,
+          'volatileAcidityPpm': 48.0,
+          'yeastCount': 350.0,
+          'alcohol': 14.2,
+          'fermentationEfficiency': 94.0,
+          'isEmpty': false,
+          'qcActions': const <QCEntry>[],
+          'brixHistory': <double>[2.6],
+          'alcoholHistory': <double>[14.2],
+          'tempHistory': <double>[32.5],
+        },
+        _standbyEntry(1),
+        _standbyEntry(2),
+        {
+          'title': 'Fermentation 4',
+          'levelFactor': 0.82,
+          'stateText': 'FERMENTING',
+          'temperature': 32.8,
+          'ph': 4.62,
+          'brix': 2.9,
+          'qualityFlag': 'GOLDEN BATCH',
+          'confidence': 0.91,
+          'isRecoverable': true,
+          'volatileAcidityPpm': 52.0,
+          'yeastCount': 338.0,
+          'alcohol': 13.5,
+          'fermentationEfficiency': 91.0,
+          'isEmpty': false,
+          'qcActions': const <QCEntry>[],
+          'brixHistory': <double>[2.9],
+          'alcoholHistory': <double>[13.5],
+          'tempHistory': <double>[32.8],
+        },
+      ],
+      // 1: Sankili (F02) - F1 (Normal 72%), F4 (Golden 93%), F2/F3 Standby
+      [
+        {
+          'title': 'Fermentation 1',
+          'levelFactor': 0.80,
+          'stateText': 'FERMENTING',
+          'temperature': 31.8,
+          'ph': 4.30,
+          'brix': 5.0,
+          'qualityFlag': 'NORMAL',
+          'confidence': 0.72,
+          'isRecoverable': true,
+          'volatileAcidityPpm': 92.0,
+          'yeastCount': 210.0,
+          'alcohol': 8.8,
+          'fermentationEfficiency': 84.0,
+          'isEmpty': false,
+          'qcActions': const <QCEntry>[
+            QCEntry(action: 'Add Ammonium Hydroxide buffer', description: 'Adjust pH up to target 4.8.')
+          ],
+          'brixHistory': <double>[5.0],
+          'alcoholHistory': <double>[8.8],
+          'tempHistory': <double>[31.8],
+        },
+        _standbyEntry(1),
+        _standbyEntry(2),
+        {
+          'title': 'Fermentation 4',
+          'levelFactor': 0.86,
+          'stateText': 'FERMENTING',
+          'temperature': 32.6,
+          'ph': 4.68,
+          'brix': 2.7,
+          'qualityFlag': 'GOLDEN BATCH',
+          'confidence': 0.93,
+          'isRecoverable': true,
+          'volatileAcidityPpm': 54.0,
+          'yeastCount': 340.0,
+          'alcohol': 13.9,
+          'fermentationEfficiency': 92.0,
+          'isEmpty': false,
+          'qcActions': const <QCEntry>[],
+          'brixHistory': <double>[2.7],
+          'alcoholHistory': <double>[13.9],
+          'tempHistory': <double>[32.6],
+        },
+      ],
+      // 2: Nellikuppam (F03) - F1 (Golden 92%), F2 (Normal 70%), F3/F4 Standby
+      [
         {
           'title': 'Fermentation 1',
           'levelFactor': 0.85,
@@ -109,48 +228,102 @@ class _DashboardScreenState extends State<DashboardScreen> {
           'alcoholHistory': <double>[8.5],
           'tempHistory': <double>[31.3],
         },
+        _standbyEntry(2),
+        _standbyEntry(3),
+      ],
+      // 3: Sivagangai (F04) - F2 (Golden 89%), F3 (Normal 75%), F1/F4 Standby
+      [
+        _standbyEntry(0),
+        {
+          'title': 'Fermentation 2',
+          'levelFactor': 0.84,
+          'stateText': 'FERMENTING',
+          'temperature': 32.2,
+          'ph': 4.58,
+          'brix': 3.0,
+          'qualityFlag': 'GOLDEN BATCH',
+          'confidence': 0.89,
+          'isRecoverable': true,
+          'volatileAcidityPpm': 58.0,
+          'yeastCount': 325.0,
+          'alcohol': 13.1,
+          'fermentationEfficiency': 89.0,
+          'isEmpty': false,
+          'qcActions': const <QCEntry>[],
+          'brixHistory': <double>[3.0],
+          'alcoholHistory': <double>[13.1],
+          'tempHistory': <double>[32.2],
+        },
         {
           'title': 'Fermentation 3',
-          'levelFactor': 0.0,
-          'stateText': 'STANDBY',
-          'temperature': 0.0,
-          'ph': 0.0,
-          'brix': 0.0,
-          'qualityFlag': 'STANDBY',
-          'confidence': 0.0,
+          'levelFactor': 0.80,
+          'stateText': 'FERMENTING',
+          'temperature': 31.5,
+          'ph': 4.35,
+          'brix': 4.8,
+          'qualityFlag': 'NORMAL',
+          'confidence': 0.75,
           'isRecoverable': true,
-          'volatileAcidityPpm': 0.0,
-          'yeastCount': 0.0,
-          'alcohol': 0.0,
-          'fermentationEfficiency': 0.0,
-          'isEmpty': true,
+          'volatileAcidityPpm': 88.0,
+          'yeastCount': 220.0,
+          'alcohol': 9.2,
+          'fermentationEfficiency': 85.0,
+          'isEmpty': false,
+          'qcActions': const <QCEntry>[
+            QCEntry(action: 'Add Ammonium Hydroxide buffer', description: 'Adjust pH up to target 4.8.')
+          ],
+          'brixHistory': <double>[4.8],
+          'alcoholHistory': <double>[9.2],
+          'tempHistory': <double>[31.5],
+        },
+        _standbyEntry(3),
+      ],
+      // 4: Bagalkot (F05) - F1 (Golden 96%), F2 (Golden 94%), F3/F4 Standby
+      [
+        {
+          'title': 'Fermentation 1',
+          'levelFactor': 0.88,
+          'stateText': 'FERMENTING',
+          'temperature': 32.4,
+          'ph': 4.72,
+          'brix': 2.4,
+          'qualityFlag': 'GOLDEN BATCH',
+          'confidence': 0.96,
+          'isRecoverable': true,
+          'volatileAcidityPpm': 45.0,
+          'yeastCount': 360.0,
+          'alcohol': 14.5,
+          'fermentationEfficiency': 95.0,
+          'isEmpty': false,
           'qcActions': const <QCEntry>[],
-          'brixHistory': <double>[],
-          'alcoholHistory': <double>[],
-          'tempHistory': <double>[],
+          'brixHistory': <double>[2.4],
+          'alcoholHistory': <double>[14.5],
+          'tempHistory': <double>[32.4],
         },
         {
-          'title': 'Fermentation 4',
-          'levelFactor': 0.0,
-          'stateText': 'STANDBY',
-          'temperature': 0.0,
-          'ph': 0.0,
-          'brix': 0.0,
-          'qualityFlag': 'STANDBY',
-          'confidence': 0.0,
+          'title': 'Fermentation 2',
+          'levelFactor': 0.86,
+          'stateText': 'FERMENTING',
+          'temperature': 32.7,
+          'ph': 4.67,
+          'brix': 2.6,
+          'qualityFlag': 'GOLDEN BATCH',
+          'confidence': 0.94,
           'isRecoverable': true,
-          'volatileAcidityPpm': 0.0,
-          'yeastCount': 0.0,
-          'alcohol': 0.0,
-          'fermentationEfficiency': 0.0,
-          'isEmpty': true,
+          'volatileAcidityPpm': 49.0,
+          'yeastCount': 348.0,
+          'alcohol': 14.1,
+          'fermentationEfficiency': 93.0,
+          'isEmpty': false,
           'qcActions': const <QCEntry>[],
-          'brixHistory': <double>[],
-          'alcoholHistory': <double>[],
-          'tempHistory': <double>[],
+          'brixHistory': <double>[2.6],
+          'alcoholHistory': <double>[14.1],
+          'tempHistory': <double>[32.7],
         },
-      ];
-    });
+        _standbyEntry(2),
+        _standbyEntry(3),
+      ],
+    ];
 
     // Check for cached MQTT packet on startup
     final cached = mqttTelemetryService.lastEmittedPackets[widget.factoryCode];
@@ -212,27 +385,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
       if (packet.fermentersList.isNotEmpty) {
         for (int i = 0; i < packet.fermentersList.length; i++) {
           final fItem = packet.fermentersList[i];
-          if (fItem.status == 'AWAITING_SYNC') {
-            _factoriesVessels[packetFactoryIdx][i] = {
-              'title': 'Fermentation ${i + 1}',
-              'levelFactor': 0.0,
-              'stateText': 'STANDBY',
-              'temperature': 0.0,
-              'ph': 0.0,
-              'brix': 0.0,
-              'qualityFlag': 'AWAITING SYNC',
-              'confidence': 0.0,
-              'isRecoverable': true,
-              'volatileAcidityPpm': 0.0,
-              'yeastCount': 0.0,
-              'alcohol': 0.0,
-              'fermentationEfficiency': 0.0,
-              'isEmpty': true,
-              'qcActions': const <QCEntry>[],
-              'brixHistory': <double>[],
-              'alcoholHistory': <double>[],
-              'tempHistory': <double>[],
-            };
+          final String fStatusUpper = fItem.status.toUpperCase();
+          if (fStatusUpper == 'AWAITING_SYNC' || fStatusUpper == 'STANDBY' || fItem.vol == 0) {
+            _factoriesVessels[packetFactoryIdx][i] = _standbyEntry(i);
           } else {
             final List<double> bHist = List<double>.from(_factoriesVessels[packetFactoryIdx][i]['brixHistory'] ?? []);
             final List<double> aHist = List<double>.from(_factoriesVessels[packetFactoryIdx][i]['alcoholHistory'] ?? []);
@@ -938,9 +1093,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  widget.role.startsWith('operator')
-                      ? '${const ['Nellikuppam', 'Sivagangai', 'Sankili', 'Haliyal', 'Bagalkot'][(int.tryParse(widget.role.substring(8)) ?? 1) - 1]} Control Console'
-                      : '${const ['Haliyal', 'Sankili', 'Nellikuppam', 'Sivagangai', 'Bagalkot'][_selectedFactoryIndex]} Control Console',
+                  '${const ['Haliyal', 'Sankili', 'Nellikuppam', 'Sivagangai', 'Bagalkot'][_selectedFactoryIndex]} Control Console',
                   style: TextStyle(
                     fontSize: screenWidth < 600 ? 10 : 11.5,
                     fontWeight: FontWeight.w600,

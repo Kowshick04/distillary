@@ -1,4 +1,4 @@
-﻿import 'dart:math' as math;
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
@@ -449,7 +449,7 @@ class _LiquidTankCardState extends State<LiquidTankCard> {
 
                                 const SizedBox(height: 3),
 
-                                _buildMetricRow('Brix', widget.isEmpty ? '0.0%' : '${widget.brix.toStringAsFixed(1)}%'),
+                                _buildMetricRow('Brix', widget.isEmpty ? '-' : '${widget.brix.toStringAsFixed(1)}%'),
 
                               ],
 

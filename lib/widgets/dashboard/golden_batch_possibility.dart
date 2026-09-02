@@ -144,16 +144,31 @@ class _GoldenBatchPossibilityState extends State<GoldenBatchPossibility> {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Concentric Dial
-              SizedBox(
-                width: 62,
-                height: 62,
-                child: CustomPaint(
-                  painter: _ConcentricDialPainter(
-                    confidence: widget.confidence,
-                    color: dialColor,
+              // Single Big Ring Dial + Label underneath
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(
+                    width: 68,
+                    height: 68,
+                    child: CustomPaint(
+                      painter: _SingleRingDialPainter(
+                        confidence: widget.confidence,
+                        color: dialColor,
+                      ),
+                    ),
                   ),
-                ),
+                  const SizedBox(height: 6),
+                  const Text(
+                    'GOLDEN RECOVERY',
+                    style: TextStyle(
+                      fontSize: 7.5,
+                      letterSpacing: 0.6,
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.textMuted,
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(width: 14),
 
@@ -459,32 +474,30 @@ class _GoldenBatchPossibilityState extends State<GoldenBatchPossibility> {
   }
 }
 
-/// Custom concentric dials painter conformed to Golden Recovery probability
-class _ConcentricDialPainter extends CustomPainter {
+/// Custom single ring dial painter conformed to Golden Recovery probability
+class _SingleRingDialPainter extends CustomPainter {
   final double confidence;
   final Color color;
 
-  _ConcentricDialPainter({required this.confidence, required this.color});
+  _SingleRingDialPainter({required this.confidence, required this.color});
 
   @override
   void paint(Canvas canvas, Size size) {
     final center = Offset(size.width / 2, size.height / 2);
-    final outerRadius = size.width / 2 - 8;
-    final innerRadius = outerRadius - 10;
+    final outerRadius = size.width / 2 - 4;
 
-    // Background tracks
+    // Background track
     final Paint trackPaint = Paint()
-      ..color = const Color(0x0DFFFFFF)
-      ..strokeWidth = 4
+      ..color = const Color(0x14FFFFFF)
+      ..strokeWidth = 5.5
       ..style = PaintingStyle.stroke;
 
     canvas.drawCircle(center, outerRadius, trackPaint);
-    canvas.drawCircle(center, innerRadius, trackPaint);
 
     // Active Outer Dial Arc
     final Paint outerArcPaint = Paint()
       ..color = color
-      ..strokeWidth = 5
+      ..strokeWidth = 5.5
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke;
 
@@ -496,22 +509,7 @@ class _ConcentricDialPainter extends CustomPainter {
       outerArcPaint,
     );
 
-    // Active Inner opposing Arc
-    final Paint innerArcPaint = Paint()
-      ..color = AppColors.blue.withValues(alpha: 0.8)
-      ..strokeWidth = 3
-      ..strokeCap = StrokeCap.round
-      ..style = PaintingStyle.stroke;
-
-    canvas.drawArc(
-      Rect.fromCircle(center: center, radius: innerRadius),
-      math.pi / 2,
-      -(2 * math.pi * (confidence * 0.7)),
-      false,
-      innerArcPaint,
-    );
-
-    // Center Golden Recovery text percentage
+    // Center percentage text only
     final textPainter = TextPainter(
       text: TextSpan(
         text: '${(confidence * 100).toStringAsFixed(0)}%',
@@ -519,18 +517,8 @@ class _ConcentricDialPainter extends CustomPainter {
           fontSize: 18,
           fontWeight: FontWeight.w900,
           color: AppColors.textPrimary,
+          letterSpacing: -0.5,
         ),
-        children: const [
-          TextSpan(
-            text: '\nGolden Recovery',
-            style: TextStyle(
-              fontSize: 6.5,
-              height: 1.3,
-              fontWeight: FontWeight.bold,
-              color: AppColors.textMuted,
-            ),
-          ),
-        ],
       ),
       textDirection: TextDirection.ltr,
       textAlign: TextAlign.center,
@@ -543,7 +531,7 @@ class _ConcentricDialPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant _ConcentricDialPainter oldDelegate) {
+  bool shouldRepaint(covariant _SingleRingDialPainter oldDelegate) {
     return oldDelegate.confidence != confidence || oldDelegate.color != color;
   }
 }
