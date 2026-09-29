@@ -1,6 +1,7 @@
 # DISTILLERY AI SCADA & TELEMETRY SYSTEM - PROJECT SAVE POINT
 **Saved Date:** September 29, 2026  
 **Location:** `c:\Users\Admin B\StudioProjects\Distillary`  
+**Git Commit:** `f021cd6` (Working Tree: Clean)  
 
 ---
 
@@ -12,6 +13,11 @@ The latest release builds with full mobile & tablet portrait responsiveness, Par
 | :--- | :--- | :--- | :--- |
 | **Primary App** (`com.auraliss.distillary`) | `Parrys_Aura_Main_App.apk` | **64.5 MB** | `c:\Users\Admin B\StudioProjects\Distillary\APKs\Parrys_Aura_Main_App.apk` |
 | **Empty App** (`com.auraliss.distillary.empty`) | `Parrys_Aura_Empty_App.apk` | **56.8 MB** | `c:\Users\Admin B\StudioProjects\Distillary\APKs\Parrys_Aura_Empty_App.apk` |
+
+### Mirrored Backup Locations:
+- `c:\Users\Admin B\StudioProjects\Distillary\scratch\APKs\`
+- `c:\Users\Admin B\Downloads\`
+- `c:\Users\Admin B\Documents\final draft\Distillary\APKs\`
 
 ---
 
