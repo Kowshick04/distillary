@@ -604,10 +604,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
             
             LayoutBuilder(
               builder: (context, screenConstraints) {
+                final orientation = MediaQuery.of(context).orientation;
+                final bool isPortrait = orientation == Orientation.portrait || screenConstraints.maxWidth < 900;
                 final bool isTall = screenConstraints.maxHeight > 620;
                 final double contentPadding = screenConstraints.maxWidth < 800 ? 8.0 : 16.0;
-                final bool isScrollable = !isTall || screenConstraints.maxWidth < 600;
-                final bool useExpanded = isTall && !isScrollable;
+                final bool isScrollable = isPortrait || !isTall;
+                final bool useExpanded = !isScrollable;
 
                 Widget mainContent = Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -637,7 +639,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                     duration: const Duration(milliseconds: 300),
                                     child: IgnorePointer(
                                       ignoring: _currentView == 'overview',
-                                      child: _buildFermenterDashboardContent(screenConstraints, isTall, currentFactory),
+                                      child: _buildFermenterDashboardContent(screenConstraints, isTall, currentFactory, isPortrait: isPortrait),
                                     ),
                                   ),
                                 ),
@@ -646,7 +648,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           )
                         : AnimatedCrossFade(
                             firstChild: _buildDistilleryOverviewContent(isTall, currentFactory, isAwaitingSync),
-                            secondChild: _buildFermenterDashboardContent(screenConstraints, isTall, currentFactory),
+                            secondChild: _buildFermenterDashboardContent(screenConstraints, isTall, currentFactory, isPortrait: isPortrait),
                             crossFadeState: _currentView == 'overview' 
                                 ? CrossFadeState.showFirst 
                                 : CrossFadeState.showSecond,
@@ -657,6 +659,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
                 if (isScrollable) {
                   mainContent = SingleChildScrollView(
+                    physics: const BouncingScrollPhysics(),
                     child: mainContent,
                   );
                 }
@@ -686,7 +689,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-  Widget _buildBottomPanels(String currentFactory, double maxWidth, bool expandHeight) {
+  Widget _buildBottomPanels(String currentFactory, double maxWidth, bool expandHeight, {bool isPortrait = false}) {
     final selectedData = _factoriesVessels[_selectedFactoryIndex][_selectedFermenterIndex];
     final bool isEmpty = selectedData['isEmpty'] as bool? ?? true;
     final bool isAwaitingSync = !_syncedFactories.contains(currentFactory);
@@ -750,8 +753,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
     final double volatileAcidity = selectedData['volatileAcidityPpm'] as double? ?? 0.0;
     final double yeastVal = selectedData['yeastCount'] as double? ?? 0.0;
 
-    // Use side-by-side layout for screen widths > 600 pixels (standard landscape phone size and above)
-    final bool isWideLayout = maxWidth > 600;
+    // Use side-by-side layout only for wide landscape screens (width >= 900 and not portrait)
+    final bool isWideLayout = !isPortrait && maxWidth >= 900;
 
     if (isWideLayout) {
       return Row(
@@ -976,8 +979,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   Widget _buildFermenterDashboardContent(
-      BoxConstraints screenConstraints, bool isTall, String currentFactory) {
-    final bool isMobile = screenConstraints.maxWidth < 600;
+      BoxConstraints screenConstraints, bool isTall, String currentFactory, {bool isPortrait = false}) {
+    final bool is2x2 = isPortrait;
 
     Widget buildTankCard(int index) {
       final data = _factoriesVessels[_selectedFactoryIndex][index];
@@ -985,7 +988,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       return Expanded(
         child: Container(
           margin: EdgeInsets.only(
-            right: isMobile
+            right: is2x2
                 ? (index % 2 == 1 ? 0 : 6.0)
                 : (index == 3 ? 0 : (screenConstraints.maxWidth < 800 ? 4.0 : 8.0)),
           ),
@@ -1014,11 +1017,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
       );
     }
 
+    final double gridHeight = is2x2
+        ? (screenConstraints.maxWidth > 600 ? 430.0 : 380.0)
+        : (screenConstraints.maxWidth < 800 ? 200.0 : 248.0);
+
+    final bool useExpanded = !isPortrait && isTall;
+
     final List<Widget> children = [
       // Section 1: The "Fermenter Overview Grid"
       SizedBox(
-        height: isMobile ? 380.0 : (screenConstraints.maxWidth < 800 ? 200.0 : 248.0),
-        child: isMobile
+        height: gridHeight,
+        child: is2x2
             ? Column(
                 children: [
                   Expanded(
@@ -1050,19 +1059,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
       const SizedBox(height: 8),
 
       // Section 2 & 3: Telemetry Details (Bottom panels)
-      (isTall && !isMobile)
+      useExpanded
           ? Expanded(
-              child: _buildBottomPanels(currentFactory, screenConstraints.maxWidth, true),
+              child: _buildBottomPanels(currentFactory, screenConstraints.maxWidth, true, isPortrait: isPortrait),
             )
           : Container(
               margin: const EdgeInsets.only(top: 8),
-              child: _buildBottomPanels(currentFactory, screenConstraints.maxWidth, false),
+              child: _buildBottomPanels(currentFactory, screenConstraints.maxWidth, false, isPortrait: isPortrait),
             ),
     ];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: (isTall && !isMobile) ? MainAxisSize.max : MainAxisSize.min,
+      mainAxisSize: useExpanded ? MainAxisSize.max : MainAxisSize.min,
       children: children,
     );
   }

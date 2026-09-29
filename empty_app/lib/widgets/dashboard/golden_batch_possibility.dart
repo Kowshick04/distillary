@@ -438,25 +438,35 @@ class _GoldenBatchPossibilityState extends State<GoldenBatchPossibility> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(
-                    name == 'Temperature'
-                        ? 'Temp'
-                        : (name == 'Yeast Count'
-                            ? 'Yeast'
-                            : (name == 'Volatile Acidity' ? 'Acidity' : name)),
-                    style: const TextStyle(
-                      fontSize: 10.5,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.textPrimary,
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      name == 'Temperature'
+                          ? 'Temp'
+                          : (name == 'Yeast Count'
+                              ? 'Yeast'
+                              : (name == 'Volatile Acidity' ? 'Acidity' : name)),
+                      maxLines: 1,
+                      style: const TextStyle(
+                        fontSize: 10.5,
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.textPrimary,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 1),
-                  Text(
-                    '$currentText [$targetText]',
-                    style: const TextStyle(
-                      fontSize: 8.0,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.textSecondary,
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      '$currentText [$targetText]',
+                      maxLines: 1,
+                      style: const TextStyle(
+                        fontSize: 8.0,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.textSecondary,
+                      ),
                     ),
                   ),
                 ],
@@ -472,6 +482,8 @@ class _GoldenBatchPossibilityState extends State<GoldenBatchPossibility> {
               ),
               child: Text(
                 actionText,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
                 style: TextStyle(
                   fontSize: 7.5,
                   fontWeight: FontWeight.bold,
