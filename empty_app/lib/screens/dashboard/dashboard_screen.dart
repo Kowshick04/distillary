@@ -1094,6 +1094,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
     final String currentFactory = const ['F01', 'F02', 'F03', 'F04', 'F05'][_selectedFactoryIndex];
     final bool isSynced = _syncedFactories.contains(currentFactory);
     final bool isCompact = screenWidth < 840;
+    final bool is12Inch = ResponsiveLayout.is12InchTablet(context);
+    final double logoHeight = is12Inch ? 58 : (screenWidth < 600 ? 38 : 52);
 
     return Wrap(
       alignment: WrapAlignment.spaceBetween,
@@ -1111,7 +1113,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               children: [
                 Image.asset(
                   'assets/logo/parrys_logo.png',
-                  height: screenWidth < 600 ? 36 : 44,
+                  height: logoHeight,
                   fit: BoxFit.contain,
                 ),
                 const SizedBox(height: 4),

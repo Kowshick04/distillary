@@ -1667,6 +1667,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   Widget _buildHeaderBar(SseConnectionStatus status) {
+    final bool is12Inch = ResponsiveLayout.is12InchTablet(context);
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double logoHeight = is12Inch ? 58 : (screenWidth < 600 ? 38 : 52);
+
     return Wrap(
       alignment: WrapAlignment.spaceBetween,
       crossAxisAlignment: WrapCrossAlignment.center,
@@ -1683,7 +1687,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               children: [
                 Image.asset(
                   'assets/logo/parrys_logo.png',
-                  height: 48,
+                  height: logoHeight,
                   fit: BoxFit.contain,
                 ),
                 const SizedBox(height: 4),
