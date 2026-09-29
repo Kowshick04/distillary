@@ -71,5 +71,28 @@ The latest release builds with full mobile & tablet portrait responsiveness, Par
 ---
 
 ## 4. Hardware Authorization
-* **Authorized Target Tablet**: Xiaomi Pad 6 (`23043RP34I`, Serial `74ae9455`, Android 14).
-* **Display Density / Resolution**: Logical $720 \times 1152\text{ dp}$ (Physical $1800 \times 2880$, density 400).
+* **Primary Reference Tablet**: Xiaomi Pad 6 (`23043RP34I`, Serial `74ae9455`, Android 14).
+  * Display Density / Resolution: Logical $720 \times 1152\text{ dp}$ (Physical $1800 \times 2880$, density 400).
+* **Target Universal Tablet (12.7" Class)**: Lenovo Tab P12 / Xiaoxin Pad Pro 12.7 / Galaxy Tab S9+ / iPad Pro 12.9".
+  * Display Density / Resolution: Logical $800-920\text{ dp} \times 1280-1472\text{ dp}$ (Physical $2944 \times 1840$ or $2800 \times 1752$).
+
+---
+
+## 5. Universal 12.7-Inch Screen Adaptation Analysis & Roadmap
+
+### A. Observations from Real Device Screen Captures
+1. **Consolidated Enterprise Control Console (CEO Portal)**:
+   - **Root Cause**: Rigid horizontal constraints (`maxWidth: 860` on the top KPI summary bar, `maxWidth: 1200` on the 5-facility grid) wrapped in a `SingleChildScrollView` with static `SizedBox(height: 36)`.
+   - **Visual Impact on 12.7"**: Content renders as a narrow, vertically compressed ribbon across the middle of the screen, leaving wide empty black borders at the top, bottom, and flanks.
+2. **Plant Operational Dashboard (Fermenter & Distillation Views)**:
+   - **Root Cause**: The top 4-fermenter vessel row is fixed at `height: 248`. On a 12.7" screen where the viewport height exceeds $800\text{ dp}$, $248\text{ dp}$ leaves the tanks horizontally elongated yet vertically squashed.
+   - **Lower Telemetry Deck**: The lower three cards (Plant-wide KPIs, Golden Batch Possibility, AI Operator Advisor) leave an unutilized black void beneath them because their internal widgets do not flex to fill the remaining vertical height.
+
+### B. Universal Multi-Display Solution Plan
+1. **Proportional Viewport Geometry**:
+   - Replace fixed `height: 248` on the fermenter row with a responsive calculation: `(screenHeight * 0.35).clamp(260.0, 360.0)`.
+   - Utilize dynamic `Expanded` with flexible child sizing inside the lower panels so dials, alignment grids, and feature importance bars stretch gracefully to the bottom edge.
+2. **Fluid Typography & Metric Auto-Scaling**:
+   - Introduce a baseline device scale multiplier: `final double uiScale = (screenWidth / 1152.0).clamp(0.9, 1.35);` to ensure text, badges, and tank gauges stay proportional from 11" to 12.7" displays.
+3. **Adaptive Grid Max-Width Expansion**:
+   - Upgrade `ConsolidatedPortalScreen` and `LoginScreen._buildConsolidatedView` to expand up to `maxWidth: 1600` or use `double.infinity` with balanced horizontal padding (`padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04)`), seamlessly filling the 12.7" canvas.
