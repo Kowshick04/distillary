@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import '../common/glass_card.dart';
 import 'ai_operator_advisor.dart'; // To access QCEntry definition
 import '../../utils/app_colors.dart';
+import '../../utils/responsive_layout.dart';
 
 enum AlignmentStatus { optimal, warning, critical }
 
@@ -136,61 +137,72 @@ class _GoldenBatchPossibilityState extends State<GoldenBatchPossibility> {
         .where((action) => !_dismissedActionTexts.contains(action.action))
         .toList();
 
-    return GlassCard(
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-      borderRadius: 24,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // 1. Header conformed to mockup
-          const Row(
-            children: [
-              Icon(Icons.query_stats_rounded, color: AppColors.cyan, size: 20),
-              SizedBox(width: 8),
-              Text(
-                'Golden Batch Possibility',
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.textPrimary,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 4),
+    final bool is12Inch = ResponsiveLayout.is12InchTablet(context);
 
-          // 2. Dial + Suggestions for pushing to golden batch
-          Row(
+    return GlassCard(
+      padding: EdgeInsets.symmetric(
+        horizontal: is12Inch ? 16 : 14,
+        vertical: is12Inch ? 12 : 10,
+      ),
+      borderRadius: 24,
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          final bool hasBoundedHeight = is12Inch && constraints.maxHeight.isFinite && constraints.maxHeight > 220;
+          final double dialSize = hasBoundedHeight ? 115.0 : 68.0;
+
+          return Column(
+            mainAxisSize: hasBoundedHeight ? MainAxisSize.max : MainAxisSize.min,
+            mainAxisAlignment: hasBoundedHeight ? MainAxisAlignment.spaceBetween : MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Single Big Ring Dial + Label underneath
-              Column(
-                mainAxisSize: MainAxisSize.min,
+              // 1. Header conformed to mockup
+              const Row(
                 children: [
-                  SizedBox(
-                    width: 68,
-                    height: 68,
-                    child: CustomPaint(
-                      painter: _SingleRingDialPainter(
-                        confidence: widget.confidence,
-                        color: dialColor,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 6),
-                  const Text(
-                    'GOLDEN RECOVERY',
+                  Icon(Icons.query_stats_rounded, color: AppColors.cyan, size: 20),
+                  SizedBox(width: 8),
+                  Text(
+                    'Golden Batch Possibility',
                     style: TextStyle(
-                      fontSize: 7.5,
-                      letterSpacing: 0.6,
+                      fontSize: 14,
                       fontWeight: FontWeight.bold,
-                      color: AppColors.textMuted,
+                      color: AppColors.textPrimary,
                     ),
                   ),
                 ],
               ),
-              const SizedBox(width: 14),
+              if (!hasBoundedHeight) const SizedBox(height: 4),
+
+              // 2. Dial + Suggestions for pushing to golden batch
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  // Single Big Ring Dial + Label underneath
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SizedBox(
+                        width: dialSize,
+                        height: dialSize,
+                        child: CustomPaint(
+                          painter: _SingleRingDialPainter(
+                            confidence: widget.confidence,
+                            color: dialColor,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 6),
+                      const Text(
+                        'GOLDEN RECOVERY',
+                        style: TextStyle(
+                          fontSize: 7.5,
+                          letterSpacing: 0.6,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.textMuted,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(width: hasBoundedHeight ? 16 : 14),
 
               // Corrective action suggestions
               Expanded(
@@ -325,68 +337,72 @@ class _GoldenBatchPossibilityState extends State<GoldenBatchPossibility> {
               ),
             ],
           ),
-          const SizedBox(height: 12),
+              if (!hasBoundedHeight) const SizedBox(height: 12),
 
-          // 3. Grid conformed to Mockup
-          const Text(
-            'GOLDEN BATCH ALIGNMENT',
-            style: TextStyle(
-              fontSize: 10,
-              letterSpacing: 0.8,
-              fontWeight: FontWeight.bold,
-              color: AppColors.textMuted,
-            ),
-          ),
-          const SizedBox(height: 4),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    _buildAlignmentRow(
-                      name: 'pH',
-                      currentText: widget.ph.toStringAsFixed(2),
-                      targetText: '4.50 - 4.80',
-                      status: _getPhStatus(),
-                      actionText: _getPhAction(),
-                    ),
-                    _buildAlignmentRow(
-                      name: 'Yeast Count',
-                      currentText: '${widget.yeastCount.toStringAsFixed(0)}M',
-                      targetText: '>= 300M',
-                      status: _getYeastStatus(),
-                      actionText: _getYeastAction(),
-                    ),
-                  ],
+              // 3. Grid conformed to Mockup
+              const Text(
+                'GOLDEN BATCH ALIGNMENT',
+                style: TextStyle(
+                  fontSize: 10.5,
+                  letterSpacing: 0.8,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.textMuted,
                 ),
               ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    _buildAlignmentRow(
-                      name: 'Temperature',
-                      currentText: '${widget.temperature.toStringAsFixed(1)}°C',
-                      targetText: '31.5 - 33.0°C',
-                      status: _getTempStatus(),
-                      actionText: _getTempAction(),
+              if (!hasBoundedHeight) const SizedBox(height: 4),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        _buildAlignmentRow(
+                          name: 'pH',
+                          currentText: widget.ph.toStringAsFixed(2),
+                          targetText: '4.50 - 4.80',
+                          status: _getPhStatus(),
+                          actionText: _getPhAction(),
+                        ),
+                        SizedBox(height: hasBoundedHeight ? 8 : 4),
+                        _buildAlignmentRow(
+                          name: 'Yeast Count',
+                          currentText: '${widget.yeastCount.toStringAsFixed(0)}M',
+                          targetText: '>= 300M',
+                          status: _getYeastStatus(),
+                          actionText: _getYeastAction(),
+                        ),
+                      ],
                     ),
-                    _buildAlignmentRow(
-                      name: 'Volatile Acidity',
-                      currentText: '${widget.volatileAcidity.toStringAsFixed(0)} ppm',
-                      targetText: '< 1500 ppm',
-                      status: _getVaStatus(),
-                      actionText: _getVaAction(),
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        _buildAlignmentRow(
+                          name: 'Temperature',
+                          currentText: '${widget.temperature.toStringAsFixed(1)}°C',
+                          targetText: '31.5 - 33.0°C',
+                          status: _getTempStatus(),
+                          actionText: _getTempAction(),
+                        ),
+                        SizedBox(height: hasBoundedHeight ? 8 : 4),
+                        _buildAlignmentRow(
+                          name: 'Volatile Acidity',
+                          currentText: '${widget.volatileAcidity.toStringAsFixed(0)} ppm',
+                          targetText: '< 1500 ppm',
+                          status: _getVaStatus(),
+                          actionText: _getVaAction(),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ],
-          ),
-        ],
+          );
+        },
       ),
     );
   }
@@ -508,12 +524,14 @@ class _SingleRingDialPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final center = Offset(size.width / 2, size.height / 2);
-    final outerRadius = size.width / 2 - 4;
+    final strokeW = (size.width * 0.08).clamp(5.0, 7.5);
+    final textFontSize = (size.width * 0.28).clamp(16.0, 26.0);
+    final outerRadius = size.width / 2 - strokeW / 2;
 
     // Background track
     final Paint trackPaint = Paint()
       ..color = const Color(0x14FFFFFF)
-      ..strokeWidth = 5.5
+      ..strokeWidth = strokeW
       ..style = PaintingStyle.stroke;
 
     canvas.drawCircle(center, outerRadius, trackPaint);
@@ -521,7 +539,7 @@ class _SingleRingDialPainter extends CustomPainter {
     // Active Outer Dial Arc
     final Paint outerArcPaint = Paint()
       ..color = color
-      ..strokeWidth = 5.5
+      ..strokeWidth = strokeW
       ..strokeCap = StrokeCap.round
       ..style = PaintingStyle.stroke;
 
@@ -537,8 +555,8 @@ class _SingleRingDialPainter extends CustomPainter {
     final textPainter = TextPainter(
       text: TextSpan(
         text: '${(confidence * 100).toStringAsFixed(0)}%',
-        style: const TextStyle(
-          fontSize: 18,
+        style: TextStyle(
+          fontSize: textFontSize,
           fontWeight: FontWeight.w900,
           color: AppColors.textPrimary,
           letterSpacing: -0.5,

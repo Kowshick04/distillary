@@ -16,6 +16,7 @@ import '../../services/distillery_snapshot_store.dart';
 import '../../services/local_pipeline_service.dart';
 import '../../services/random_forest_predictor.dart';
 import '../../utils/app_colors.dart';
+import '../../utils/responsive_layout.dart';
 
 class DashboardScreen extends StatefulWidget {
   final String role;
@@ -1409,51 +1410,94 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                     ),
                                   )
                                 else
-                                  SizedBox(
-                                    height: 248,
-                                    child: LayoutBuilder(
-                                      builder: (context, constraints) {
-                                        final opIndex = (int.tryParse(widget.role.substring(8)) ?? 1) - 1;
-                                        return Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: List.generate(4, (index) {
-                                            final data = _factoriesVessels[opIndex][index];
-                                            return Expanded(
-                                              child: Container(
-                                                margin: EdgeInsets.only(
-                                                  right: index == 3 ? 0 : 8,
-                                                ),
-                                                child: LiquidTankCard(
-                                                  title: data['title'] as String,
-                                                  levelFactor: data['levelFactor'] as double,
-                                                  stateText: data['stateText'] as String,
-                                                  temperature: data['temperature'] as double,
-                                                  ph: data['ph'] as double,
-                                                  brix: data['brix'] as double,
-                                                  qualityFlag: data['qualityFlag'] as String,
-                                                   yeastCount: (data['yeastCount'] as double?) ?? 320.0,
-                                                   volatileAcidity: (data['volatileAcidityPpm'] as double?) ?? 55.0,
-                                                   qcAction: ((data['qcActions'] as List?)?.isNotEmpty ?? false) ? (data['qcActions'] as List).first.action : 'Profile Optimal',
-                                                  isSelected: _selectedFermenterIndex == index,
-                                                  isEmpty: (data['isEmpty'] as bool?) ?? false,
-                                                  onTap: () {
-                                                    setState(() {
-                                                      _selectedFactoryIndex = opIndex;
-                                                      _selectedFermenterIndex = index;
-                                                    });
-                                                  },
-                                                ),
-                                              ),
-                                            );
-                                          }),
-                                        );
-                                      },
-                                    ),
-                                  ),
-                              const SizedBox(height: 8),
+                                  ResponsiveLayout.is12InchTablet(context)
+                                      ? Expanded(
+                                          flex: 43,
+                                          child: LayoutBuilder(
+                                            builder: (context, constraints) {
+                                              final opIndex = (int.tryParse(widget.role.substring(8)) ?? 1) - 1;
+                                              return Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: List.generate(4, (index) {
+                                                  final data = _factoriesVessels[opIndex][index];
+                                                  return Expanded(
+                                                    child: Container(
+                                                      margin: EdgeInsets.only(
+                                                        right: index == 3 ? 0 : 8,
+                                                      ),
+                                                      child: LiquidTankCard(
+                                                        title: data['title'] as String,
+                                                        levelFactor: data['levelFactor'] as double,
+                                                        stateText: data['stateText'] as String,
+                                                        temperature: data['temperature'] as double,
+                                                        ph: data['ph'] as double,
+                                                        brix: data['brix'] as double,
+                                                        qualityFlag: data['qualityFlag'] as String,
+                                                        yeastCount: (data['yeastCount'] as double?) ?? 320.0,
+                                                        volatileAcidity: (data['volatileAcidityPpm'] as double?) ?? 55.0,
+                                                        qcAction: ((data['qcActions'] as List?)?.isNotEmpty ?? false) ? (data['qcActions'] as List).first.action : 'Profile Optimal',
+                                                        isSelected: _selectedFermenterIndex == index,
+                                                        isEmpty: (data['isEmpty'] as bool?) ?? false,
+                                                        onTap: () {
+                                                          setState(() {
+                                                            _selectedFactoryIndex = opIndex;
+                                                            _selectedFermenterIndex = index;
+                                                          });
+                                                        },
+                                                      ),
+                                                    ),
+                                                  );
+                                                }),
+                                              );
+                                            },
+                                          ),
+                                        )
+                                      : SizedBox(
+                                          height: 248,
+                                          child: LayoutBuilder(
+                                            builder: (context, constraints) {
+                                              final opIndex = (int.tryParse(widget.role.substring(8)) ?? 1) - 1;
+                                              return Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: List.generate(4, (index) {
+                                                  final data = _factoriesVessels[opIndex][index];
+                                                  return Expanded(
+                                                    child: Container(
+                                                      margin: EdgeInsets.only(
+                                                        right: index == 3 ? 0 : 8,
+                                                      ),
+                                                      child: LiquidTankCard(
+                                                        title: data['title'] as String,
+                                                        levelFactor: data['levelFactor'] as double,
+                                                        stateText: data['stateText'] as String,
+                                                        temperature: data['temperature'] as double,
+                                                        ph: data['ph'] as double,
+                                                        brix: data['brix'] as double,
+                                                        qualityFlag: data['qualityFlag'] as String,
+                                                        yeastCount: (data['yeastCount'] as double?) ?? 320.0,
+                                                        volatileAcidity: (data['volatileAcidityPpm'] as double?) ?? 55.0,
+                                                        qcAction: ((data['qcActions'] as List?)?.isNotEmpty ?? false) ? (data['qcActions'] as List).first.action : 'Profile Optimal',
+                                                        isSelected: _selectedFermenterIndex == index,
+                                                        isEmpty: (data['isEmpty'] as bool?) ?? false,
+                                                        onTap: () {
+                                                          setState(() {
+                                                            _selectedFactoryIndex = opIndex;
+                                                            _selectedFermenterIndex = index;
+                                                          });
+                                                        },
+                                                      ),
+                                                    ),
+                                                  );
+                                                }),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                              SizedBox(height: ResponsiveLayout.is12InchTablet(context) ? 10 : 8),
 
                               // Section 2 & 3: Telemetry Details (Expanded)
                               Expanded(
+                                flex: ResponsiveLayout.is12InchTablet(context) ? 57 : 1,
                                 child: LayoutBuilder(
                                   builder: (context, constraints) {
                                     final isWide = constraints.maxWidth > 920;

@@ -14,6 +14,7 @@ import '../../widgets/assistant/ayam_bot_assist.dart';
 import 'distillery_overview_screen.dart';
 import '../login/login_screen.dart';
 import '../../utils/app_colors.dart';
+import '../../utils/responsive_layout.dart';
 
 class DashboardScreen extends StatefulWidget {
   final String role;
@@ -1021,52 +1022,65 @@ class _DashboardScreenState extends State<DashboardScreen> {
         ? (screenConstraints.maxWidth > 600 ? 430.0 : 380.0)
         : (screenConstraints.maxWidth < 800 ? 200.0 : 248.0);
 
-    final bool useExpanded = !isPortrait && isTall;
+    final bool is12Inch = ResponsiveLayout.is12InchTablet(context);
+    final bool useExpanded = !isPortrait && (isTall || is12Inch);
+
+    final Widget gridContent = is2x2
+        ? Column(
+            children: [
+              Expanded(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    buildTankCard(0),
+                    buildTankCard(1),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 6),
+              Expanded(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    buildTankCard(2),
+                    buildTankCard(3),
+                  ],
+                ),
+              ),
+            ],
+          )
+        : Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: List.generate(4, (index) => buildTankCard(index)),
+          );
 
     final List<Widget> children = [
       // Section 1: The "Fermenter Overview Grid"
-      SizedBox(
-        height: gridHeight,
-        child: is2x2
-            ? Column(
-                children: [
-                  Expanded(
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        buildTankCard(0),
-                        buildTankCard(1),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 6),
-                  Expanded(
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        buildTankCard(2),
-                        buildTankCard(3),
-                      ],
-                    ),
-                  ),
-                ],
-              )
-            : Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: List.generate(4, (index) => buildTankCard(index)),
-              ),
-      ),
-      const SizedBox(height: 8),
+      is12Inch
+          ? Expanded(
+              flex: 43,
+              child: gridContent,
+            )
+          : SizedBox(
+              height: gridHeight,
+              child: gridContent,
+            ),
+      SizedBox(height: is12Inch ? 10 : 8),
 
       // Section 2 & 3: Telemetry Details (Bottom panels)
-      useExpanded
+      is12Inch
           ? Expanded(
+              flex: 57,
               child: _buildBottomPanels(currentFactory, screenConstraints.maxWidth, true, isPortrait: isPortrait),
             )
-          : Container(
-              margin: const EdgeInsets.only(top: 8),
-              child: _buildBottomPanels(currentFactory, screenConstraints.maxWidth, false, isPortrait: isPortrait),
-            ),
+          : (useExpanded
+              ? Expanded(
+                  child: _buildBottomPanels(currentFactory, screenConstraints.maxWidth, true, isPortrait: isPortrait),
+                )
+              : Container(
+                  margin: const EdgeInsets.only(top: 8),
+                  child: _buildBottomPanels(currentFactory, screenConstraints.maxWidth, false, isPortrait: isPortrait),
+                )),
     ];
 
     return Column(

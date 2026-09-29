@@ -8,6 +8,7 @@ import '../dashboard/dashboard_screen.dart';
 import '../../services/mqtt_telemetry_service.dart';
 import '../../models/telemetry_data_model.dart';
 import '../../utils/app_colors.dart';
+import '../../utils/responsive_layout.dart';
 
 class LoginScreen extends StatefulWidget {
   final bool skipVideo;
@@ -514,13 +515,19 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
     );
   }
   Widget _buildConsolidatedView(bool isMobile) {
+    final bool is12Inch = ResponsiveLayout.is12InchTablet(context);
+
     return AnimatedBuilder(
       animation: _introController,
       builder: (context, child) {
         return SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 40),
+          padding: EdgeInsets.symmetric(
+            horizontal: is12Inch ? 28 : 24,
+            vertical: is12Inch ? 24 : 40,
+          ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: is12Inch ? MainAxisAlignment.spaceEvenly : MainAxisAlignment.center,
             children: [
               // Branding Header (Centering & Transition Splash)
               Transform.translate(
@@ -531,7 +538,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                     children: [
                       Image.asset(
                         'assets/logo/parrys_logo.png',
-                        height: 72,
+                        height: is12Inch ? 76 : 72,
                         fit: BoxFit.contain,
                       ),
                       const SizedBox(height: 12),
@@ -556,15 +563,15 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                   ),
                 ),
               ),
-              const SizedBox(height: 36),
+              SizedBox(height: is12Inch ? 20 : 36),
               // Consolidated General Summary Cards Panel
               Transform.translate(
                 offset: Offset(0, _contentSlide.value),
                 child: Opacity(
                   opacity: _contentFade.value,
                   child: Container(
-                    constraints: const BoxConstraints(maxWidth: 860),
-                    margin: const EdgeInsets.only(bottom: 24),
+                    constraints: BoxConstraints(maxWidth: is12Inch ? double.infinity : 860),
+                    margin: EdgeInsets.only(bottom: is12Inch ? 20 : 24),
                     child: GlassCard(
                       padding: EdgeInsets.all(isMobile ? 12 : 16),
                       borderRadius: 16,
@@ -577,9 +584,9 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                                   children: [
-                                    Expanded(child: _buildSummaryMetric('$_totalActiveVessels / 20', 'Active Fermenters')),
+                                    Expanded(child: _buildSummaryMetric('$_totalActiveVessels / 20', 'Active Fermenters', isMobile: true, is12Inch: is12Inch)),
                                     Container(height: 24, width: 1, color: const Color(0x1AFFFFFF)),
-                                    Expanded(child: _buildSummaryMetric('${_combinedDailyYield.toStringAsFixed(1)} KL', 'Daily Yield')),
+                                    Expanded(child: _buildSummaryMetric('${_combinedDailyYield.toStringAsFixed(1)} KL', 'Daily Yield', isMobile: true, is12Inch: is12Inch)),
                                   ],
                                 ),
                                 const SizedBox(height: 8),
@@ -588,9 +595,9 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                                   children: [
-                                    Expanded(child: _buildSummaryMetric('${_avgEfficiency.toStringAsFixed(1)}%', 'Avg Efficiency')),
+                                    Expanded(child: _buildSummaryMetric('${_avgEfficiency.toStringAsFixed(1)}%', 'Avg Efficiency', isMobile: true, is12Inch: is12Inch)),
                                     Container(height: 24, width: 1, color: const Color(0x1AFFFFFF)),
-                                    Expanded(child: _buildAlertSummaryMetric('$_totalAlarms RISK ALERTS', 'Active Alarms')),
+                                    Expanded(child: _buildAlertSummaryMetric('$_totalAlarms RISK ALERTS', 'Active Alarms', isMobile: true, is12Inch: is12Inch)),
                                   ],
                                 ),
                               ],
@@ -598,13 +605,13 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                           : Row(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
-                                _buildSummaryMetric('$_totalActiveVessels / 20', 'Active Fermenters'),
-                                _buildDivider(),
-                                _buildSummaryMetric('${_combinedDailyYield.toStringAsFixed(1)} KL', 'Daily Yield'),
-                                _buildDivider(),
-                                _buildSummaryMetric('${_avgEfficiency.toStringAsFixed(1)}%', 'Avg Efficiency'),
-                                _buildDivider(),
-                                _buildAlertSummaryMetric('$_totalAlarms RISK ALERTS', 'Active Alarms'),
+                                _buildSummaryMetric('$_totalActiveVessels / 20', 'Active Fermenters', is12Inch: is12Inch),
+                                _buildDivider(is12Inch: is12Inch),
+                                _buildSummaryMetric('${_combinedDailyYield.toStringAsFixed(1)} KL', 'Daily Yield', is12Inch: is12Inch),
+                                _buildDivider(is12Inch: is12Inch),
+                                _buildSummaryMetric('${_avgEfficiency.toStringAsFixed(1)}%', 'Avg Efficiency', is12Inch: is12Inch),
+                                _buildDivider(is12Inch: is12Inch),
+                                _buildAlertSummaryMetric('$_totalAlarms RISK ALERTS', 'Active Alarms', is12Inch: is12Inch),
                               ],
                             ),
                     ),
@@ -618,7 +625,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                 child: Opacity(
                   opacity: _contentFade.value,
                   child: Container(
-                    constraints: const BoxConstraints(maxWidth: 1200),
+                    constraints: BoxConstraints(maxWidth: is12Inch ? double.infinity : 1200),
                 child: isMobile
                     ? Column(
                         mainAxisSize: MainAxisSize.min,
@@ -630,7 +637,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                                   offset: Offset(0, _cardSlides[0].value),
                                   child: Opacity(
                                     opacity: _cardFades[0].value,
-                                    child: _buildFacilityCard(_facilities[0], false, isMobile: true),
+                                    child: _buildFacilityCard(_facilities[0], false, isMobile: true, is12Inch: is12Inch),
                                   ),
                                 ),
                               ),
@@ -640,7 +647,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                                   offset: Offset(0, _cardSlides[1].value),
                                   child: Opacity(
                                     opacity: _cardFades[1].value,
-                                    child: _buildFacilityCard(_facilities[1], false, isMobile: true),
+                                    child: _buildFacilityCard(_facilities[1], false, isMobile: true, is12Inch: is12Inch),
                                   ),
                                 ),
                               ),
@@ -654,7 +661,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                                   offset: Offset(0, _cardSlides[2].value),
                                   child: Opacity(
                                     opacity: _cardFades[2].value,
-                                    child: _buildFacilityCard(_facilities[2], false, isMobile: true),
+                                    child: _buildFacilityCard(_facilities[2], false, isMobile: true, is12Inch: is12Inch),
                                   ),
                                 ),
                               ),
@@ -664,7 +671,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                                   offset: Offset(0, _cardSlides[3].value),
                                   child: Opacity(
                                     opacity: _cardFades[3].value,
-                                    child: _buildFacilityCard(_facilities[3], false, isMobile: true),
+                                    child: _buildFacilityCard(_facilities[3], false, isMobile: true, is12Inch: is12Inch),
                                   ),
                                 ),
                               ),
@@ -680,7 +687,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                                   offset: Offset(0, _cardSlides[4].value),
                                   child: Opacity(
                                     opacity: _cardFades[4].value,
-                                    child: _buildFacilityCard(_facilities[4], false, isMobile: true),
+                                    child: _buildFacilityCard(_facilities[4], false, isMobile: true, is12Inch: is12Inch),
                                   ),
                                 ),
                               ),
@@ -699,7 +706,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                                 offset: Offset(0, _cardSlides[index].value),
                                 child: Opacity(
                                   opacity: _cardFades[index].value,
-                                  child: _buildFacilityCard(_facilities[index], false, isMobile: false),
+                                  child: _buildFacilityCard(_facilities[index], false, isMobile: false, is12Inch: is12Inch),
                                 ),
                               ),
                             ),
@@ -718,22 +725,23 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
     );
   }
 
-  Widget _buildSummaryMetric(String value, String label) {
+  Widget _buildSummaryMetric(String value, String label, {bool isMobile = false, bool is12Inch = false}) {
     return Column(
       children: [
         Text(
           value,
-          style: const TextStyle(
-            fontSize: 15,
+          style: TextStyle(
+            fontSize: isMobile ? 15 : (is12Inch ? 18 : 15),
             fontWeight: FontWeight.bold,
             color: Colors.white,
+            letterSpacing: is12Inch ? 0.5 : 0.0,
           ),
         ),
         const SizedBox(height: 2),
         Text(
           label,
-          style: const TextStyle(
-            fontSize: 10,
+          style: TextStyle(
+            fontSize: isMobile ? 10 : (is12Inch ? 11.5 : 10),
             color: AppColors.textMuted,
             fontWeight: FontWeight.w600,
           ),
@@ -742,22 +750,23 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
     );
   }
 
-  Widget _buildAlertSummaryMetric(String value, String label) {
+  Widget _buildAlertSummaryMetric(String value, String label, {bool isMobile = false, bool is12Inch = false}) {
     return Column(
       children: [
         Text(
           value,
-          style: const TextStyle(
-            fontSize: 15,
+          style: TextStyle(
+            fontSize: isMobile ? 15 : (is12Inch ? 18 : 15),
             fontWeight: FontWeight.bold,
             color: AppColors.red,
+            letterSpacing: is12Inch ? 0.5 : 0.0,
           ),
         ),
         const SizedBox(height: 2),
         Text(
           label,
-          style: const TextStyle(
-            fontSize: 10,
+          style: TextStyle(
+            fontSize: isMobile ? 10 : (is12Inch ? 11.5 : 10),
             color: AppColors.textMuted,
             fontWeight: FontWeight.w600,
           ),
@@ -766,15 +775,15 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
     );
   }
 
-  Widget _buildDivider() {
+  Widget _buildDivider({bool isMobile = false, bool is12Inch = false}) {
     return Container(
       width: 1,
-      height: 24,
+      height: isMobile ? 24 : (is12Inch ? 32 : 24),
       color: const Color(0x1AFFFFFF),
     );
   }
 
-  Widget _buildFacilityCard(Map<String, dynamic> fac, bool wrapInWrap, {bool isMobile = false}) {
+  Widget _buildFacilityCard(Map<String, dynamic> fac, bool wrapInWrap, {bool isMobile = false, bool is12Inch = false}) {
     final title = fac['title'] as String;
     final vesselsText = fac['vessels'] as String;
     final efficiency = fac['efficiency'] as double;
@@ -783,13 +792,21 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
     final icon = fac['icon'] as IconData;
     final vesselsState = fac['vesselsState'] as List<dynamic>;
 
+    final double cardHeight = isMobile ? 140.0 : (is12Inch ? 225.0 : 195.0);
+    final double dialSize = isMobile ? 36.0 : (is12Inch ? 48.0 : 36.0);
+    final double dotSize = isMobile ? 10.0 : (is12Inch ? 12.0 : 10.0);
+    final double iconSize = isMobile ? 20.0 : (is12Inch ? 24.0 : 20.0);
+    final double titleFontSize = isMobile ? 12.5 : (is12Inch ? 14.0 : 12.5);
+    final double subtitleFontSize = isMobile ? 10.5 : (is12Inch ? 11.5 : 10.5);
+    final double flagFontSize = isMobile ? 8.5 : (is12Inch ? 9.5 : 8.5);
+
     return GestureDetector(
       onTap: () => _navigateToLogin(fac['id'] as String, title, icon, color),
       child: MouseRegion(
         cursor: SystemMouseCursors.click,
         child: SizedBox(
           width: wrapInWrap ? 260 : double.infinity,
-          height: isMobile ? 140 : 195,
+          height: cardHeight,
           child: GlassCard(
             padding: EdgeInsets.all(isMobile ? 10 : 16),
             borderRadius: 18,
@@ -803,12 +820,12 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
-                      padding: const EdgeInsets.all(8),
+                      padding: EdgeInsets.all(isMobile ? 8 : (is12Inch ? 10 : 8)),
                       decoration: BoxDecoration(
                         color: color.withValues(alpha: 0.15),
                         shape: BoxShape.circle,
                       ),
-                      child: Icon(icon, color: color, size: 20),
+                      child: Icon(icon, color: color, size: iconSize),
                     ),
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
@@ -821,7 +838,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                         flag,
                         style: TextStyle(
                           color: color,
-                          fontSize: 8.5,
+                          fontSize: flagFontSize,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -835,15 +852,15 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                     // Efficiency circle paint
                     if (efficiency > 0.0) ...[
                       SizedBox(
-                        width: 36,
-                        height: 36,
+                        width: dialSize,
+                        height: dialSize,
                         child: CustomPaint(
                           painter: RadialProgressPainter(progress: efficiency, color: color),
                           child: Center(
                             child: Text(
                               '${(efficiency * 100).toInt()}%',
                               style: TextStyle(
-                                fontSize: 9.5,
+                                fontSize: is12Inch ? 12.0 : 9.5,
                                 fontWeight: FontWeight.bold,
                                 color: color,
                               ),
@@ -851,7 +868,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                           ),
                         ),
                       ),
-                      const SizedBox(width: 14),
+                      SizedBox(width: is12Inch ? 14 : 14),
                     ],
 
                     // Dot indicators of 4 vessels
@@ -859,10 +876,10 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
+                          Text(
                             'FERMENTERS SCAN MATRIX',
                             style: TextStyle(
-                              fontSize: 8,
+                              fontSize: is12Inch ? 8.5 : 8.0,
                               color: AppColors.textMuted,
                               fontWeight: FontWeight.w800,
                               letterSpacing: 0.5,
@@ -896,10 +913,10 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                               }
 
                               return Padding(
-                                padding: const EdgeInsets.only(right: 6),
+                                padding: EdgeInsets.only(right: is12Inch ? 8 : 6),
                                 child: Container(
-                                  width: 10,
-                                  height: 10,
+                                  width: dotSize,
+                                  height: dotSize,
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
                                     color: dotColor,
@@ -923,8 +940,8 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                       title.toUpperCase(),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        fontSize: 12.5,
+                      style: TextStyle(
+                        fontSize: titleFontSize,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
                         letterSpacing: 0.5,
@@ -933,8 +950,8 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                     const SizedBox(height: 4),
                     Text(
                       vesselsText,
-                      style: const TextStyle(
-                        fontSize: 10.5,
+                      style: TextStyle(
+                        fontSize: subtitleFontSize,
                         color: AppColors.textSecondary,
                       ),
                     ),
@@ -1181,7 +1198,7 @@ class RadialProgressPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final center = Offset(size.width / 2, size.height / 2);
     final radius = size.width / 2;
-    const strokeWidth = 3.5;
+    final strokeWidth = size.width > 40 ? 4.5 : 3.5;
 
     // Background track circle
     final trackPaint = Paint()

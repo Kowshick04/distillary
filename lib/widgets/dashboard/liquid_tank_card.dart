@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import '../../utils/app_colors.dart';
+import '../../utils/responsive_layout.dart';
 
 class LiquidTankCard extends StatefulWidget {
   final String title;
@@ -87,6 +88,8 @@ class _LiquidTankCardState extends State<LiquidTankCard> {
   @override
   Widget build(BuildContext context) {
     final themeColor = _getThemeColor();
+    final bool is12Inch = ResponsiveLayout.is12InchTablet(context);
+
     return GestureDetector(
       onTap: widget.onTap,
       child: AnimatedContainer(
@@ -109,197 +112,219 @@ class _LiquidTankCardState extends State<LiquidTankCard> {
             ),
           ],
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            // Header: Title and Status Badge
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: LayoutBuilder(
+          builder: (context, cardConstraints) {
+            final bool hasBoundedHeight = is12Inch && cardConstraints.maxHeight.isFinite && cardConstraints.maxHeight > 180;
+            final double availableHeight = hasBoundedHeight ? (cardConstraints.maxHeight - 75.0) : 150.0;
+            final double maxVesselWidth = (cardConstraints.maxWidth * 0.46).clamp(55.0, 135.0);
+            double vesselHeight;
+            double vesselWidth;
+
+            if (hasBoundedHeight) {
+              vesselHeight = (availableHeight * 0.95).clamp(95.0, 220.0);
+              vesselWidth = (vesselHeight * (90 / 130)).clamp(50.0, maxVesselWidth);
+              if (vesselWidth > maxVesselWidth) {
+                vesselWidth = maxVesselWidth;
+                vesselHeight = vesselWidth * (130 / 90);
+              }
+            } else {
+              vesselWidth = (cardConstraints.maxWidth * 0.45).clamp(40.0, 85.0);
+              vesselHeight = vesselWidth * (130 / 90);
+            }
+
+            final middleContent = Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                // Glowing Fermenter Vessel Visual conformed to exact custom widget
+                GlowingFermenterVessel(
+                  fillPercent: widget.isEmpty ? 0.0 : widget.levelFactor,
+                  themeColor: themeColor,
+                  width: vesselWidth,
+                  height: vesselHeight,
+                  stateText: widget.stateText,
+                  temperature: widget.temperature,
+                  brix: widget.brix,
+                ),
+                SizedBox(width: cardConstraints.maxWidth > 150 ? 8 : 4),
+
+                // Metrics List conformed to design layout (Two columns)
                 Expanded(
                   child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Container(
-                        width: 6,
-                        height: 6,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: themeColor,
-                          boxShadow: [
-                            BoxShadow(
-                              color: themeColor.withValues(alpha: 0.8),
-                              blurRadius: 6,
-                              spreadRadius: 1.5,
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            _buildMetricRow('Temp.', widget.isEmpty ? '-\u00B0C' : '${widget.temperature.toStringAsFixed(1)}\u00B0C'),
+                            const SizedBox(height: 3),
+                            _buildMetricRow('pH', widget.isEmpty ? '-' : widget.ph.toStringAsFixed(2)),
+                            const SizedBox(height: 3),
+                            _buildMetricRow('Brix', widget.isEmpty ? '-' : '${widget.brix.toStringAsFixed(1)}%'),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 4),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            _buildMetricRow('Yeast', widget.isEmpty ? '-' : '${widget.yeastCount.toStringAsFixed(0)}M'),
+                            const SizedBox(height: 3),
+                            _buildMetricRow('VA', widget.isEmpty ? '-' : '${widget.volatileAcidity.toStringAsFixed(0)}p'),
+                            const SizedBox(height: 3),
+                            _buildMetricRow(
+                              'AI Predict',
+                              widget.isEmpty ? '-' : (widget.qualityFlag.toUpperCase() == 'GOLDEN BATCH' ? 'GOLDEN' : widget.qualityFlag.toUpperCase()),
+                              valueColor: themeColor,
                             ),
                           ],
                         ),
                       ),
-                      const SizedBox(width: 8),
-                      Flexible(
-                        child: Text(
-                          widget.title,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            color: AppColors.textPrimary, // Off-white
-                            fontWeight: FontWeight.bold,
-                            fontSize: 13.5,
-                          ),
-                        ),
-                      ),
-                      if (!widget.isEmpty && widget.qualityFlag.isNotEmpty) ...[
-                        const SizedBox(width: 6),
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1.5),
-                          decoration: BoxDecoration(
-                            color: _getBadgeBgColor(),
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(color: _getBadgeBorderColor(), width: 0.8),
-                          ),
-                          child: Text(
-                            _getBadgeLabel(),
-                            style: TextStyle(
-                              color: _getBadgeTextColor(),
-                              fontSize: 8.5,
-                              fontWeight: FontWeight.bold,
-                              letterSpacing: 0.2,
-                            ),
-                          ),
-                        ),
-                      ],
                     ],
                   ),
                 ),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1.5),
-                  decoration: BoxDecoration(
-                    color: themeColor.withValues(alpha: 0.15),
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                  child: Text(
-                    widget.stateText.toUpperCase(),
-                    style: TextStyle(
-                      color: themeColor,
-                      fontSize: 9.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
               ],
-            ),
-            const SizedBox(height: 8),
+            );
 
-            // Tank Visual and Metrics Side Panel
-            LayoutBuilder(
-              builder: (context, cardConstraints) {
-                final double vesselWidth = (cardConstraints.maxWidth * 0.45).clamp(40.0, 85.0);
-                final double vesselHeight = vesselWidth * (130 / 90);
-                return Row(
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: hasBoundedHeight ? MainAxisSize.max : MainAxisSize.min,
+              children: [
+                // Header: Title and Status Badge
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    // Glowing Fermenter Vessel Visual conformed to exact custom widget
-                    GlowingFermenterVessel(
-                      fillPercent: widget.isEmpty ? 0.0 : widget.levelFactor,
-                      themeColor: themeColor,
-                      width: vesselWidth,
-                      height: vesselHeight,
-                      stateText: widget.stateText,
-                      temperature: widget.temperature,
-                      brix: widget.brix,
-                    ),
-                    SizedBox(width: cardConstraints.maxWidth > 150 ? 8 : 4),
-
-                    // Metrics List conformed to design layout (Two columns)
                     Expanded(
                       child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                _buildMetricRow('Temp.', widget.isEmpty ? '-\u00B0C' : '${widget.temperature.toStringAsFixed(1)}\u00B0C'),
-                                const SizedBox(height: 3),
-                                _buildMetricRow('pH', widget.isEmpty ? '-' : widget.ph.toStringAsFixed(2)),
-                                const SizedBox(height: 3),
-                                _buildMetricRow('Brix', widget.isEmpty ? '-' : '${widget.brix.toStringAsFixed(1)}%'),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(width: 4),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                _buildMetricRow('Yeast', widget.isEmpty ? '-' : '${widget.yeastCount.toStringAsFixed(0)}M'),
-                                const SizedBox(height: 3),
-                                _buildMetricRow('VA', widget.isEmpty ? '-' : '${widget.volatileAcidity.toStringAsFixed(0)}p'),
-                                const SizedBox(height: 3),
-                                _buildMetricRow(
-                                  'AI Predict',
-                                  widget.isEmpty ? '-' : (widget.qualityFlag.toUpperCase() == 'GOLDEN BATCH' ? 'GOLDEN' : widget.qualityFlag.toUpperCase()),
-                                  valueColor: themeColor,
+                          Container(
+                            width: 6,
+                            height: 6,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: themeColor,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: themeColor.withValues(alpha: 0.8),
+                                  blurRadius: 6,
+                                  spreadRadius: 1.5,
                                 ),
                               ],
                             ),
                           ),
+                          const SizedBox(width: 8),
+                          Flexible(
+                            child: Text(
+                              widget.title,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                color: AppColors.textPrimary, // Off-white
+                                fontWeight: FontWeight.bold,
+                                fontSize: 13.5,
+                              ),
+                            ),
+                          ),
+                          if (!widget.isEmpty && widget.qualityFlag.isNotEmpty) ...[
+                            const SizedBox(width: 6),
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 1.5),
+                              decoration: BoxDecoration(
+                                color: _getBadgeBgColor(),
+                                borderRadius: BorderRadius.circular(5),
+                                border: Border.all(color: _getBadgeBorderColor(), width: 0.8),
+                              ),
+                              child: Text(
+                                _getBadgeLabel(),
+                                style: TextStyle(
+                                  color: _getBadgeTextColor(),
+                                  fontSize: 8.5,
+                                  fontWeight: FontWeight.bold,
+                                  letterSpacing: 0.2,
+                                ),
+                              ),
+                            ),
+                          ],
                         ],
                       ),
                     ),
-                  ],
-                );
-              },
-            ),
-            if (!widget.isEmpty) ...[
-              const SizedBox(height: 6),
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
-                decoration: BoxDecoration(
-                  color: widget.qcAction.isNotEmpty && widget.qcAction != 'Maintain current parameters'
-                      ? AppColors.amber.withOpacity(0.12)
-                      : AppColors.cyan.withOpacity(0.12),
-                  borderRadius: BorderRadius.circular(6),
-                  border: Border.all(
-                    color: widget.qcAction.isNotEmpty && widget.qcAction != 'Maintain current parameters'
-                        ? AppColors.amber.withOpacity(0.3)
-                        : AppColors.cyan.withOpacity(0.3),
-                    width: 0.8,
-                  ),
-                ),
-                child: Row(
-                  children: [
-                    Icon(
-                      widget.qcAction.isNotEmpty && widget.qcAction != 'Maintain current parameters'
-                          ? Icons.warning_amber_rounded
-                          : Icons.check_circle_outline_rounded,
-                      size: 10,
-                      color: widget.qcAction.isNotEmpty && widget.qcAction != 'Maintain current parameters'
-                          ? AppColors.amber
-                          : AppColors.cyan,
-                    ),
-                    const SizedBox(width: 4),
-                    Expanded(
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1.5),
+                      decoration: BoxDecoration(
+                        color: themeColor.withValues(alpha: 0.15),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
                       child: Text(
-                        widget.qcAction.isNotEmpty ? widget.qcAction : 'Profile Optimal',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
+                        widget.stateText.toUpperCase(),
                         style: TextStyle(
+                          color: themeColor,
                           fontSize: 9.0,
                           fontWeight: FontWeight.bold,
-                          color: widget.qcAction.isNotEmpty && widget.qcAction != 'Maintain current parameters'
-                              ? AppColors.amber
-                              : AppColors.cyan,
                         ),
                       ),
                     ),
                   ],
                 ),
-              ),
-            ],
-          ],
+                const SizedBox(height: 6),
+
+                // Middle section: tank visual + metrics
+                hasBoundedHeight ? Expanded(child: middleContent) : middleContent,
+
+                if (!widget.isEmpty) ...[
+                  const SizedBox(height: 6),
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                    decoration: BoxDecoration(
+                      color: widget.qcAction.isNotEmpty && widget.qcAction != 'Maintain current parameters'
+                          ? AppColors.amber.withOpacity(0.12)
+                          : AppColors.cyan.withOpacity(0.12),
+                      borderRadius: BorderRadius.circular(6),
+                      border: Border.all(
+                        color: widget.qcAction.isNotEmpty && widget.qcAction != 'Maintain current parameters'
+                            ? AppColors.amber.withOpacity(0.3)
+                            : AppColors.cyan.withOpacity(0.3),
+                        width: 0.8,
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(
+                          widget.qcAction.isNotEmpty && widget.qcAction != 'Maintain current parameters'
+                              ? Icons.warning_amber_rounded
+                              : Icons.check_circle_outline_rounded,
+                          size: 10,
+                          color: widget.qcAction.isNotEmpty && widget.qcAction != 'Maintain current parameters'
+                              ? AppColors.amber
+                              : AppColors.cyan,
+                        ),
+                        const SizedBox(width: 4),
+                        Expanded(
+                          child: Text(
+                            widget.qcAction.isNotEmpty ? widget.qcAction : 'Profile Optimal',
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontSize: 9.0,
+                              fontWeight: FontWeight.bold,
+                              color: widget.qcAction.isNotEmpty && widget.qcAction != 'Maintain current parameters'
+                                  ? AppColors.amber
+                                  : AppColors.cyan,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ] else if (hasBoundedHeight) ...[
+                  const SizedBox(height: 22),
+                ],
+              ],
+            );
+          },
         ),
       ),
     );
